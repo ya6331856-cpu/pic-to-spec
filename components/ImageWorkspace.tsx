@@ -40,10 +40,10 @@ export default function ImageWorkspace({ initialTool = "compress" }: { initialTo
   function selectFile(f?: File) {
     if (!f) return;
     setError(""); setResult(null);
-    if (!f.type.startsWith("image/")) { setError("Please choose an image file."); return; }
+    if (!["image/jpeg","image/png","image/webp"].includes(f.type)) { setError("Please choose a JPG, PNG or WebP image."); return; }
     if (f.size > 20 * 1024 * 1024) { setError("Please choose an image smaller than 20 MB."); return; }
     setFile(f); setPreview(URL.createObjectURL(f));
-    const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); URL.revokeObjectURL(probeUrl); }; probe.src = probeUrl;
+    const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); URL.revokeObjectURL(probeUrl); }; probe.onerror = () => URL.revokeObjectURL(probeUrl); probe.src = probeUrl;
   }
 
   async function run() {
@@ -63,7 +63,7 @@ export default function ImageWorkspace({ initialTool = "compress" }: { initialTo
         h = Math.max(1, Math.min(6000, Number(height) || h));
         if (ratio) { const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight); w = Math.round(img.naturalWidth * scale); h = Math.round(img.naturalHeight * scale); }
       }
-      const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
+      if (w * h > 40000000) throw new Error("This image is too large to process safely. Resize it first or choose a smaller image.");\n      const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
       const ctx = canvas.getContext("2d"); if (!ctx) throw new Error("Your browser does not support image processing.");
       if (format === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
       ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; if (tool === "crop") ctx.drawImage(img, sx, sy, w, h, 0, 0, w, h); else ctx.drawImage(img, 0, 0, w, h);
