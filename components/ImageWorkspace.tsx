@@ -19,6 +19,8 @@ function bytes(n: number) {
 
 export default function ImageWorkspace({ initialTool = "compress", initialTarget = "100", initialWidth = "600", initialHeight = "600", initialRatio = true, initialFormat = "image/jpeg", compact = false, pageTitle, pageDescription }: { initialTool?: Tool; initialTarget?: string; initialWidth?: string; initialHeight?: string; initialRatio?: boolean; initialFormat?: Format; compact?: boolean; pageTitle?: string; pageDescription?: string }) {
   const picker = useRef<HTMLInputElement>(null);
+  const previewUrlRef = useRef("");
+  const resultUrlRef = useRef("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>(initialTool);
@@ -35,31 +37,57 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
   const [error, setError] = useState("");
   const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
 
-  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); if (result?.url) URL.revokeObjectURL(result.url); }, [preview, result]);
+  useEffect(() => () => {
+    if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+    if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+  }, []);
 
   function selectFile(f?: File) {
     if (!f) return;
-    setError(""); setResult(null); setFile(null); setPreview("");
+    setError("");
+    if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+    if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+    previewUrlRef.current = ""; resultUrlRef.current = "";
+    setResult(null); setFile(null); setPreview("");
     if (!["image/jpeg","image/png","image/webp"].includes(f.type)) { setError("Please choose a JPG, PNG or WebP image."); return; }
     if (f.size > 20 * 1024 * 1024) { setError("Please choose an image smaller than 20 MB."); return; }
-    setFile(f); setPreview(URL.createObjectURL(f));
+    const previewUrl = URL.createObjectURL(f);
+    previewUrlRef.current = previewUrl;
+    setFile(f); setPreview(previewUrl);
     const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); URL.revokeObjectURL(probeUrl); }; probe.onerror = () => URL.revokeObjectURL(probeUrl); probe.src = probeUrl;
   }
 
   async function run() {
     if (!file) { setError("Choose an image first."); return; }
-    setBusy(true); setError(""); setResult(null);
+    if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+    resultUrlRef.current = ""; setResult(null);
+    if (tool === "compress") {
+      const targetKb = Number(target);
+      if (!Number.isInteger(targetKb) || targetKb < 5 || targetKb > 5000) { setError("Enter a target size between 5 KB and 5000 KB."); return; }
+    }
+    if (tool === "resize") {
+      const requestedWidth = Number(width), requestedHeight = Number(height);
+      if (!Number.isInteger(requestedWidth) || !Number.isInteger(requestedHeight) || requestedWidth < 1 || requestedHeight < 1 || requestedWidth > 6000 || requestedHeight > 6000) { setError("Enter whole-number dimensions between 1 and 6000 pixels."); return; }
+    }
+    if (tool === "crop") {
+      const values = [cropX, cropY, cropW, cropH].map(Number);
+      if (!values.every(Number.isInteger) || values[0] < 0 || values[1] < 0 || values[2] < 1 || values[3] < 1) { setError("Crop values must be whole pixels. Left and Top can be 0 or more; Width and Height must be at least 1."); return; }
+    }
+    setBusy(true); setError("");
     try {
       const img = new Image();
       const source = URL.createObjectURL(file);
       try { await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error("Image could not be opened.")); img.src = source; }); } finally { URL.revokeObjectURL(source); }
       let w = img.naturalWidth, h = img.naturalHeight;
-      const sx = Math.max(0, Math.min(img.naturalWidth - 1, Number(cropX) || 0));
-      const sy = Math.max(0, Math.min(img.naturalHeight - 1, Number(cropY) || 0));
-      if (tool === "crop") { w=Math.max(1,Math.min(img.naturalWidth-sx,Number(cropW)||img.naturalWidth)); h=Math.max(1,Math.min(img.naturalHeight-sy,Number(cropH)||img.naturalHeight)); }
+      const sx = Number(cropX), sy = Number(cropY);
+      if (tool === "crop") {
+        const cropWidth = Number(cropW), cropHeight = Number(cropH);
+        if (sx >= img.naturalWidth || sy >= img.naturalHeight || cropWidth > img.naturalWidth - sx || cropHeight > img.naturalHeight - sy) throw new Error(`Crop area is outside the image. Image size: ${img.naturalWidth} × ${img.naturalHeight} px.`);
+        w = cropWidth; h = cropHeight;
+      }
       if (tool === "resize") {
-        w = Math.max(1, Math.min(6000, Number(width) || w));
-        h = Math.max(1, Math.min(6000, Number(height) || h));
+        w = Number(width);
+        h = Number(height);
         if (ratio) { const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight); w = Math.round(img.naturalWidth * scale); h = Math.round(img.naturalHeight * scale); }
       }
       if (w * h > 40000000) throw new Error("This image is too large to process safely. Resize it first or choose a smaller image.");
@@ -70,7 +98,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       const toBlob = (q: number) => new Promise<Blob>((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("Could not create image.")), format, q));
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
-        const limit = Math.max(5, Math.min(5000, Number(target) || 100)) * 1024;
+        const limit = Number(target) * 1024;
         let lo = 0.05, hi = 0.96;
         let best: Blob | null = null;
         const highestQuality = await toBlob(hi);
@@ -85,11 +113,13 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
         blob = best;
       } else {
         blob = await toBlob(0.92);
-        if (tool === "compress" && blob.size > (Number(target) || 100) * 1024) throw new Error("PNG compression is limited. Try JPG or WebP.");
+        if (tool === "compress" && blob.size > Number(target) * 1024) throw new Error("This PNG is larger than your target. PNG size reduction is limited in browsers; try JPG or WebP for a smaller file.");
       }
       const ext = format === "image/jpeg" ? "jpg" : format === "image/png" ? "png" : "webp";
       const base = file.name.replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9-_]+/g, "-") || "image";
-      setResult({ url: URL.createObjectURL(blob), name: base + "-pictospec." + ext, size: blob.size, w, h });
+      const resultUrl = URL.createObjectURL(blob);
+      resultUrlRef.current = resultUrl;
+      setResult({ url: resultUrl, name: base + "-pictospec." + ext, size: blob.size, w, h });
     } catch (e) { setError(e instanceof Error ? e.message : "Something went wrong."); }
     finally { setBusy(false); }
   }
