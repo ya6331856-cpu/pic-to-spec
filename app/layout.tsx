@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: { default: "PicToSpec — Resize, Compress & Convert Images Online", template: "%s | PicToSpec" },
   description: "Prepare photos and signatures for online forms. Compress images to a target KB size, resize pixels and convert JPG, PNG and WebP — privately in your browser.",
   applicationName: "PicToSpec",
+  alternates: { canonical: "/" },
   keywords: ["compress image to 50kb", "photo resize for online form", "signature resize", "image compressor", "JPG to WebP"],
   openGraph: { title: "PicToSpec — Images prepared to exact specifications", description: "Resize, compress and convert images in your browser. Your files stay on your device.", type: "website", siteName: "PicToSpec" },
   robots: { index: true, follow: true }
