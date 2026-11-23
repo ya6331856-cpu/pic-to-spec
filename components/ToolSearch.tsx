@@ -33,7 +33,7 @@ export default function ToolSearch() {
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return tools.slice(0, 6);
-    const terms = q.split(/\\s+/);
+    const terms = q.split(" ").filter(Boolean);
     return tools.map(tool => {
       const haystack = (tool.name + " " + tool.detail + " " + tool.aliases).toLowerCase();
       const score = terms.reduce((total, term) => total + (tool.name.toLowerCase().includes(term) ? 4 : tool.aliases.includes(term) ? 3 : haystack.includes(term) ? 1 : 0), 0);
