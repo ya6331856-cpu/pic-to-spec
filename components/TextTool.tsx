@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import ToolSearch from "@/components/ToolSearch";
 type Kind="word-counter"|"case-converter"|"json-formatter"|"base64-encoder-decoder";
 const config:Record<Kind,{title:string;desc:string;placeholder:string}>={
  "word-counter":{title:"Word and Character Counter",desc:"Count words, characters, sentences, paragraphs and lines instantly as you type or paste text.",placeholder:"Type or paste your text here..."},
