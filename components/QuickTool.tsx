@@ -24,7 +24,7 @@ export default function QuickTool({kind}:{kind:Kind}) {
   const x=Number(a),y=Number(b),z=Number(c);
   if(kind!=="age"&&(!a.trim()||!b.trim()||!Number.isFinite(x)||x<0||!Number.isFinite(y)||y<0||x>1000000000000000||y>1000000000000000)) return "Enter valid non-negative numbers up to 1 quadrillion in both fields.";
   if(kind==="gst"&&y>100) return "GST rate must be between 0% and 100%.";
-  if(kind==="emi"&&(!c.trim()||!Number.isFinite(z)||z<=0||z>100||x<=0||y>100)) return "Enter a loan amount above zero, an annual rate from 0% to 100%, and a tenure up to 100 years.";
+  if(kind==="emi"&&(!c.trim()||!Number.isFinite(z)||z<=0||z>100||!Number.isInteger(z*12)||x<=0||y>100)) return "Enter a loan amount above zero, an annual rate from 0% to 100%, and a tenure up to 100 years in whole-month increments.";
   if(kind==="discount"&&y>100) return "Discount must be between 0% and 100%.";
   if(kind==="percentage"&&y===0) return "The second value cannot be zero.";
   if(kind==="gst"){const tax=x*y/100;const split=gstMode==="intra"?"CGST: ₹"+(tax/2).toLocaleString("en-IN",{maximumFractionDigits:2})+" · SGST: ₹"+(tax/2).toLocaleString("en-IN",{maximumFractionDigits:2}):"IGST: ₹"+tax.toLocaleString("en-IN",{maximumFractionDigits:2});return {main:"₹"+tax.toLocaleString("en-IN",{maximumFractionDigits:2}),label:"GST amount",extra:split+" · Total including GST: ₹"+(x+tax).toLocaleString("en-IN",{maximumFractionDigits:2})+" · Base: ₹"+x.toLocaleString("en-IN")};}
