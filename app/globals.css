@@ -215,3 +215,26 @@ footer{border-top:1px solid #e7eaf3;background:#fff}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* Consistent premium skin for dedicated tool pages */
+main:has(.tool-page-top){max-width:900px!important;margin:34px auto!important;padding:clamp(16px,3vw,28px)!important;color:#1b2945!important}
+.tool-page-top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:12px 15px;border:1px solid #e7e8f5;border-radius:15px;background:#ffffffd9;box-shadow:0 8px 28px #29345a0b;backdrop-filter:blur(12px)}
+.tool-page-top>a{color:#6654ce!important}
+main:has(.tool-page-top)>p:first-of-type{display:inline-flex;margin-top:32px!important;padding:7px 11px;border-radius:999px;background:#f0edff;color:#6654ce!important;letter-spacing:1.4px!important}
+main:has(.tool-page-top)>h1{color:#1b2945!important;line-height:1.08!important;letter-spacing:-1.7px!important}
+main:has(.tool-page-top)>h1:after{content:"";display:block;width:74px;height:5px;margin-top:17px;border-radius:8px;background:linear-gradient(90deg,#765be8,#21b8c3,#ff927c)}
+main:has(.tool-page-top)>p:not(:first-of-type){color:#65728a!important;line-height:1.8!important}
+main:has(.tool-page-top) section{border-color:#e4e7f2!important;border-radius:18px!important;background:linear-gradient(145deg,#fff,#fafbff)!important;box-shadow:0 12px 34px #29345a0b}
+main:has(.tool-page-top) textarea,main:has(.tool-page-top) input,main:has(.tool-page-top) select{border:1px solid #dfe4f1!important;border-radius:11px!important;background:#fff!important;color:#1c2944!important;outline:none;transition:border-color .2s,box-shadow .2s}
+main:has(.tool-page-top) textarea:focus,main:has(.tool-page-top) input:focus,main:has(.tool-page-top) select:focus{border-color:#9d91ed!important;box-shadow:0 0 0 4px #7560df17!important}
+main:has(.tool-page-top) button{border-radius:10px!important;transition:transform .18s,box-shadow .18s,filter .18s}
+main:has(.tool-page-top) button:not(:disabled):hover{transform:translateY(-2px);filter:saturate(1.12);box-shadow:0 8px 20px #6654ce20}
+main:has(.tool-page-top)>h2{color:#263454!important;letter-spacing:-.5px}
+main:has(.tool-page-top)>ol{padding-left:24px!important;color:#65728a!important;line-height:2!important}
+main:has(.tool-page-top)>p:last-child{padding:13px 15px;border-radius:12px;background:#f0faf7;color:#397967!important}
+@media(max-width:640px){
+ main:has(.tool-page-top){margin:12px auto!important;padding:14px!important}
+ .tool-page-top{align-items:stretch;padding:11px}
+ main:has(.tool-page-top)>h1{font-size:clamp(30px,9vw,42px)!important}
+}
