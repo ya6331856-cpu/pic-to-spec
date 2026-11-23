@@ -126,3 +126,4 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .topbar .tool-search-box kbd{display:none}
 .topbar .tool-search-results>a{padding:10px 13px}
 @media(max-width:700px){.tool-page-top{align-items:flex-start;flex-direction:column;gap:12px}.tool-page-top .tool-search{width:100%;max-width:none}.topbar .tool-search{max-width:none;flex:1;margin:0 8px}.topbar .tool-search-box{padding:2px 8px}.topbar .tool-search-box input{font-size:10px}.topbar .tool-search-box>span{display:none}}
+.directory-category .tool-card strong{position:static;left:auto;bottom:auto;margin-top:auto}
