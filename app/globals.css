@@ -238,3 +238,12 @@ main:has(.tool-page-top)>p:last-child{padding:13px 15px;border-radius:12px;backg
  .tool-page-top{align-items:stretch;padding:11px}
  main:has(.tool-page-top)>h1{font-size:clamp(30px,9vw,42px)!important}
 }
+
+
+/* Image-specific landing headers and accessible motion */
+.tool-page-intro{position:relative;isolation:isolate;overflow:hidden;max-width:1050px;margin:34px auto 26px;padding:clamp(28px,5vw,54px);border:1px solid #e4e3f6;border-radius:26px;background:radial-gradient(circle at 88% 12%,#d7f6f0 0,transparent 28%),radial-gradient(circle at 8% 100%,#ffe7df 0,transparent 30%),linear-gradient(120deg,#f0edff,#f8fbff 58%,#fff8f2);box-shadow:0 18px 50px #34406c12}
+.tool-page-intro:after{content:"";position:absolute;z-index:-1;width:190px;height:190px;right:7%;top:12%;border:1px solid #8c7be833;border-radius:42% 58% 61% 39%;background:linear-gradient(135deg,#8e7aef20,#2dbfb51c);filter:blur(.2px);animation:float-orb 7s ease-in-out infinite}
+.tool-page-intro .eyebrow{color:#7054d7;font-weight:800;letter-spacing:1.6px}
+.tool-page-intro h1{max-width:760px;margin:12px 0;color:#1d2947;font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-1.7px}
+.tool-page-intro>p:last-child{max-width:700px;color:#65718a;line-height:1.8}
+@media(max-width:700px){.tool-page-intro{margin:18px 14px;padding:27px 20px;border-radius:19px}.tool-page-intro:after{width:110px;height:110px;right:-12px;top:5%}}
