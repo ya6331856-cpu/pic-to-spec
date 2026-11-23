@@ -21,6 +21,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
   const picker = useRef<HTMLInputElement>(null);
   const previewUrlRef = useRef("");
   const resultUrlRef = useRef("");
+  const imageProbeIdRef = useRef(0);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>(initialTool);
@@ -38,12 +39,14 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
   const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
 
   useEffect(() => () => {
+    imageProbeIdRef.current += 1;
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
   }, []);
 
   function selectFile(f?: File) {
     if (!f) return;
+    const imageProbeId = ++imageProbeIdRef.current;
     setError("");
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
@@ -54,7 +57,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
     const previewUrl = URL.createObjectURL(f);
     previewUrlRef.current = previewUrl;
     setFile(f); setPreview(previewUrl);
-    const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); URL.revokeObjectURL(probeUrl); }; probe.onerror = () => URL.revokeObjectURL(probeUrl); probe.src = probeUrl;
+    const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { if (imageProbeId === imageProbeIdRef.current) { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); } URL.revokeObjectURL(probeUrl); }; probe.onerror = () => URL.revokeObjectURL(probeUrl); probe.src = probeUrl;
   }
 
   async function run() {
