@@ -25,6 +25,7 @@ export default function PDFTool({kind}:{kind:Kind}){
   if(!list)return;
   const chosen=Array.from(list);
   setMessage("");setError("");
+  if(kind==="split"&&chosen.length!==1){setFiles([]);setError("Choose exactly one PDF file to split.");return;}
   if(chosen.length>20){setFiles([]);setError("Choose no more than 20 files at a time.");return;}
   if(chosen.reduce((total,file)=>total+file.size,0)>100*1024*1024){setFiles([]);setError("The combined file size must be 100 MB or smaller.");return;}
   const isValid=(file:File)=>kind==="jpg"
@@ -76,7 +77,7 @@ export default function PDFTool({kind}:{kind:Kind}){
   <p style={{fontSize:11,letterSpacing:2,color:"#14634b",fontWeight:800,marginTop:35}}>FREE PDF TOOL</p>
   <h1 style={{fontSize:"clamp(32px,6vw,46px)",letterSpacing:-1.5,margin:"10px 0"}}>{copy[kind].title}</h1>
   <p style={{color:"#75847c",lineHeight:1.7}}>{copy[kind].description}</p>
-  <section style={{marginTop:25,padding:22,border:"1px solid #e2eae4",borderRadius:14}}>
+  <section onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();pick(e.dataTransfer.files);}} style={{marginTop:25,padding:22,border:"1px solid #e2eae4",borderRadius:14}}>
    <label style={{display:"block",fontWeight:700}}>{kind==="jpg"?"Choose JPG or PNG images":kind==="split"?"Choose one PDF file":"Choose PDF files"}
     <input type="file" accept={kind==="jpg"?"image/jpeg,image/png":".pdf,application/pdf"} multiple={kind!=="split"} onChange={e=>{pick(e.target.files);e.currentTarget.value="";}} style={{display:"block",width:"100%",marginTop:12,padding:12,border:"1px dashed #b9cbbf",borderRadius:9}}/>
    </label>
