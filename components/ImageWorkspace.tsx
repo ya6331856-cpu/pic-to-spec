@@ -52,8 +52,7 @@ export default function ImageWorkspace({ initialTool = "compress" }: { initialTo
     try {
       const img = new Image();
       const source = URL.createObjectURL(file);
-      await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error("Image could not be opened.")); img.src = source; });
-      URL.revokeObjectURL(source);
+      try { await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error("Image could not be opened.")); img.src = source; }); } finally { URL.revokeObjectURL(source); }
       let w = img.naturalWidth, h = img.naturalHeight;
       const sx = Math.max(0, Math.min(img.naturalWidth - 1, Number(cropX) || 0));
       const sy = Math.max(0, Math.min(img.naturalHeight - 1, Number(cropY) || 0));
