@@ -66,7 +66,7 @@ export default function Home() {
       const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
       const ctx = canvas.getContext("2d"); if (!ctx) throw new Error("Your browser does not support image processing.");
       if (format === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; if (tool === "crop") ctx.drawImage(img, sx, sy, w, h, 0, 0, w, h); else if (tool === "crop") ctx.drawImage(img, Number(cropX)||0, Number(cropY)||0, w, h, 0, 0, w, h); else ctx.drawImage(img, 0, 0, w, h);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; if (tool === "crop") ctx.drawImage(img, sx, sy, w, h, 0, 0, w, h); else ctx.drawImage(img, 0, 0, w, h);
       const toBlob = (q: number) => new Promise<Blob>((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("Could not create image.")), format, q));
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
