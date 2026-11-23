@@ -17,7 +17,7 @@ function bytes(n: number) {
   return n < 1024 ? n + " B" : n < 1048576 ? (n / 1024).toFixed(1) + " KB" : (n / 1048576).toFixed(2) + " MB";
 }
 
-export default function ImageWorkspace({ initialTool = "compress", initialTarget = "100", initialWidth = "600", initialHeight = "600", initialRatio = true, initialFormat = "image/jpeg", compact = false }: { initialTool?: Tool; initialTarget?: string; initialWidth?: string; initialHeight?: string; initialRatio?: boolean; initialFormat?: Format; compact?: boolean }) {
+export default function ImageWorkspace({ initialTool = "compress", initialTarget = "100", initialWidth = "600", initialHeight = "600", initialRatio = true, initialFormat = "image/jpeg", compact = false, pageTitle, pageDescription }: { initialTool?: Tool; initialTarget?: string; initialWidth?: string; initialHeight?: string; initialRatio?: boolean; initialFormat?: Format; compact?: boolean; pageTitle?: string; pageDescription?: string }) {
   const picker = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
@@ -87,7 +87,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
 
   return <main>
     <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><ToolSearch /><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
-    {compact ? <section className="tool-page-intro"><p className="eyebrow">FREE ONLINE IMAGE TOOL</p><h1>{tool === "compress" ? "Compress image to your target KB size" : tool === "resize" ? "Resize image to exact pixel dimensions" : tool === "crop" ? "Crop image online" : "Convert image format online"}</h1><p>Choose an image, adjust the settings and download your result. Processing stays in your browser.</p></section> : <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>}
+    {compact ? <section className="tool-page-intro"><p className="eyebrow">FREE ONLINE IMAGE TOOL</p><h1>{pageTitle || (tool === "compress" ? "Compress image to your target KB size" : tool === "resize" ? "Resize image to exact pixel dimensions" : tool === "crop" ? "Crop image online" : "Convert image format online")}</h1><p>{pageDescription || "Choose an image, adjust the settings and download your result. Processing stays in your browser."}</p></section> : <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>}
     {!compact && <section className="quick-start" aria-label="Image tools">
       <div className="quick-grid">
         <a href="/image-compressor" className="tool-card"><span>↘</span><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
