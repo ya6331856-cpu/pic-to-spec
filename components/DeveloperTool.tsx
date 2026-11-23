@@ -27,7 +27,7 @@ function toCsv(value:unknown):string {
  return [headers.map(cell).join(","),...objects.map(o=>headers.map(h=>cell(o[h])).join(","))].join("\r\n");
 }
 export default function DeveloperTool({kind}:{kind:Kind}){
- const [input,setInput]=useState("");const [output,setOutput]=useState("");const [error,setError]=useState("");const [mode,setMode]=useState("encode");const [urlMode,setUrlMode]=useState("component");const [count,setCount]=useState("5");
+ const [input,setInput]=useState("");const [output,setOutput]=useState("");const [error,setError]=useState("");const [mode,setMode]=useState(kind==="csv-json-converter"?"csv-json":"encode");const [urlMode,setUrlMode]=useState("component");const [count,setCount]=useState("5");
  function run(){setError("");setOutput("");try{
   if(kind==="url-encoder-decoder"){const value=mode==="encode"?(urlMode==="full"?encodeURI(input):encodeURIComponent(input)):(urlMode==="full"?decodeURI(input.trim()):decodeURIComponent(input.trim()));setOutput(value);}
   else if(kind==="csv-json-converter"){if(!input.trim())throw new Error("Paste CSV or JSON data first.");if(mode==="csv-json"){const rows=parseCsv(input);if(rows.length<2)throw new Error("Add a header row and at least one data row.");const headers=rows[0].map((h,i)=>h.trim()||"column_"+(i+1));const objects=rows.slice(1).map(row=>Object.fromEntries(headers.map((h,i)=>[h,row[i]??""])));setOutput(JSON.stringify(objects,null,2));}else{const parsed=JSON.parse(input);setOutput(toCsv(parsed));}}
