@@ -1,33 +1,20 @@
 import type { MetadataRoute } from "next";
 const base = "https://pictospec.com";
+const lastModified = new Date("2026-11-23");
+const tools = [
+  "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
+  "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter",
+  "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
+  "/word-counter", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
+  "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter",
+  "/uuid-generator", "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf"
+];
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: base, lastModified: new Date("2026-11-23"), changeFrequency: "weekly", priority: 1 },
-    { url: base + "/compress-image-to-50kb", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.9 },
-    { url: base + "/resize-photo-for-online-form", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.9 },
-    { url: base + "/signature-resizer", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.9 },
-    { url: base + "/jpg-to-webp", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/image-compressor", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/image-resizer", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/image-cropper", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/image-converter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/gst-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/emi-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/percentage-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/discount-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/age-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/word-counter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/case-converter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/json-formatter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/base64-encoder-decoder", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/password-generator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/qr-code-generator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/url-encoder-decoder", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/csv-json-converter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/uuid-generator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/pdf-merger", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/pdf-splitter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/jpg-to-pdf", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/privacy", lastModified: new Date("2026-11-23"), changeFrequency: "yearly", priority: 0.2 }
+    { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
+    ...tools.map((path) => ({ url: base + path, lastModified, changeFrequency: "monthly" as const, priority: 0.8 })),
+    { url: base + "/about", lastModified, changeFrequency: "yearly", priority: 0.4 },
+    { url: base + "/privacy", lastModified, changeFrequency: "yearly", priority: 0.3 },
+    { url: base + "/terms", lastModified, changeFrequency: "yearly", priority: 0.3 }
   ];
 }
