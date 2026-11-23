@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
+import ToolSearch from "@/components/ToolSearch";
 
 type Kind = "merge" | "split" | "jpg";
 const copy: Record<Kind,{title:string;description:string}> = {
@@ -48,13 +49,13 @@ export default function PDFTool({kind}:{kind:Kind}){
    }
    const bytes=await output.save();
    const blob=new Blob([bytes as BlobPart],{type:"application/pdf"});
-   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=kind==="merge"?"merged-pdf.pdf":kind==="split"?"split-pages.pdf":"images-to-pdf.pdf";a.click();URL.revokeObjectURL(url);
+   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=kind==="merge"?"merged-pdf.pdf":kind==="split"?"split-pages.pdf":"images-to-pdf.pdf";document.body.appendChild(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),30000);
    setMessage("Your PDF is ready and the download has started.");
   }catch(e){setError(e instanceof Error?e.message:"Could not process these files. Please check the files and try again.");}
   finally{setBusy(false);}
  }
  return <main style={{maxWidth:780,margin:"42px auto",padding:20,color:"#17251e"}}>
-  <a href="/" style={{color:"#14634b",fontWeight:700,textDecoration:"none"}}>← PicToSpec home</a>
+  <div className="tool-page-top"><a href="/" style={{color:"#14634b",fontWeight:700,textDecoration:"none"}}>← PicToSpec home</a><ToolSearch /></div>
   <p style={{fontSize:11,letterSpacing:2,color:"#14634b",fontWeight:800,marginTop:35}}>FREE PDF TOOL</p>
   <h1 style={{fontSize:"clamp(32px,6vw,46px)",letterSpacing:-1.5,margin:"10px 0"}}>{copy[kind].title}</h1>
   <p style={{color:"#75847c",lineHeight:1.7}}>{copy[kind].description}</p>
