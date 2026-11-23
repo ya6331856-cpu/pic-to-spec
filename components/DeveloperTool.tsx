@@ -10,7 +10,7 @@ const details: Record<Kind,{title:string;description:string}> = {
 };
 function parseCsv(input:string):string[][] {
  const rows:string[][]=[]; let row:string[]=[]; let field=""; let quoted=false; let closedQuote=false;
- const pushRow=()=>{row.push(field);if(row.some(v=>v!==""))rows.push(row);row=[];field="";closedQuote=false;};
+ const pushRow=()=>{row.push(field);if(row.length>1||row.some(v=>v!==""))rows.push(row);row=[];field="";closedQuote=false;};
  const source=input.replace(/^\uFEFF/,"");
  for(let i=0;i<source.length;i++){
   const c=source[i];
@@ -30,7 +30,7 @@ function parseCsv(input:string):string[][] {
   else{field+=c;}
  }
  if(quoted)throw new Error("CSV has an unclosed quoted field.");
- row.push(field);if(row.some(v=>v!==""))rows.push(row);
+ row.push(field);if(row.length>1||row.some(v=>v!==""))rows.push(row);
  return rows;
 }
 function toCsv(value:unknown):string {
