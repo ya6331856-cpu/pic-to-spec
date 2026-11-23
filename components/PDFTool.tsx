@@ -19,6 +19,8 @@ export default function PDFTool({kind}:{kind:Kind}){
  function pick(list:FileList|null){
   if(!list)return;
   const chosen=Array.from(list);
+  if(chosen.length>20){setFiles([]);setError("Choose no more than 20 files at a time.");return;}
+  if(chosen.reduce((total,file)=>total+file.size,0)>100*1024*1024){setFiles([]);setError("The combined file size must be 100 MB or smaller.");return;}
   const valid=chosen.filter(f=>kind==="jpg"?f.type==="image/jpeg"||f.type==="image/png":f.type==="application/pdf"||f.name.toLowerCase().endsWith(".pdf"));
   setFiles(valid);setMessage("");setError("");
   if(valid.length!==chosen.length)setError(kind==="jpg"?"Only JPG and PNG images are supported.":"Please select valid PDF files.");
