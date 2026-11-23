@@ -17,6 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base + "/percentage-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/discount-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/age-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/word-counter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/case-converter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/json-formatter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/base64-encoder-decoder", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/password-generator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/privacy", lastModified: new Date("2026-11-23"), changeFrequency: "yearly", priority: 0.2 }
   ];
 }
