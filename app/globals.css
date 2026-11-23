@@ -131,3 +131,6 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .tool-page-intro{max-width:940px;margin:52px auto 20px;padding:0 24px}
 .tool-page-intro h1{font:800 clamp(30px,5vw,46px)/1.12 Inter,sans-serif;letter-spacing:-1.6px;margin:10px 0}
 .tool-page-intro>p:last-child{font-size:13px;line-height:1.7;color:var(--muted);max-width:680px}
+
+.tool-search-results>a.active,.tool-search-results>a[aria-selected="true"]{background:#edf7f0;outline:2px solid #a8cdb5;outline-offset:-2px}
+.tool-search-box input:focus-visible{outline:2px solid #80bda0;outline-offset:3px;border-radius:4px}
