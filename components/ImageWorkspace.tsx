@@ -81,6 +81,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       const img = new Image();
       const source = URL.createObjectURL(file);
       try { await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error("Image could not be opened.")); img.src = source; }); } finally { URL.revokeObjectURL(source); }
+      if (!Number.isFinite(img.naturalWidth * img.naturalHeight) || img.naturalWidth * img.naturalHeight > 40000000) throw new Error("This source image exceeds 40 megapixels and may use too much browser memory. Choose a smaller image.");
       let w = img.naturalWidth, h = img.naturalHeight;
       const sx = Number(cropX), sy = Number(cropY);
       if (tool === "crop") {
