@@ -25,7 +25,10 @@ const tools = [
   { name: "JSON Formatter", href: "/json-formatter", detail: "Format, validate and minify JSON", aliases: "json beautifier validator minify developer" },
   { name: "Base64 Encoder / Decoder", href: "/base64-encoder-decoder", detail: "Encode or decode Base64 text", aliases: "base64 encode decode" },
   { name: "Password Generator", href: "/password-generator", detail: "Generate a random strong password", aliases: "password secure random strong" },
-  { name: "QR Code Generator", href: "/qr-code-generator", detail: "Create a QR code from text or a URL", aliases: "qr qrcode scan barcode url link" }
+  { name: "QR Code Generator", href: "/qr-code-generator", detail: "Create a QR code from text or a URL", aliases: "qr qrcode scan barcode url link" },
+  { name: "URL Encoder / Decoder", href: "/url-encoder-decoder", detail: "Encode or decode URL characters", aliases: "url encode decode percent uri link escape" },
+  { name: "CSV to JSON Converter", href: "/csv-json-converter", detail: "Convert CSV rows and JSON arrays", aliases: "csv json excel comma separated convert" },
+  { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "uuid guid unique id random identifier" }
 ];
 
 export default function ToolSearch() {
