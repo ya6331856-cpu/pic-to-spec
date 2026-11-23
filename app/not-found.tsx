@@ -1,0 +1,1 @@
+export default function NotFound() { return <main className="legal"><p className="kicker">404</p><h1>Page not found</h1><p>The page you are looking for may have moved.</p><a className="back" href="/">← Back to PicToSpec</a></main>; }
