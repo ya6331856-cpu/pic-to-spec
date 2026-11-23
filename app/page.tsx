@@ -55,7 +55,9 @@ export default function Home() {
       await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error("Image could not be opened.")); img.src = source; });
       URL.revokeObjectURL(source);
       let w = img.naturalWidth, h = img.naturalHeight;
-      if (tool === "crop") { const sx=Math.max(0,Math.min(img.naturalWidth-1,Number(cropX)||0)); const sy=Math.max(0,Math.min(img.naturalHeight-1,Number(cropY)||0)); w=Math.max(1,Math.min(img.naturalWidth-sx,Number(cropW)||img.naturalWidth)); h=Math.max(1,Math.min(img.naturalHeight-sy,Number(cropH)||img.naturalHeight)); }
+      const sx = Math.max(0, Math.min(img.naturalWidth - 1, Number(cropX) || 0));
+      const sy = Math.max(0, Math.min(img.naturalHeight - 1, Number(cropY) || 0));
+      if (tool === "crop") { w=Math.max(1,Math.min(img.naturalWidth-sx,Number(cropW)||img.naturalWidth)); h=Math.max(1,Math.min(img.naturalHeight-sy,Number(cropH)||img.naturalHeight)); }
       if (tool === "resize") {
         w = Math.max(1, Math.min(6000, Number(width) || w));
         h = Math.max(1, Math.min(6000, Number(height) || h));
@@ -64,7 +66,7 @@ export default function Home() {
       const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
       const ctx = canvas.getContext("2d"); if (!ctx) throw new Error("Your browser does not support image processing.");
       if (format === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; if (tool === "crop") ctx.drawImage(img, Number(cropX)||0, Number(cropY)||0, w, h, 0, 0, w, h); else if (tool === "crop") ctx.drawImage(img, Number(cropX)||0, Number(cropY)||0, w, h, 0, 0, w, h); else ctx.drawImage(img, 0, 0, w, h);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; if (tool === "crop") ctx.drawImage(img, sx, sy, w, h, 0, 0, w, h); else if (tool === "crop") ctx.drawImage(img, Number(cropX)||0, Number(cropY)||0, w, h, 0, 0, w, h); else ctx.drawImage(img, 0, 0, w, h);
       const toBlob = (q: number) => new Promise<Blob>((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("Could not create image.")), format, q));
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
