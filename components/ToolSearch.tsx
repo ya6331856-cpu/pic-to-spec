@@ -9,6 +9,7 @@ const tools = [
   { name: "Photo for Online Form", href: "/resize-photo-for-online-form", detail: "Resize a photo for application forms", aliases: "online form passport photo application" },
   { name: "Signature Resizer", href: "/signature-resizer", detail: "Resize a signature image", aliases: "signature sign size" },
   { name: "Image Cropper", href: "/image-cropper", detail: "Crop an image by pixel dimensions", aliases: "crop cut image" },
+  { name: "Image Cutter", href: "/image-cutter", detail: "Trim an image using crop coordinates", aliases: "cutter trim cut image" },
   { name: "Image Converter", href: "/image-converter", detail: "Convert JPG, PNG and WebP", aliases: "convert image jpg png webp format" },
   { name: "JPG to WebP", href: "/jpg-to-webp", detail: "Convert JPG images to WebP", aliases: "jpg webp jpeg" },
   { name: "Merge PDF", href: "/pdf-merger", detail: "Combine multiple PDF files", aliases: "merge pdf join combine pdfs" },
