@@ -66,6 +66,7 @@ export default function PDFTool({kind}:{kind:Kind}){
     for(const file of files){
      const bytes=await file.arrayBuffer();
      const image=file.type==="image/png"?await output.embedPng(bytes):await output.embedJpg(bytes);
+     if(!Number.isFinite(image.width*image.height)||image.width*image.height>MAX_IMAGE_PIXELS)throw new Error(file.name+" is too large to place safely. Choose an image with 40 megapixels or fewer.");
      const page=output.addPage([595.28,841.89]);
      const scale=Math.min(555/image.width,801/image.height);
      const width=image.width*scale,height=image.height*scale;
