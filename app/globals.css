@@ -32,3 +32,54 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .presets button:hover,.presets button:focus-visible{border-color:var(--green);background:#f7fbf8}
 .field input,.field select{font-family:inherit;font-size:14px}
 @media(max-width:700px){.quick-grid button{min-height:136px;padding-bottom:34px}.quick-grid button::after{left:13px;bottom:12px}.drop{min-height:220px}.step-hint span{font-size:12px}}
+
+/* PicToSpec clean, task-first interface */
+.topbar{max-width:1120px;margin:auto;padding:0 22px;height:68px}
+.topbar nav{gap:18px}
+.topbar nav a{font-size:12px;font-weight:600;color:#43554b}
+.privacy-link{font-size:11px;color:var(--green);text-decoration:none;font-weight:700}
+.hero{padding:55px 18px 32px;background:#f5faf6}
+.hero .eyebrow{letter-spacing:1.4px}
+.hero h1{font-size:clamp(32px,5vw,48px);letter-spacing:-1.8px;margin:12px 0}
+.hero>p{font-size:14px;line-height:1.55}
+.quick-start{max-width:920px;margin:24px auto 30px;padding:0 18px}
+.quick-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tool-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:156px;padding:17px 15px 42px;border:1px solid #dfe9e2;border-radius:12px;background:#fff;text-decoration:none;color:var(--ink);box-shadow:0 3px 12px #163a2008;transition:.16s}
+.tool-card:hover,.tool-card:focus-visible{border-color:var(--green);background:#f9fcfa;transform:translateY(-2px);box-shadow:0 7px 20px #163a2012}
+.tool-card>span{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:#e8f5ee;color:var(--green);font-size:19px}
+.tool-card b{font-size:13px}
+.tool-card small{font-size:11px;line-height:1.4;color:var(--muted)}
+.tool-card strong{position:absolute;left:15px;bottom:14px;font-size:9px;letter-spacing:.8px;color:var(--green)}
+.workspace{max-width:920px;margin:0 auto 65px;padding:26px;border-radius:15px;box-shadow:0 10px 35px #163a200a}
+.workspace-head h2{font-size:25px}
+.tabs{margin:18px 0 22px}
+.tabs button{flex:1;font-size:12px}
+.drop{min-height:235px}
+.privacy{font-size:14px}
+.privacy p{font-size:11px}
+.settings .field{margin-bottom:17px}
+.crop-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.crop-fields label{font-size:11px;font-weight:600;color:#59685f}
+.crop-fields input{display:block;width:100%;margin-top:6px;padding:11px;border:1px solid var(--line);border-radius:8px}
+.guides{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:0 auto 45px}
+.guides a{font-size:10px;color:#68796f;text-decoration:none;border-bottom:1px solid #dfe9e2;padding:5px}
+.guides a:hover{color:var(--green)}
+@media(max-width:700px){
+ .topbar{height:60px;padding:0 14px}
+ .topbar nav{display:none}
+ .hero{padding:37px 18px 22px}
+ .hero h1{font-size:34px;line-height:1.12;letter-spacing:-1.3px}
+ .hero>p{font-size:12px}
+ .quick-start{margin:16px auto 23px;padding:0 12px}
+ .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .tool-card{min-height:137px;padding:13px 12px 37px;gap:7px}
+ .tool-card b{font-size:12px}
+ .tool-card small{font-size:10px}
+ .tool-card strong{left:12px;bottom:12px;font-size:8px}
+ .workspace{margin:0 10px 45px;padding:17px 13px}
+ .workspace-head h2{font-size:22px}
+ .tabs{gap:4px;padding:4px}
+ .tabs button{min-width:0;padding:10px 7px;font-size:10px}
+ .drop{min-height:205px}
+ .crop-fields{gap:8px}
+}
