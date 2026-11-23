@@ -21,6 +21,7 @@ export default function Home() {
   const picker = useRef<HTMLInputElement>(null);
   const previewUrlRef = useRef("");
   const resultUrlRef = useRef("");
+  const imageProbeIdRef = useRef(0);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>("compress");
@@ -39,12 +40,14 @@ export default function Home() {
 
   useEffect(() => { const selected = new URLSearchParams(window.location.search).get("tool"); if (selected === "compress" || selected === "resize" || selected === "convert" || selected === "crop") { setTool(selected); setTimeout(() => document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" }), 100); } }, []);
   useEffect(() => () => {
+    imageProbeIdRef.current += 1;
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
   }, []);
 
   function selectFile(f?: File) {
     if (!f) return;
+    const imageProbeId = ++imageProbeIdRef.current;
     setError("");
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
@@ -54,7 +57,7 @@ export default function Home() {
     if (f.size > 20 * 1024 * 1024) { setError("Please choose an image smaller than 20 MB."); return; }
     const previewUrl = URL.createObjectURL(f); previewUrlRef.current = previewUrl;
     setFile(f); setPreview(previewUrl);
-    const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); URL.revokeObjectURL(probeUrl); }; probe.onerror = () => URL.revokeObjectURL(probeUrl); probe.src = probeUrl;
+    const probe = new Image(); const probeUrl = URL.createObjectURL(f); probe.onload = () => { if (imageProbeId === imageProbeIdRef.current) { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); } URL.revokeObjectURL(probeUrl); }; probe.onerror = () => URL.revokeObjectURL(probeUrl); probe.src = probeUrl;
   }
 
   async function run() {
