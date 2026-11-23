@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
+import ToolSearch from "@/components/ToolSearch";
 import { QRCodeCanvas } from "qrcode.react";
 export default function QRTool(){
  const [value,setValue]=useState("https://pictospec.com"),[size,setSize]=useState(256),[level,setLevel]=useState<"L"|"M"|"Q"|"H">("M");
