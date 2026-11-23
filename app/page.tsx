@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Tool = "compress" | "resize" | "convert";
+type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
 
 const presets = [
@@ -25,19 +25,23 @@ export default function Home() {
   const [width, setWidth] = useState("600");
   const [height, setHeight] = useState("600");
   const [ratio, setRatio] = useState(true);
+  const [cropX, setCropX] = useState("0");
+  const [cropY, setCropY] = useState("0");
+  const [cropW, setCropW] = useState("400");
+  const [cropH, setCropH] = useState("400");
   const [format, setFormat] = useState<Format>("image/jpeg");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
 
-  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); if (result?.url) URL.revokeObjectURL(result.url); }, [preview, result]);
+  useEffect(() => { const selected = new URLSearchParams(window.location.search).get("tool"); if (selected === "compress" || selected === "resize" || selected === "convert" || selected === "crop") { setTool(selected); setTimeout(() => document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" }), 100); } }, []);\n  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); if (result?.url) URL.revokeObjectURL(result.url); }, [preview, result]);
 
   function selectFile(f?: File) {
     if (!f) return;
     setError(""); setResult(null);
     if (!f.type.startsWith("image/")) { setError("Please choose an image file."); return; }
     if (f.size > 20 * 1024 * 1024) { setError("Please choose an image smaller than 20 MB."); return; }
-    setFile(f); setPreview(URL.createObjectURL(f));
+    setFile(f); setPreview(URL.createObjectURL(f));\n    const probe = new Image(); probe.onload = () => { setCropW(String(probe.naturalWidth)); setCropH(String(probe.naturalHeight)); setCropX("0"); setCropY("0"); }; probe.src = URL.createObjectURL(f);
   }
 
   async function run() {
@@ -57,7 +61,7 @@ export default function Home() {
       const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
       const ctx = canvas.getContext("2d"); if (!ctx) throw new Error("Your browser does not support image processing.");
       if (format === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; ctx.drawImage(img, 0, 0, w, h);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; if (tool === "crop") ctx.drawImage(img, Number(cropX)||0, Number(cropY)||0, w, h, 0, 0, w, h); else ctx.drawImage(img, 0, 0, w, h);
       const toBlob = (q: number) => new Promise<Blob>((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("Could not create image.")), format, q));
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
@@ -77,31 +81,30 @@ export default function Home() {
   }
 
   return <main>
-    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>picto<span>spec</span></a><nav><a href="#tools">Tools</a><a href="#how">How it works</a><a href="/privacy">Privacy</a></nav><small>● Files stay on your device</small></header>
-    <section className="hero"><div className="eyebrow">IMAGE TOOLS, MADE SIMPLE</div><h1>Make every image<br/><em>fit the requirement.</em></h1><p>Compress to a target KB size, resize exact dimensions and convert formats — without uploading your photos to a server.</p><div className="trust"><span>✓ No account needed</span><span>✓ Browser-based processing</span><span>✓ Free to use</span></div></section>
-    <section className="quick-start" aria-label="Choose what you want to do">
-      <p className="eyebrow">START WITH ONE TAP</p><h2>What do you want to do?</h2>
+    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
+    <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>
+    <section className="quick-start" aria-label="Image tools">
       <div className="quick-grid">
-        <button onClick={() => {setTool("compress");setTarget("50");document.getElementById("tools")?.scrollIntoView({behavior:"smooth"});}}><span>↘</span><b>Make image 50 KB</b><small>Tap to open · Reduce file size</small></button>
-        <button onClick={() => {setTool("resize");setWidth("600");setHeight("600");setRatio(false);document.getElementById("tools")?.scrollIntoView({behavior:"smooth"});}}><span>▣</span><b>Resize passport photo</b><small>Tap to open · Set photo size</small></button>
-        <button onClick={() => {setTool("resize");setWidth("400");setHeight("150");setRatio(false);document.getElementById("tools")?.scrollIntoView({behavior:"smooth"});}}><span>✎</span><b>Resize signature</b><small>Tap to open · Set signature size</small></button>
-        <button onClick={() => {setTool("convert");setFormat("image/webp");document.getElementById("tools")?.scrollIntoView({behavior:"smooth"});}}><span>⇄</span><b>Convert JPG to WebP</b><small>Tap to open · Choose JPG, PNG or WebP</small></button>
+        <a href="/image-compressor" className="tool-card"><span>↘</span><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
+        <a href="/image-resizer" className="tool-card"><span>▣</span><b>Image Resizer</b><small>Change width and height</small><strong>OPEN TOOL →</strong></a>
+        <a href="/image-cropper" className="tool-card"><span>⌗</span><b>Image Cropper</b><small>Cut unwanted image edges</small><strong>OPEN TOOL →</strong></a>
+        <a href="/image-converter" className="tool-card"><span>⇄</span><b>Image Converter</b><small>Convert JPG, PNG and WebP</small><strong>OPEN TOOL →</strong></a>
       </div>
     </section>
-    <section className="workspace" id="tools"><div className="workspace-head"><div><small>YOUR IMAGE WORKSPACE</small><h2>Prepare your image</h2></div><b>01 <i>/ 03</i></b></div>
-      <div className="tabs">{(["compress","resize","convert"] as Tool[]).map(t => <button key={t} className={tool === t ? "active" : ""} onClick={() => {setTool(t);setError("");setResult(null);}}>{t === "compress" ? "Compress to KB" : t === "resize" ? "Resize dimensions" : "Convert format"}</button>)}</div>
+    <section className="workspace" id="tools"><div className="workspace-head"><div><small id="tool-name">IMAGE TOOL</small><h2>{tool === "compress" ? "Compress image" : tool === "resize" ? "Resize image" : tool === "crop" ? "Crop image" : "Convert image"}</h2></div></div>
+      <div className="tabs">{(["compress","resize","crop","convert"] as Tool[]).map(t => <button key={t} className={tool === t ? "active" : ""} onClick={() => {setTool(t);setError("");setResult(null);}}>{t === "compress" ? "Compress" : t === "resize" ? "Resize" : t === "crop" ? "Crop" : "Convert"}</button>)}</div>
       <div className="columns"><div className="upload-column"><div className="step-hint"><b>STEP 1</b><span>Upload your image</span></div><button type="button" className="drop" onClick={() => picker.current?.click()}>{preview ? <><img src={preview} alt="Selected image preview"/><strong>{file?.name}</strong><span>Tap to choose another image</span></> : <><span className="upload">↑</span><strong>Tap to choose an image</strong><span>JPG, PNG or WebP · up to 20 MB</span><small className="tap-hint">BROWSE FILES</small></>}</button><input ref={picker} hidden type="file" accept="image/*" onChange={e => selectFile(e.target.files?.[0])}/>{file && <p className="fileinfo">{file.name} · {bytes(file.size)}</p>}<div className="privacy">🔒 <div><b>Your images stay private</b><p>Processing happens locally in your browser. Images are not uploaded to our server.</p></div></div></div>
       <div className="settings"><div className="step-hint"><b>STEP 2</b><span>Choose what you need</span></div>{tool === "compress" && <div className="field"><label>Target file size</label><div className="inputunit"><input type="number" min="5" max="5000" value={target} onChange={e => setTarget(e.target.value)}/><span>KB</span></div><p>We will try to keep the result under your target size.</p></div>}
       {tool === "resize" && <><div className="field"><label>Image dimensions</label><div className="dims"><input aria-label="Width in pixels" type="number" value={width} onChange={e => setWidth(e.target.value)}/><b>×</b><input aria-label="Height in pixels" type="number" value={height} onChange={e => setHeight(e.target.value)}/></div><label className="check"><input type="checkbox" checked={ratio} onChange={e => setRatio(e.target.checked)}/> Keep aspect ratio</label></div><div className="presets">{presets.map(p => <button key={p.name} onClick={() => {setWidth(String(p.w));setHeight(String(p.h));setRatio(false);}}><b>{p.name}</b><span>{p.w} × {p.h} px</span></button>)}</div></>}
-      {tool === "convert" && <div className="field"><label>Output format</label><select value={format} onChange={e => setFormat(e.target.value as Format)}><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>}
+      {tool === "crop" && <div className="field"><label>Crop area (pixels)</label><div className="crop-fields"><label>Left<input type="number" min="0" value={cropX} onChange={e=>setCropX(e.target.value)}/></label><label>Top<input type="number" min="0" value={cropY} onChange={e=>setCropY(e.target.value)}/></label><label>Width<input type="number" min="1" value={cropW} onChange={e=>setCropW(e.target.value)}/></label><label>Height<input type="number" min="1" value={cropH} onChange={e=>setCropH(e.target.value)}/></label></div><p>Enter the area to keep, measured from the top-left corner.</p></div>}\n      {tool === "convert" && <div className="field"><label>Output format</label><select value={format} onChange={e => setFormat(e.target.value as Format)}><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>}
       {tool !== "convert" && <div className="field"><label>Output format</label><select value={format} onChange={e => setFormat(e.target.value as Format)}><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>}
       <div className="step-hint step-three"><b>STEP 3</b><span>Create and download</span></div><button className="primary" disabled={busy || !file} onClick={run}>{busy ? "Preparing your image…" : "Prepare image now"} <span>→</span></button>
       {error && <p className="error">{error}</p>}
       {result && <div className="result"><b>✓ Image ready</b><p>{bytes(result.size)} · {result.w} × {result.h} px</p><a href={result.url} download={result.name}>Download {result.name} ↓</a></div>}
       </div></div>
     </section>
-    <section className="how" id="how"><h2>How it works</h2><div><article><b>01</b><h3>Choose your image</h3><p>Select a photo or signature from your device.</p></article><article><b>02</b><h3>Set your requirements</h3><p>Choose the file size, dimensions or format you need.</p></article><article><b>03</b><h3>Download instantly</h3><p>Your processed image is ready on your device.</p></article></div></section>
-    <section className="guides"><p className="eyebrow">HELPFUL HOW-TO GUIDES</p><h2>Find the right image settings</h2><div><a href="/compress-image-to-50kb"><b>Compress image to 50KB or 100KB</b><span>Learn how to meet a file-size limit.</span></a><a href="/resize-photo-for-online-form"><b>Resize photo for an online form</b><span>Set the exact pixel width and height.</span></a><a href="/signature-resizer"><b>Resize a signature image</b><span>Prepare a readable signature upload.</span></a><a href="/jpg-to-webp"><b>Convert JPG to WebP</b><span>Understand format conversion and compatibility.</span></a></div></section>
-    <footer><a className="brand" href="/"> <span className="mark">P</span>pictospec</a><span>Simple image tools. Private by design.</span><a href="/privacy">Privacy Policy</a></footer>
+    
+    <section className="guides"><a href="/compress-image-to-50kb">Compress to 50KB</a><a href="/resize-photo-for-online-form">Photo size guide</a><a href="/signature-resizer">Signature guide</a><a href="/jpg-to-webp">JPG to WebP guide</a></section>
+    <footer><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><span>Images stay on your device.</span><a href="/privacy">Privacy</a></footer>
   </main>;
 }
