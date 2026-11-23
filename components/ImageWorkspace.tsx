@@ -17,20 +17,20 @@ function bytes(n: number) {
   return n < 1024 ? n + " B" : n < 1048576 ? (n / 1024).toFixed(1) + " KB" : (n / 1048576).toFixed(2) + " MB";
 }
 
-export default function ImageWorkspace({ initialTool = "compress" }: { initialTool?: Tool }) {
+export default function ImageWorkspace({ initialTool = "compress", initialTarget = "100", initialWidth = "600", initialHeight = "600", initialRatio = true, initialFormat = "image/jpeg", compact = false }: { initialTool?: Tool; initialTarget?: string; initialWidth?: string; initialHeight?: string; initialRatio?: boolean; initialFormat?: Format; compact?: boolean }) {
   const picker = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>(initialTool);
-  const [target, setTarget] = useState("100");
-  const [width, setWidth] = useState("600");
-  const [height, setHeight] = useState("600");
-  const [ratio, setRatio] = useState(true);
+  const [target, setTarget] = useState(initialTarget);
+  const [width, setWidth] = useState(initialWidth);
+  const [height, setHeight] = useState(initialHeight);
+  const [ratio, setRatio] = useState(initialRatio);
   const [cropX, setCropX] = useState("0");
   const [cropY, setCropY] = useState("0");
   const [cropW, setCropW] = useState("400");
   const [cropH, setCropH] = useState("400");
-  const [format, setFormat] = useState<Format>("image/jpeg");
+  const [format, setFormat] = useState<Format>(initialFormat);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
@@ -87,8 +87,8 @@ export default function ImageWorkspace({ initialTool = "compress" }: { initialTo
 
   return <main>
     <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><ToolSearch /><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
-    <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>
-    <section className="quick-start" aria-label="Image tools">
+    {compact ? <section className="tool-page-intro"><p className="eyebrow">FREE ONLINE IMAGE TOOL</p><h1>{tool === "compress" ? "Compress image to your target KB size" : tool === "resize" ? "Resize image to exact pixel dimensions" : tool === "crop" ? "Crop image online" : "Convert image format online"}</h1><p>Choose an image, adjust the settings and download your result. Processing stays in your browser.</p></section> : <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>}
+    {!compact && <section className="quick-start" aria-label="Image tools">
       <div className="quick-grid">
         <a href="/image-compressor" className="tool-card"><span>↘</span><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
         <a href="/image-resizer" className="tool-card"><span>▣</span><b>Image Resizer</b><small>Change width and height</small><strong>OPEN TOOL →</strong></a>
