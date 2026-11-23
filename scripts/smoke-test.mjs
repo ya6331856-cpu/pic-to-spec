@@ -45,7 +45,7 @@ try {
   const sitemapResponse = await request("/sitemap.xml");
   if (!sitemapResponse.ok) throw new Error("sitemap.xml did not return HTTP 200.");
   const sitemap = await sitemapResponse.text();
-  for (const path of routes.filter(path => path !== "/privacy" ? true : true)) {
+  for (const path of routes) {
     const expected = path === "/" ? "https://pictospec.com/" : `https://pictospec.com${path}`;
     if (!sitemap.includes(expected)) throw new Error(`Sitemap is missing ${path}`);
   }
