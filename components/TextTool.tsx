@@ -24,7 +24,7 @@ function countCharacters(text:string){
 }
 export default function TextTool({kind}:{kind:Kind}){
  const [value,setValue]=useState(""),[mode,setMode]=useState("encode"),[indent,setIndent]=useState("2"),[output,setOutput]=useState(""),[error,setError]=useState("");
- const stats=useMemo(()=>({words:(value.trim().match(/\S+/g)||[]).length,chars:value.length,noSpaces:value.replace(/\s/g,"").length,sentences:(value.match(/[.!?]+(?=\s|$)/g)||[]).length,paragraphs:value.trim()?value.trim().split(/\n\s*\n/).length:0,lines:value?value.split(/\r?\n/).length:0}),[value]);
+ const stats=useMemo(()=>({words:(value.trim().match(/\S+/g)||[]).length,chars:countCharacters(value),noSpaces:countCharacters(value.replace(/\s/g,"")),sentences:(value.match(/[.!?]+(?=\s|$)/g)||[]).length,paragraphs:value.trim()?value.trim().split(/\n\s*\n/).length:0,lines:value?value.split(/\r?\n/).length:0}),[value]);
  function run(action:string){setError("");setOutput("");try{
   if(kind==="case-converter"){const v=action==="upper"?value.toUpperCase():action==="lower"?value.toLowerCase():action==="title"?value.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()):action==="sentence"?value.toLowerCase().replace(/(^\s*|[.!?]\s+)([a-z])/g,(_,a,b)=>a+b.toUpperCase()):value.replace(/\s+/g," ").trim();setOutput(v);}
   else if(kind==="json-formatter"){const parsed=JSON.parse(value);setOutput(action==="minify"?JSON.stringify(parsed):JSON.stringify(parsed,null,Number(indent)));}
