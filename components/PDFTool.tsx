@@ -52,7 +52,7 @@ export default function PDFTool({kind}:{kind:Kind}){
    }else if(kind==="split"){
     if(files.length!==1)throw new Error("Choose exactly one PDF file.");
     const source=await PDFDocument.load(await files[0].arrayBuffer());
-    const first=Math.floor(Number(start)),last=Math.floor(Number(end));
+    const first=Number(start),last=Number(end);
     if(!Number.isInteger(first)||!Number.isInteger(last)||first<1||last<first||last>source.getPageCount())throw new Error("Enter a valid page range. Page numbers start at 1 and must be within the PDF.");
     const pages=await output.copyPages(source,Array.from({length:last-first+1},(_,i)=>first-1+i));pages.forEach(page=>output.addPage(page));
    }else{
