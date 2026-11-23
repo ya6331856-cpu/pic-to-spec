@@ -142,7 +142,6 @@ export default function Home() {
         <a className="tool-card" href="/image-compressor"><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/image-resizer"><b>Image Resizer</b><small>Set exact image dimensions</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/image-cropper"><b>Image Cropper</b><small>Crop images by pixel size</small><strong>OPEN TOOL →</strong></a>
-        <a className="tool-card" href="/image-cutter"><b>Image Cutter</b><small>Trim an image using crop coordinates</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/image-converter"><b>Image Converter</b><small>Convert JPG, PNG and WebP</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/compress-image-to-50kb"><b>Compress to 50KB</b><small>Meet online form file limits</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/resize-photo-for-online-form"><b>Online Form Photo</b><small>Prepare application photos</small><strong>OPEN TOOL →</strong></a>
