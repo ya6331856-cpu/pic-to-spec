@@ -8,7 +8,7 @@ const config:Record<Kind,{title:string;desc:string;placeholder:string}>={
  "json-formatter":{title:"JSON Formatter and Validator",desc:"Format, beautify, minify and validate JSON data in your browser with clear error messages.",placeholder:'Paste JSON here, e.g. {"name":"PicToSpec"}'},
  "base64-encoder-decoder":{title:"Base64 Encoder and Decoder",desc:"Encode plain text to Base64 or decode Base64 strings locally in your browser.",placeholder:"Enter text or Base64 data..."}
 };
-function encodeBase64Utf8(value:string){const bytes=new TextEncoder().encode(value);let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary);}
+function encodeBase64Utf8(value:string){const bytes=new TextEncoder().encode(value);let binary="";for(let i=0;i<bytes.length;i+=0x8000){const chunk=bytes.subarray(i,i+0x8000);for(let j=0;j<chunk.length;j++)binary+=String.fromCharCode(chunk[j]);}return btoa(binary);}
 function decodeBase64Utf8(value:string){const binary=atob(value.trim());const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));return new TextDecoder("utf-8",{fatal:true}).decode(bytes);}
 export default function TextTool({kind}:{kind:Kind}){
  const [value,setValue]=useState(""),[mode,setMode]=useState("encode"),[indent,setIndent]=useState("2"),[output,setOutput]=useState(""),[error,setError]=useState("");
