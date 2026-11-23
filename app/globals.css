@@ -247,3 +247,13 @@ main:has(.tool-page-top)>p:last-child{padding:13px 15px;border-radius:12px;backg
 .tool-page-intro h1{max-width:760px;margin:12px 0;color:#1d2947;font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-1.7px}
 .tool-page-intro>p:last-child{max-width:700px;color:#65718a;line-height:1.8}
 @media(max-width:700px){.tool-page-intro{margin:18px 14px;padding:27px 20px;border-radius:19px}.tool-page-intro:after{width:110px;height:110px;right:-12px;top:5%}}
+
+
+.tool-content{margin:30px 0 50px;padding:clamp(20px,4vw,30px);border:1px solid #e6e8f3;border-radius:20px;background:linear-gradient(145deg,#fff,#fafbff);box-shadow:0 12px 34px #29345a0a}
+.tool-content h2{margin:0 0 12px;color:#253352;font-size:clamp(22px,3vw,28px);letter-spacing:-.7px}
+.tool-content h3{margin:24px 0 10px;color:#354260;font-size:17px}
+.tool-content>p{color:#65728a;line-height:1.85}
+.tool-content ol{padding-left:22px;color:#65728a;line-height:1.9}
+.tool-content details{margin:9px 0;padding:13px 15px;border:1px solid #e7e9f3;border-radius:12px;background:#fff}
+.tool-content summary{color:#2c3856;font-weight:700;cursor:pointer}
+.tool-content details p{margin:10px 0 0;color:#65728a;line-height:1.75}
