@@ -9,6 +9,11 @@ const copy: Record<Kind,{title:string;description:string}> = {
  split:{title:"Split PDF Pages",description:"Extract a page range from a PDF and save it as a separate PDF file."},
  jpg:{title:"JPG to PDF Converter",description:"Turn JPG or PNG images into a PDF document, with one image per page."}
 };
+const faqs:Record<Kind,{q:string;a:string}[]> = {
+ merge:[{q:"Can I merge more than two PDFs?",a:"Yes. Select up to 20 PDF files. They are combined in the order shown by your file selection."},{q:"Are my PDFs uploaded?",a:"No. This tool processes the selected files in your browser. Large or encrypted PDFs may not be supported."}],
+ split:[{q:"Are the first and last pages included?",a:"Yes. The page range is inclusive, so both the first and last page numbers are included in the new PDF."},{q:"Can I split a password-protected PDF?",a:"Encrypted PDFs may fail to open in this browser tool. Use an authorized, unencrypted copy if processing fails."}],
+ jpg:[{q:"Can I convert PNG images too?",a:"Yes. The converter accepts JPG and PNG files and places each image on its own A4 PDF page."},{q:"Will the image be stretched to fill the page?",a:"No. The image is scaled proportionally to fit inside the page area and is centered."}]
+};
 export default function PDFTool({kind}:{kind:Kind}){
  const [files,setFiles]=useState<File[]>([]);
  const [start,setStart]=useState("1");
@@ -86,7 +91,7 @@ export default function PDFTool({kind}:{kind:Kind}){
   </section>
   <h2 style={{marginTop:30}}>How to use this tool</h2>
   <ol style={{color:"#66776d",lineHeight:1.9}}>{(kind==="merge"?["Select at least two PDF files.","The files are combined in the order selected.","Download the merged PDF."]:kind==="split"?["Select one PDF file.","Enter the first and last page numbers to extract.","Download the new PDF containing only those pages."]:["Select one or more JPG or PNG images.","Each image is placed on its own A4-sized PDF page.","Download the generated PDF."]).map(x=><li key={x}>{x}</li>)}</ol>
-  <p style={{fontSize:12,color:"#75847c",lineHeight:1.7}}>Files are processed in your browser and are not uploaded to PicToSpec. Very large or encrypted PDFs may fail or require a modern browser. The JPG-to-PDF tool currently supports JPG and PNG images only.</p>
+  <p style={{fontSize:12,color:"#75847c",lineHeight:1.7}}>Files are processed in your browser and are not uploaded to PicToSpec. Very large or encrypted PDFs may fail or require a modern browser. The JPG-to-PDF tool currently supports JPG and PNG images only.</p><section className="tool-content"><h2>About this PDF tool</h2><p>{copy[kind].description} Your selected files stay in this browser session while the PDF is created.</p><h3>Frequently asked questions</h3>{faqs[kind].map(item=><details key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</section>
  </main>;
 }
 const fieldStyle:React.CSSProperties={display:"block",width:"100%",marginTop:7,padding:12,border:"1px solid #dce7df",borderRadius:8,fontSize:16};
