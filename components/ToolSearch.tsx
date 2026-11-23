@@ -59,8 +59,8 @@ export default function ToolSearch() {
       {query && <button type="button" onClick={() => {setQuery("");setActiveIndex(0);setOpen(true);}} aria-label="Clear search">×</button>}
       <kbd>↵</kbd>
     </div>
-    {open && <div className="tool-search-results">
-      {matches.length ? matches.map(tool=><a key={tool.href} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p>No matching tool found. Try a shorter search.</p>}
+    {open && <div className="tool-search-results" id="tool-search-results" role="listbox" aria-label="Tool search results">
+      {matches.length ? matches.map((tool,index)=><a key={tool.href} role="option" aria-selected={index===activeIndex} className={index===activeIndex?"active":""} onMouseEnter={()=>setActiveIndex(index)} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p>No matching tool found. Try a shorter search.</p>}
       <button className="search-dismiss" type="button" onClick={()=>setOpen(false)}>Close results</button>
     </div>}
   </div>;
