@@ -1,2 +1,12 @@
 import type { MetadataRoute } from "next";
-export default function sitemap(): MetadataRoute.Sitemap { return [{ url: "https://pictospec.com", lastModified: new Date(), changeFrequency: "weekly", priority: 1 }, { url: "https://pictospec.com/privacy", lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 }]; }
+const base = "https://pictospec.com";
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    { url: base, lastModified: new Date("2026-11-23"), changeFrequency: "weekly", priority: 1 },
+    { url: base + "/compress-image-to-50kb", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.9 },
+    { url: base + "/resize-photo-for-online-form", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.9 },
+    { url: base + "/signature-resizer", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.9 },
+    { url: base + "/jpg-to-webp", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/privacy", lastModified: new Date("2026-11-23"), changeFrequency: "yearly", priority: 0.2 }
+  ];
+}
