@@ -8,13 +8,15 @@ const config:Record<Kind,{title:string;desc:string;placeholder:string}>={
  "json-formatter":{title:"JSON Formatter and Validator",desc:"Format, beautify, minify and validate JSON data in your browser with clear error messages.",placeholder:'Paste JSON here, e.g. {"name":"PicToSpec"}'},
  "base64-encoder-decoder":{title:"Base64 Encoder and Decoder",desc:"Encode plain text to Base64 or decode Base64 strings locally in your browser.",placeholder:"Enter text or Base64 data..."}
 };
+function encodeBase64Utf8(value:string){const bytes=new TextEncoder().encode(value);let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary);}
+function decodeBase64Utf8(value:string){const binary=atob(value.trim());const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));return new TextDecoder("utf-8",{fatal:true}).decode(bytes);}
 export default function TextTool({kind}:{kind:Kind}){
  const [value,setValue]=useState(""),[mode,setMode]=useState("encode"),[indent,setIndent]=useState("2"),[output,setOutput]=useState(""),[error,setError]=useState("");
  const stats=useMemo(()=>({words:(value.trim().match(/\S+/g)||[]).length,chars:value.length,noSpaces:value.replace(/\s/g,"").length,sentences:(value.match(/[.!?]+(?=\s|$)/g)||[]).length,paragraphs:value.trim()?value.trim().split(/\n\s*\n/).length:0,lines:value?value.split(/\r?\n/).length:0}),[value]);
  function run(action:string){setError("");setOutput("");try{
   if(kind==="case-converter"){const v=action==="upper"?value.toUpperCase():action==="lower"?value.toLowerCase():action==="title"?value.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()):action==="sentence"?value.toLowerCase().replace(/(^\s*|[.!?]\s+)([a-z])/g,(_,a,b)=>a+b.toUpperCase()):value.replace(/\s+/g," ").trim();setOutput(v);}
   else if(kind==="json-formatter"){const parsed=JSON.parse(value);setOutput(action==="minify"?JSON.stringify(parsed):JSON.stringify(parsed,null,Number(indent)));}
-  else if(kind==="base64-encoder-decoder"){setOutput(mode==="encode"?btoa(unescape(encodeURIComponent(value))):decodeURIComponent(escape(atob(value.trim()))));}
+  else if(kind==="base64-encoder-decoder"){setOutput(mode==="encode"?encodeBase64Utf8(value):decodeBase64Utf8(value));}
  }catch(e){setError(kind==="json-formatter"?(e instanceof Error?e.message:"Invalid JSON"):"Could not process this input. Check the text and selected mode.");}}
  async function copy(){try{await navigator.clipboard.writeText(output);}catch{setError("Copy failed. Please select and copy the result manually.");}}
  return <main style={{maxWidth:850,margin:"40px auto",padding:"20px",color:"#17251e"}}><div className="tool-page-top"><a href="/" style={{color:"#14634b",fontWeight:700,textDecoration:"none"}}>← PicToSpec home</a><ToolSearch /></div><p style={{fontSize:11,letterSpacing:2,color:"#14634b",fontWeight:800,marginTop:35}}>FREE TEXT & DEVELOPER TOOL</p><h1 style={{fontSize:"clamp(32px,6vw,46px)",letterSpacing:-1.5,margin:"10px 0"}}>{config[kind].title}</h1><p style={{color:"#75847c",lineHeight:1.7}}>{config[kind].desc}</p><textarea value={value} onChange={e=>{setValue(e.target.value);setOutput("");setError("");}} placeholder={config[kind].placeholder} rows={10} style={{width:"100%",marginTop:24,padding:16,border:"1px solid #dce7df",borderRadius:12,fontSize:15,lineHeight:1.6,resize:"vertical"}}/>
