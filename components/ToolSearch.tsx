@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const tools = [
   { name: "Image Compressor", href: "/image-compressor", detail: "Reduce image size in KB or MB", aliases: "compress image photo reduce size kb mb" },
@@ -32,9 +32,24 @@ const tools = [
 ];
 
 export default function ToolSearch() {
+  const rootRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    function handlePointerDown(event: PointerEvent) {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) setOpen(false);
+    }
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return tools.slice(0, 6);
@@ -52,15 +67,15 @@ export default function ToolSearch() {
     if (e.key === "ArrowUp" && matches.length) { e.preventDefault(); setOpen(true); setActiveIndex(i => (i - 1 + matches.length) % matches.length); return; }
     if (e.key === "Enter") { e.preventDefault(); goActive(); }
   }
-  return <div className="tool-search">
+  return <div className="tool-search" ref={rootRef}>
     <div className="tool-search-box">
       <span aria-hidden="true">⌕</span>
-      <input value={query} onChange={e => {setQuery(e.target.value);setActiveIndex(0);setOpen(true);}} onFocus={() => setOpen(true)} onKeyDown={handleKeyDown} aria-expanded={open} aria-controls="tool-search-results" aria-activedescendant={open && matches[activeIndex] ? `tool-option-${activeIndex}` : undefined} aria-autocomplete="list" placeholder="Search tools… try “50kb”, “GST”, “merge PDF”" aria-label="Search all tools" />
+      <input value={query} onChange={e => {setQuery(e.target.value);setActiveIndex(0);setOpen(true);}} onFocus={() => setOpen(true)} onKeyDown={handleKeyDown} aria-expanded={open} aria-controls="tool-search-results" aria-activedescendant={open && matches[activeIndex] ? `tool-option-${activeIndex}` : undefined} aria-autocomplete="list" autoComplete="off" placeholder="Search tools… try “50kb”, “GST”, “merge PDF”" aria-label="Search all tools" />
       {query && <button type="button" onClick={() => {setQuery("");setActiveIndex(0);setOpen(true);}} aria-label="Clear search">×</button>}
       <kbd>↵</kbd>
     </div>
     {open && <div className="tool-search-results" id="tool-search-results" role="listbox" aria-label="Tool search results">
-      {matches.length ? matches.map((tool,index)=><a key={tool.href} id={`tool-option-${index}`} role="option" aria-selected={index===activeIndex} className={index===activeIndex?"active":""} onMouseEnter={()=>setActiveIndex(index)} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p>No matching tool found. Try a shorter search.</p>}
+      {matches.length ? matches.map((tool,index)=><a key={tool.href} id={`tool-option-${index}`} role="option" aria-selected={index===activeIndex} className={index===activeIndex?"active":""} onMouseEnter={()=>setActiveIndex(index)} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p role="status" aria-live="polite">No matching tool found. Try a shorter search.</p>}
       <button className="search-dismiss" type="button" onClick={()=>setOpen(false)}>Close results</button>
     </div>}
   </div>;
