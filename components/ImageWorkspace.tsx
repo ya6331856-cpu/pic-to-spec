@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ToolSearch from "@/components/ToolSearch";
 
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
@@ -85,7 +86,7 @@ export default function ImageWorkspace({ initialTool = "compress" }: { initialTo
   }
 
   return <main>
-    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
+    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><ToolSearch /><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
     <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>
     <section className="quick-start" aria-label="Image tools">
       <div className="quick-grid">
