@@ -19,11 +19,21 @@ export default function PDFTool({kind}:{kind:Kind}){
  function pick(list:FileList|null){
   if(!list)return;
   const chosen=Array.from(list);
+  setMessage("");setError("");
   if(chosen.length>20){setFiles([]);setError("Choose no more than 20 files at a time.");return;}
   if(chosen.reduce((total,file)=>total+file.size,0)>100*1024*1024){setFiles([]);setError("The combined file size must be 100 MB or smaller.");return;}
-  const valid=chosen.filter(f=>kind==="jpg"?f.type==="image/jpeg"||f.type==="image/png":f.type==="application/pdf"||f.name.toLowerCase().endsWith(".pdf"));
-  setFiles(valid);setMessage("");setError("");
-  if(valid.length!==chosen.length)setError(kind==="jpg"?"Only JPG and PNG images are supported.":"Please select valid PDF files.");
+  const isValid=(file:File)=>kind==="jpg"
+    ? file.type==="image/jpeg"||file.type==="image/png"
+    : file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf");
+  const invalid=chosen.filter(file=>!isValid(file));
+  if(invalid.length){
+    setFiles([]);
+    setError(kind==="jpg"
+      ? "One or more selected files are not JPG or PNG images. Please select only supported images."
+      : "One or more selected files are not PDFs. Please select only PDF files.");
+    return;
+  }
+  setFiles(chosen);
  }
  async function process(){
   setBusy(true);setError("");setMessage("");
@@ -63,7 +73,7 @@ export default function PDFTool({kind}:{kind:Kind}){
   <p style={{color:"#75847c",lineHeight:1.7}}>{copy[kind].description}</p>
   <section style={{marginTop:25,padding:22,border:"1px solid #e2eae4",borderRadius:14}}>
    <label style={{display:"block",fontWeight:700}}>{kind==="jpg"?"Choose JPG or PNG images":kind==="split"?"Choose one PDF file":"Choose PDF files"}
-    <input type="file" accept={kind==="jpg"?"image/jpeg,image/png":".pdf,application/pdf"} multiple={kind!=="split"} onChange={e=>pick(e.target.files)} style={{display:"block",width:"100%",marginTop:12,padding:12,border:"1px dashed #b9cbbf",borderRadius:9}}/>
+    <input type="file" accept={kind==="jpg"?"image/jpeg,image/png":".pdf,application/pdf"} multiple={kind!=="split"} onChange={e=>{pick(e.target.files);e.currentTarget.value="";}} style={{display:"block",width:"100%",marginTop:12,padding:12,border:"1px dashed #b9cbbf",borderRadius:9}}/>
    </label>
    {files.length>0&&<p style={{fontSize:13,color:"#557361",marginTop:12}}>{files.length} file(s) selected: {files.map(f=>f.name).join(", ")}</p>}
    {kind==="split"&&<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginTop:18}}>
