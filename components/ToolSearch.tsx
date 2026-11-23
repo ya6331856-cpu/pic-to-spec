@@ -34,6 +34,7 @@ const tools = [
 export default function ToolSearch() {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return tools.slice(0, 6);
@@ -44,12 +45,18 @@ export default function ToolSearch() {
       return { ...tool, score };
     }).filter(tool => tool.score > 0).sort((a,b) => b.score-a.score).slice(0,7);
   }, [query]);
-  function goFirst() { if (matches[0]) window.location.href = matches[0].href; }
+  function goActive() { if (matches[activeIndex]) window.location.href = matches[activeIndex].href; }
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Escape") { setOpen(false); return; }
+    if (e.key === "ArrowDown" && matches.length) { e.preventDefault(); setOpen(true); setActiveIndex(i => (i + 1) % matches.length); return; }
+    if (e.key === "ArrowUp" && matches.length) { e.preventDefault(); setOpen(true); setActiveIndex(i => (i - 1 + matches.length) % matches.length); return; }
+    if (e.key === "Enter") { e.preventDefault(); goActive(); }
+  }
   return <div className="tool-search">
     <div className="tool-search-box">
       <span aria-hidden="true">⌕</span>
-      <input value={query} onChange={e => {setQuery(e.target.value);setOpen(true);}} onFocus={() => setOpen(true)} onKeyDown={e => {if(e.key==="Enter")goFirst();if(e.key==="Escape")setOpen(false);}} placeholder="Search tools… try “50kb”, “GST”, “merge PDF”" aria-label="Search all tools" />
-      {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
+      <input value={query} onChange={e => {setQuery(e.target.value);setActiveIndex(0);setOpen(true);}} onFocus={() => setOpen(true)} onKeyDown={handleKeyDown} aria-expanded={open} aria-controls="tool-search-results" aria-autocomplete="list" placeholder="Search tools… try “50kb”, “GST”, “merge PDF”" aria-label="Search all tools" />
+      {query && <button type="button" onClick={() => {setQuery("");setActiveIndex(0);setOpen(true);}} aria-label="Clear search">×</button>}
       <kbd>↵</kbd>
     </div>
     {open && <div className="tool-search-results">
