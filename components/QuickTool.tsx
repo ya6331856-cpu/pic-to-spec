@@ -21,7 +21,7 @@ export default function QuickTool({kind}:{kind:Kind}) {
  const [dob,setDob]=useState("");
  const result=useMemo(()=>{
   const x=Number(a),y=Number(b),z=Number(c);
-  if(kind!=="age"&&(!a.trim()||!b.trim()||!Number.isFinite(x)||x<0||!Number.isFinite(y)||y<0)) return "Enter valid non-negative numbers in both fields.";
+  if(kind!=="age"&&(!a.trim()||!b.trim()||!Number.isFinite(x)||x<0||!Number.isFinite(y)||y<0||x>1000000000000000||y>1000000000000000)) return "Enter valid non-negative numbers up to 1 quadrillion in both fields.";
   if(kind==="gst"&&y>100) return "GST rate must be between 0% and 100%.";
   if(kind==="emi"&&(!c.trim()||!Number.isFinite(z)||z<=0||z>100||x<=0||y>100)) return "Enter a loan amount above zero, an annual rate from 0% to 100%, and a tenure up to 100 years.";
   if(kind==="discount"&&y>100) return "Discount must be between 0% and 100%.";
