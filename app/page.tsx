@@ -189,6 +189,6 @@ export default function Home() {
     </section>
     
     <section className="guides"><a href="/compress-image-to-50kb">Compress to 50KB</a><a href="/resize-photo-for-online-form">Photo size guide</a><a href="/signature-resizer">Signature guide</a><a href="/jpg-to-webp">JPG to WebP guide</a></section>
-    <footer><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><span>Your files stay on your device.</span><a href="/privacy">Privacy</a><a href="mailto:ya6331856@gmail.com">Contact</a></footer>
+    <footer><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><span>Your files stay on your device.</span><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:ya6331856@gmail.com">Contact</a></footer>
   </main>;
 }
