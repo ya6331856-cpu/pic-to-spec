@@ -23,6 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base + "/base64-encoder-decoder", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/password-generator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/qr-code-generator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/pdf-merger", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/pdf-splitter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
+    { url: base + "/jpg-to-pdf", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/privacy", lastModified: new Date("2026-11-23"), changeFrequency: "yearly", priority: 0.2 }
   ];
 }
