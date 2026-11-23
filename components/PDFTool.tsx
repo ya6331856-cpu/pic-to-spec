@@ -9,6 +9,8 @@ const copy: Record<Kind,{title:string;description:string}> = {
  split:{title:"Split PDF Pages",description:"Extract a page range from a PDF and save it as a separate PDF file."},
  jpg:{title:"JPG to PDF Converter",description:"Turn JPG or PNG images into a PDF document, with one image per page."}
 };
+const MAX_OUTPUT_PAGES = 500;
+const MAX_IMAGE_PIXELS = 40000000;
 const faqs:Record<Kind,{q:string;a:string}[]> = {
  merge:[{q:"Can I merge more than two PDFs?",a:"Yes. Select up to 20 PDF files. They are combined in the order shown by your file selection."},{q:"Are my PDFs uploaded?",a:"No. This tool processes the selected files in your browser. Large or encrypted PDFs may not be supported."}],
  split:[{q:"Are the first and last pages included?",a:"Yes. The page range is inclusive, so both the first and last page numbers are included in the new PDF."},{q:"Can I split a password-protected PDF?",a:"Encrypted PDFs may fail to open in this browser tool. Use an authorized, unencrypted copy if processing fails."}],
@@ -48,12 +50,17 @@ export default function PDFTool({kind}:{kind:Kind}){
    const output=await PDFDocument.create();
    if(kind==="merge"){
     if(files.length<2)throw new Error("Choose at least two PDF files to merge.");
-    for(const file of files){const source=await PDFDocument.load(await file.arrayBuffer());const pages=await output.copyPages(source,source.getPageIndices());pages.forEach(page=>output.addPage(page));}
+    for(const file of files){
+     const source=await PDFDocument.load(await file.arrayBuffer());
+     if(output.getPageCount()+source.getPageCount()>MAX_OUTPUT_PAGES)throw new Error("The merged PDF would exceed 500 pages. Split the job into smaller batches.");
+     const pages=await output.copyPages(source,source.getPageIndices());pages.forEach(page=>output.addPage(page));
+    }
    }else if(kind==="split"){
     if(files.length!==1)throw new Error("Choose exactly one PDF file.");
     const source=await PDFDocument.load(await files[0].arrayBuffer());
     const first=Number(start),last=Number(end);
     if(!Number.isInteger(first)||!Number.isInteger(last)||first<1||last<first||last>source.getPageCount())throw new Error("Enter a valid page range. Page numbers start at 1 and must be within the PDF.");
+    if(last-first+1>MAX_OUTPUT_PAGES)throw new Error("Choose a range of 500 pages or fewer at a time.");
     const pages=await output.copyPages(source,Array.from({length:last-first+1},(_,i)=>first-1+i));pages.forEach(page=>output.addPage(page));
    }else{
     for(const file of files){
@@ -67,7 +74,7 @@ export default function PDFTool({kind}:{kind:Kind}){
    }
    const bytes=await output.save();
    const blob=new Blob([bytes as BlobPart],{type:"application/pdf"});
-   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=kind==="merge"?"merged-pdf.pdf":kind==="split"?"split-pages.pdf":"images-to-pdf.pdf";document.body.appendChild(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),30000);
+   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=kind==="merge"?"merged-pdf.pdf":kind==="split"?"split-pages.pdf":"images-to-pdf.pdf";document.body.appendChild(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),60000);
    setMessage("Your PDF is ready and the download has started.");
   }catch(e){setError(e instanceof Error?e.message:"Could not process these files. Please check the files and try again.");}
   finally{setBusy(false);}
