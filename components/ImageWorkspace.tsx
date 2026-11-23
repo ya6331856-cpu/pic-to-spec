@@ -22,6 +22,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
   const previewUrlRef = useRef("");
   const resultUrlRef = useRef("");
   const imageProbeIdRef = useRef(0);
+  const processingIdRef = useRef(0);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>(initialTool);
@@ -47,6 +48,8 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
   function selectFile(f?: File) {
     if (!f) return;
     const imageProbeId = ++imageProbeIdRef.current;
+    processingIdRef.current += 1;
+    setBusy(false);
     setError("");
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
@@ -76,11 +79,14 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       const values = [cropX, cropY, cropW, cropH].map(Number);
       if (!values.every(Number.isInteger) || values[0] < 0 || values[1] < 0 || values[2] < 1 || values[3] < 1) { setError("Crop values must be whole pixels. Left and Top can be 0 or more; Width and Height must be at least 1."); return; }
     }
+    const processingId = ++processingIdRef.current;
+    const selectedFile = file;
     setBusy(true); setError("");
     try {
       const img = new Image();
-      const source = URL.createObjectURL(file);
+      const source = URL.createObjectURL(selectedFile);
       try { await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error("Image could not be opened.")); img.src = source; }); } finally { URL.revokeObjectURL(source); }
+      if (processingId !== processingIdRef.current) return;
       if (!Number.isFinite(img.naturalWidth * img.naturalHeight) || img.naturalWidth * img.naturalHeight > 40000000) throw new Error("This source image exceeds 40 megapixels and may use too much browser memory. Choose a smaller image.");
       let w = img.naturalWidth, h = img.naturalHeight;
       const sx = Number(cropX), sy = Number(cropY);
@@ -106,10 +112,12 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
         let lo = 0.05, hi = 0.96;
         let best: Blob | null = null;
         const highestQuality = await toBlob(hi);
+        if (processingId !== processingIdRef.current) return;
         if (highestQuality.size <= limit) best = highestQuality;
         for (let i = 0; i < 18; i++) {
           const mid = (lo + hi) / 2;
           const candidate = await toBlob(mid);
+          if (processingId !== processingIdRef.current) return;
           if (candidate.size <= limit) { best = candidate; lo = mid; }
           else { hi = mid; }
         }
@@ -117,15 +125,18 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
         blob = best;
       } else {
         blob = await toBlob(0.92);
+        if (processingId !== processingIdRef.current) return;
         if (tool === "compress" && blob.size > Number(target) * 1024) throw new Error("This PNG is larger than your target. PNG size reduction is limited in browsers; try JPG or WebP for a smaller file.");
       }
+      if (processingId !== processingIdRef.current) return;
       const ext = format === "image/jpeg" ? "jpg" : format === "image/png" ? "png" : "webp";
       const base = file.name.replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9-_]+/g, "-") || "image";
       const resultUrl = URL.createObjectURL(blob);
       resultUrlRef.current = resultUrl;
+      if (processingId !== processingIdRef.current) { URL.revokeObjectURL(resultUrl); return; }
       setResult({ url: resultUrl, name: base + "-pictospec." + ext, size: blob.size, w, h });
-    } catch (e) { setError(e instanceof Error ? e.message : "Something went wrong."); }
-    finally { setBusy(false); }
+    } catch (e) { if (processingId === processingIdRef.current) setError(e instanceof Error ? e.message : "Something went wrong."); }
+    finally { if (processingId === processingIdRef.current) setBusy(false); }
   }
 
   return <main>
