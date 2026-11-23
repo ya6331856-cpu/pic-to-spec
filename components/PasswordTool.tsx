@@ -79,7 +79,7 @@ export default function PasswordTool() {
     <p style={{ color: "#75847c", lineHeight: 1.7 }}>Create a random password with uppercase letters, lowercase letters, numbers and symbols. Generation happens locally in your browser.</p>
     <section style={{ marginTop: 25, padding: 22, border: "1px solid #e2eae4", borderRadius: 14 }}>
       <label style={{ fontWeight: 700 }}>Password length: {length}
-        <input type="range" min="8" max="64" value={length} onChange={e => setLength(Number(e.target.value))} style={{ display: "block", width: "100%", margin: "14px 0 22px" }} />
+        <input type="range" min="8" max="64" value={length} onChange={e => {setLength(Number(e.target.value));setPassword("");setError("");}} style={{ display: "block", width: "100%", margin: "14px 0 22px" }} />
       </label>
       {[
         [upper, setUpper, "Uppercase letters (A–Z)"],
@@ -87,7 +87,7 @@ export default function PasswordTool() {
         [numbers, setNumbers, "Numbers (0–9)"],
         [symbols, setSymbols, "Symbols (!@#$…)"]
       ].map(([checked, setter, label]) => <label key={String(label)} style={{ display: "flex", gap: 10, alignItems: "center", padding: "8px 0" }}>
-        <input type="checkbox" checked={checked as boolean} onChange={e => (setter as (value: boolean) => void)(e.target.checked)} />
+        <input type="checkbox" checked={checked as boolean} onChange={e => {(setter as (value: boolean) => void)(e.target.checked);setPassword("");setError("");}} />
         {label as string}
       </label>)}
       <button onClick={generate} style={{ width: "100%", marginTop: 15, padding: 14, border: 0, borderRadius: 9, background: "#14634b", color: "white", fontWeight: 800, fontSize: 15 }}>Generate secure password</button>
@@ -100,5 +100,6 @@ export default function PasswordTool() {
     <h2 style={{ marginTop: 30 }}>How to create a strong password</h2>
     <p style={{ color: "#75847c", lineHeight: 1.7 }}>Choose a longer password and use a mix of character types. Use a different password for every important account and store it in a trusted password manager. PicToSpec does not save the generated password.</p>
     <p style={{ fontSize: 12, color: "#75847c" }}>Security note: This tool uses your browser's cryptographic random number generator and unbiased character selection. Never share your passwords with anyone.</p>
+    <section className="tool-content"><h2>How to make a safer password</h2><p>Use a long, unique password for each account. A password manager can help you store different passwords without reusing them. This generator does not save or transmit the generated password.</p><h3>Frequently asked questions</h3><details><summary>Is a longer password safer?</summary><p>Length is an important factor. A longer randomly generated password generally has more possible combinations than a short one.</p></details><details><summary>Is Base64 or password generation the same as encryption?</summary><p>No. This tool creates a random password; it does not encrypt or store your account data. Keep the generated password private and use a trusted password manager.</p></details></section>
   </main>;
 }
