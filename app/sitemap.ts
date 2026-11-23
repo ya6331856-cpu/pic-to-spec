@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base + "/image-resizer", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/image-cropper", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/image-converter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
-    { url: base + "/image-cutter", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/gst-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/emi-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
     { url: base + "/percentage-calculator", lastModified: new Date("2026-11-23"), changeFrequency: "monthly", priority: 0.8 },
