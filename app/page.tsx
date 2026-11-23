@@ -92,6 +92,7 @@ export default function Home() {
       </div></div>
     </section>
     <section className="how" id="how"><h2>How it works</h2><div><article><b>01</b><h3>Choose your image</h3><p>Select a photo or signature from your device.</p></article><article><b>02</b><h3>Set your requirements</h3><p>Choose the file size, dimensions or format you need.</p></article><article><b>03</b><h3>Download instantly</h3><p>Your processed image is ready on your device.</p></article></div></section>
+    <section className="guides"><p className="eyebrow">HELPFUL HOW-TO GUIDES</p><h2>Find the right image settings</h2><div><a href="/compress-image-to-50kb"><b>Compress image to 50KB or 100KB</b><span>Learn how to meet a file-size limit.</span></a><a href="/resize-photo-for-online-form"><b>Resize photo for an online form</b><span>Set the exact pixel width and height.</span></a><a href="/signature-resizer"><b>Resize a signature image</b><span>Prepare a readable signature upload.</span></a><a href="/jpg-to-webp"><b>Convert JPG to WebP</b><span>Understand format conversion and compatibility.</span></a></div></section>
     <footer><a className="brand" href="/"> <span className="mark">P</span>pictospec</a><span>Simple image tools. Private by design.</span><a href="/privacy">Privacy Policy</a></footer>
   </main>;
 }
