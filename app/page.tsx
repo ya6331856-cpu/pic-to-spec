@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ToolSearch from "@/components/ToolSearch";
 
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
@@ -87,7 +88,7 @@ export default function Home() {
 
   return <main>
     <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
-    <section className="hero"><div className="eyebrow">FREE ONLINE IMAGE TOOLS</div><h1>What do you need<br/><em>to do with your image?</em></h1><p>Choose a tool. Upload your image. Download the result.</p></section>
+    <section className="hero"><div className="eyebrow">FREE ONLINE TOOLS · PRIVATE BY DESIGN</div><h1>Get everyday tasks<br/><em>done in seconds.</em></h1><p>Simple, fast tools for images, PDFs, text and calculations. No account needed.</p><ToolSearch /><div className="hero-proof"><span>✓ Free to use</span><span>✓ Works in your browser</span><span>✓ No sign-up</span></div></section>
     <section className="quick-start" aria-label="Image tools">
       <div className="quick-grid">
         <a href="/image-compressor" className="tool-card"><span>↘</span><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
@@ -96,20 +97,40 @@ export default function Home() {
         <a href="/image-converter" className="tool-card"><span>⇄</span><b>Image Converter</b><small>Convert JPG, PNG and WebP</small><strong>OPEN TOOL →</strong></a>
       </div>
     </section>
-    <section className="quick-start" aria-label="Popular calculators"><h2>Popular free calculators</h2><div className="quick-grid">{[["GST Calculator","Calculate GST and total price","/gst-calculator"],["EMI Calculator","Estimate monthly loan EMI","/emi-calculator"],["Percentage Calculator","Work out percentages quickly","/percentage-calculator"],["Discount Calculator","Find sale price and savings","/discount-calculator"],["Age Calculator","Calculate age from date of birth","/age-calculator"]].map(([name,desc,url])=><a className="tool-card" href={url} key={url}><span>＋</span><b>{name}</b><small>{desc}</small><strong>OPEN TOOL →</strong></a>)}</div></section>
-
-    <section className="quick-start" aria-label="More free tools">
-      <h2>More free online tools</h2>
-      <div className="quick-grid">
-        <a className="tool-card" href="/gst-calculator"><b>GST Calculator</b><small>Calculate GST amount and total</small><strong>OPEN TOOL →</strong></a>
+    <section className="tool-directory" aria-label="All free online tools">
+      <div className="directory-heading"><div><span className="eyebrow">THE TOOLBOX</span><h2>Find the right tool for the job</h2><p>Choose a category or open any tool directly.</p></div></div>
+      <div className="directory-category"><h3>Image tools</h3><div className="quick-grid">
+        <a className="tool-card" href="/image-compressor"><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/image-resizer"><b>Image Resizer</b><small>Set exact image dimensions</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/image-cropper"><b>Image Cropper</b><small>Crop images by pixel size</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/image-converter"><b>Image Converter</b><small>Convert JPG, PNG and WebP</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/compress-image-to-50kb"><b>Compress to 50KB</b><small>Meet online form file limits</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/resize-photo-for-online-form"><b>Online Form Photo</b><small>Prepare application photos</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/signature-resizer"><b>Signature Resizer</b><small>Resize signature images</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/jpg-to-webp"><b>JPG to WebP</b><small>Convert images to WebP</small><strong>OPEN TOOL →</strong></a>
+      </div></div>
+      <div className="directory-category"><h3>PDF tools</h3><div className="quick-grid">
+        <a className="tool-card" href="/pdf-merger"><b>Merge PDF</b><small>Combine PDF documents</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/pdf-splitter"><b>Split PDF</b><small>Extract selected pages</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/jpg-to-pdf"><b>JPG to PDF</b><small>Convert images into PDF</small><strong>OPEN TOOL →</strong></a>
+      </div></div>
+      <div className="directory-category"><h3>Calculators</h3><div className="quick-grid">
+        <a className="tool-card" href="/gst-calculator"><b>GST Calculator</b><small>Calculate tax and total price</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/emi-calculator"><b>EMI Calculator</b><small>Estimate monthly loan EMI</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/percentage-calculator"><b>Percentage Calculator</b><small>Calculate percentages</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/discount-calculator"><b>Discount Calculator</b><small>Find sale price and savings</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/age-calculator"><b>Age Calculator</b><small>Calculate age from birth date</small><strong>OPEN TOOL →</strong></a>
+      </div></div>
+      <div className="directory-category"><h3>Text and developer tools</h3><div className="quick-grid">
         <a className="tool-card" href="/word-counter"><b>Word Counter</b><small>Count words and characters</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/case-converter"><b>Case Converter</b><small>Change text letter case</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-formatter"><b>JSON Formatter</b><small>Format and validate JSON</small><strong>OPEN TOOL →</strong></a>
-        <a className="tool-card" href="/qr-code-generator"><b>QR Code Generator</b><small>Create QR codes for links and text</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
+      </div></div>
+      <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
         <a className="tool-card" href="/password-generator"><b>Password Generator</b><small>Create random strong passwords</small><strong>OPEN TOOL →</strong></a>
-        <a className="tool-card" href="/case-converter"><b>Case Converter</b><small>Change text case instantly</small><strong>OPEN TOOL →</strong></a>
-        <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Converter</b><small>Encode and decode text</small><strong>OPEN TOOL →</strong></a>
-      </div>
+        <a className="tool-card" href="/qr-code-generator"><b>QR Code Generator</b><small>Create QR codes for text and links</small><strong>OPEN TOOL →</strong></a>
+      </div></div>
     </section>
     <section className="workspace" id="tools"><div className="workspace-head"><div><small id="tool-name">IMAGE TOOL</small><h2>{tool === "compress" ? "Compress image" : tool === "resize" ? "Resize image" : tool === "crop" ? "Crop image" : "Convert image"}</h2></div></div>
       <div className="tabs">{(["compress","resize","crop","convert"] as Tool[]).map(t => <button key={t} className={tool === t ? "active" : ""} onClick={() => {setTool(t);setError("");setResult(null);}}>{t === "compress" ? "Compress" : t === "resize" ? "Resize" : t === "crop" ? "Crop" : "Convert"}</button>)}</div>
