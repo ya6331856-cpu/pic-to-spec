@@ -72,9 +72,18 @@ export default function Home() {
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
         const limit = Math.max(5, Math.min(5000, Number(target) || 100)) * 1024;
-        let lo = 0.05, hi = 0.96; blob = await toBlob(hi);
-        for (let i = 0; i < 16 && blob.size > limit; i++) { const mid = (lo + hi) / 2; const candidate = await toBlob(mid); blob = candidate; if (candidate.size > limit) hi = mid; else lo = mid; }
-        if (blob.size > limit) throw new Error("Target size could not be reached. Try smaller dimensions or a larger KB target.");
+        let lo = 0.05, hi = 0.96;
+        let best: Blob | null = null;
+        const highestQuality = await toBlob(hi);
+        if (highestQuality.size <= limit) best = highestQuality;
+        for (let i = 0; i < 18; i++) {
+          const mid = (lo + hi) / 2;
+          const candidate = await toBlob(mid);
+          if (candidate.size <= limit) { best = candidate; lo = mid; }
+          else { hi = mid; }
+        }
+        if (!best) throw new Error("Target size could not be reached. Try smaller dimensions or a larger KB target.");
+        blob = best;
       } else {
         blob = await toBlob(0.92);
         if (tool === "compress" && blob.size > (Number(target) || 100) * 1024) throw new Error("PNG compression is limited. Try JPG or WebP.");
