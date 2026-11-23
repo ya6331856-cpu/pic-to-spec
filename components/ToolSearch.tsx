@@ -55,12 +55,12 @@ export default function ToolSearch() {
   return <div className="tool-search">
     <div className="tool-search-box">
       <span aria-hidden="true">⌕</span>
-      <input value={query} onChange={e => {setQuery(e.target.value);setActiveIndex(0);setOpen(true);}} onFocus={() => setOpen(true)} onKeyDown={handleKeyDown} aria-expanded={open} aria-controls="tool-search-results" aria-autocomplete="list" placeholder="Search tools… try “50kb”, “GST”, “merge PDF”" aria-label="Search all tools" />
+      <input value={query} onChange={e => {setQuery(e.target.value);setActiveIndex(0);setOpen(true);}} onFocus={() => setOpen(true)} onKeyDown={handleKeyDown} aria-expanded={open} aria-controls="tool-search-results" aria-activedescendant={open && matches[activeIndex] ? `tool-option-${activeIndex}` : undefined} aria-autocomplete="list" placeholder="Search tools… try “50kb”, “GST”, “merge PDF”" aria-label="Search all tools" />
       {query && <button type="button" onClick={() => {setQuery("");setActiveIndex(0);setOpen(true);}} aria-label="Clear search">×</button>}
       <kbd>↵</kbd>
     </div>
     {open && <div className="tool-search-results" id="tool-search-results" role="listbox" aria-label="Tool search results">
-      {matches.length ? matches.map((tool,index)=><a key={tool.href} role="option" aria-selected={index===activeIndex} className={index===activeIndex?"active":""} onMouseEnter={()=>setActiveIndex(index)} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p>No matching tool found. Try a shorter search.</p>}
+      {matches.length ? matches.map((tool,index)=><a key={tool.href} id={`tool-option-${index}`} role="option" aria-selected={index===activeIndex} className={index===activeIndex?"active":""} onMouseEnter={()=>setActiveIndex(index)} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p>No matching tool found. Try a shorter search.</p>}
       <button className="search-dismiss" type="button" onClick={()=>setOpen(false)}>Close results</button>
     </div>}
   </div>;
