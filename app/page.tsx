@@ -127,6 +127,9 @@ export default function Home() {
         <a className="tool-card" href="/case-converter"><b>Case Converter</b><small>Change text letter case</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-formatter"><b>JSON Formatter</b><small>Format and validate JSON</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/url-encoder-decoder"><b>URL Encoder / Decoder</b><small>Encode and decode URL characters</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/csv-json-converter"><b>CSV to JSON Converter</b><small>Convert CSV and JSON data</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/uuid-generator"><b>UUID Generator</b><small>Create random unique identifiers</small><strong>OPEN TOOL →</strong></a>
       </div></div>
       <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
         <a className="tool-card" href="/password-generator"><b>Password Generator</b><small>Create random strong passwords</small><strong>OPEN TOOL →</strong></a>
