@@ -103,7 +103,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .search-dismiss{width:100%;border:0;background:#f8faf8;padding:10px;color:#708077;font-size:11px;cursor:pointer}
 .hero-proof{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:22px;color:#5d7967;font-size:11px;font-weight:600}
 .tool-directory{max-width:1120px;margin:0 auto 90px;padding:0 24px}
-.directory-heading{display:flex;justify-content:space-between;align-items:end;margin:0 0 30px}
+.directory-heading{display:flex;justify-content:space-between;align-items:flex-end;margin:0 0 30px}
 .directory-heading h2{font:800 clamp(26px,4vw,38px) Inter,sans-serif;letter-spacing:-1.2px;margin:10px 0}
 .directory-heading p{margin:0;color:var(--muted);font-size:13px}
 .directory-category{margin:34px 0}
