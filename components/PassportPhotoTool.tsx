@@ -19,7 +19,7 @@ export default function PassportPhotoTool() {
     if(!file){setError("Choose a photo first.");return;}
     const w=Number(width),h=Number(height),n=Number(copies);
     if(!Number.isInteger(w)||!Number.isInteger(h)||w<50||h<50||w>2000||h>2000){setError("Enter dimensions from 50 to 2000 pixels.");return;}
-    if(!Number.isInteger(n)||n<1||n>40){setError("Choose 1 to 40 copies.");return;}
+    if(!Number.isInteger(n)||n<1||n>(paper==="4x6"?12:24)){setError(paper==="4x6"?"Choose 1 to 12 copies for a 4×6 sheet.":"Choose 1 to 24 copies for an A4 sheet.");return;}
     setBusy(true);setError("");setStatus("");
     const url=URL.createObjectURL(file);
     try{
@@ -32,7 +32,7 @@ export default function PassportPhotoTool() {
       pc.drawImage(img,(img.naturalWidth-sw)/2,(img.naturalHeight-sh)/2,sw,sh,0,0,w,h);
       const sheet=document.createElement("canvas");
       const cols=paper==="4x6"?2:3,rows=Math.ceil(n/cols),gap=24,margin=32;
-      const cellW=paper==="4x6"?600:794,cellH=paper==="4x6"?900:1123;
+      const cellW=paper==="4x6"?1200:2480,cellH=paper==="4x6"?1800:3508;
       const slotW=(cellW-margin*2-gap*(cols-1))/cols,slotH=(cellH-margin*2-gap*(rows-1))/rows;
       const fit=Math.min(slotW/w,slotH/h),drawW=w*fit,drawH=h*fit;
       sheet.width=cellW;sheet.height=Math.max(cellH,margin*2+rows*slotH+gap*(rows-1));
@@ -59,7 +59,7 @@ export default function PassportPhotoTool() {
       {previewUrl&&<><img src={previewUrl} alt="Generated passport photo print sheet preview" style={{display:"block",maxWidth:"100%",height:"auto",marginTop:18,border:"1px solid #ddd"}}/><button className="primary" onClick={download} style={{marginTop:12}}>Download print sheet</button></>}
     </section>
     <h2>How to use the passport photo maker</h2><ol><li>Choose a clear, front-facing image.</li><li>Select the exact dimensions required by the authority or application.</li><li>Choose the number of copies and print-sheet layout.</li><li>Download and inspect the sheet before printing.</li></ol>
-    <h2>Important print tips</h2><p>Use high-quality photo paper and select actual size or 100% scale in the printer dialog. Disable fit-to-page scaling if exact physical dimensions matter. The crop is centre-based; adjust the source image beforehand if the face is not centred.</p>
+    <h2>Important print tips</h2><p>The generated sheet is 300 pixels per inch at the selected physical page size. Use high-quality photo paper and select actual size or 100% scale in the printer dialog. Disable fit-to-page scaling if exact physical dimensions matter. The crop is centre-based; adjust the source image beforehand if the face is not centred.</p>
     <h2>Frequently asked questions</h2><div className="faq"><h3>Does this tool remove the background?</h3><p>No. It fills the output with the selected background colour but does not accurately separate a person from the original background.</p></div><div className="faq"><h3>Are these official passport dimensions?</h3><p>The presets are examples only. Requirements differ by issuing authority, country and application. Enter the dimensions from the official instructions.</p></div>
   </main>;
 }
