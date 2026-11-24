@@ -6,6 +6,7 @@ const tools = [
   "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
   "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter",
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
+  "/sip-calculator", "/fd-rd-calculator", "/profit-margin-calculator", "/freelance-hourly-rate-calculator", "/simple-compound-interest-calculator",
   "/word-counter", "/text-compare", "/html-entity-encoder-decoder", "/unix-timestamp-converter", "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter", "/duplicate-line-remover", "/text-line-reverser", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
   "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-cleaner",
 "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/csv-cleaner",
@@ -23,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // actual content-update timestamp is available.
   return [
     { url: base },
-    ...tools.map((path) => ({ url: base + path })),
+    ...[...new Set(tools)].map((path) => ({ url: base + path })),
     { url: base + "/about" },
     { url: base + "/privacy" },
     { url: base + "/terms" }
