@@ -789,3 +789,28 @@ footer .mark{width:32px!important;height:32px!important}
 @media(max-width:600px){
   .mark{width:32px!important;height:32px!important}
 }
+
+
+/* Keep homepage shortcut cards consistent with the Midnight / Emerald theme */
+.quick-start .tool-card{
+  background:linear-gradient(145deg,#102b38,#0b202c);
+  border-color:#214552;
+  color:#eaf5f3;
+  box-shadow:0 10px 28px #0003;
+}
+.quick-start .tool-card>span{
+  background:linear-gradient(135deg,#123f43,#164c56);
+  color:#69edc4;
+}
+.quick-start .tool-card b{color:#effaf8}
+.quick-start .tool-card small{color:#a6c0c2}
+.quick-start .tool-card strong{color:#58e9bd}
+.quick-start .tool-card:hover,
+.quick-start .tool-card:focus-visible{
+  background:linear-gradient(145deg,#143b42,#102838);
+  border-color:#36b99f;
+  box-shadow:0 14px 32px #00d9ae1b;
+}
+@media(max-width:520px){
+  .quick-start .tool-card{min-height:142px;padding:14px 12px 38px}
+}
