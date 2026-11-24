@@ -189,6 +189,7 @@ export default function Home() {
       </div></div>
       <div className="directory-category"><h3>Text and developer tools</h3><div className="quick-grid">
         <a className="tool-card" href="/word-counter"><b>Word Counter</b><small>Count words and characters</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/typing-speed-test"><b>Typing Speed Test</b><small>Measure WPM, accuracy and typing errors</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/text-compare"><b>Text Compare</b><small>Find added and removed lines</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/html-entity-encoder-decoder"><b>HTML Entity Encoder / Decoder</b><small>Encode or decode special HTML characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/unix-timestamp-converter"><b>Unix Timestamp Converter</b><small>Convert timestamps to readable UTC dates</small><strong>OPEN TOOL →</strong></a>
