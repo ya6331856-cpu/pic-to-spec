@@ -865,3 +865,59 @@ footer .mark{width:32px!important;height:32px!important}
 .hero-mascot-note{background:linear-gradient(145deg,#10333b,#0a202c);border-color:#28605d;box-shadow:0 8px 24px #0005}
 .hero-mascot-note strong{color:#72f0c5}
 .hero-mascot-note span{color:#bfd2d2}
+
+
+/* Readability correction: keep every surface and its text on matching contrast levels. */
+:root{color-scheme:dark}
+.tool-search-box{background:#0b202c!important;border-color:#28505a!important}
+.tool-search-box input{color:#f0faf8!important}
+.tool-search-box input::placeholder{color:#9ab5ba!important;opacity:1}
+.tool-search-box kbd{border-color:#31515a;color:#b1c8ca;background:#102b36}
+.tool-search-results{background:#0b202c!important;border-color:#28505a!important}
+.tool-search-results>a{background:#0b202c;color:#effaf8!important;border-color:#1d3d48}
+.tool-search-results>a:hover,.tool-search-results>a.active{background:#123840!important}
+.tool-search-results small,.tool-search-results>p{color:#b1c8ca!important}
+.search-dismiss{background:#102b36;color:#c2d7d8}
+.directory-heading{background:radial-gradient(circle at 90% 10%,#0e514d 0,transparent 34%),linear-gradient(120deg,#102b3a,#0c2734 60%,#102b32)!important;border-color:#24505a}
+.directory-heading .eyebrow{color:#75efc9}
+.directory-heading h2{color:#f1fbf8!important}
+.directory-heading p{color:#c0d4d5!important}
+.tool-directory{background:linear-gradient(135deg,#071923 0%,#0b202c 55%,#0c252e 100%)!important}
+.tool-content{background:linear-gradient(145deg,#0d2633,#091c29)!important;border-color:#214653!important;color:#eaf5f3!important}
+.tool-content h2,.tool-content h3{color:#f0faf8!important}
+.tool-content>p,.tool-content li{color:#c0d3d5!important}
+.tool-content details{background:#0a202c!important;border-color:#28505a!important}
+.tool-content summary{color:#eaf8f4!important}
+.tool-content details p{color:#bfd2d4!important}
+.seo-page{background:linear-gradient(145deg,#0d2633,#091c29)!important;border-color:#214653!important;color:#eaf5f3!important}
+.seo-page h1,.seo-page h2,.seo-page h3,.seo-page .faq h3{color:#f1fbf8!important}
+.seo-page p,.seo-page li,.seo-page .lead{color:#c0d3d5!important}
+.seo-page .kicker{background:#123c3b!important;color:#83f1cf!important}
+.seo-page .workspace{background:linear-gradient(145deg,#102b38,#0a202c)!important;border-color:#28505a!important}
+.seo-page .workspace label{color:#e4f1ef!important}
+.seo-page .workspace input:not([type=checkbox]):not([type=radio]):not([type=file]),
+.seo-page .workspace select,.seo-page .workspace textarea{background:#071b27!important;color:#f0faf8!important;border-color:#31515c!important}
+.seo-page .workspace input::placeholder,.seo-page .workspace textarea::placeholder{color:#9ab5ba!important;opacity:1}
+.seo-page .note{background:#12333b!important;border:1px solid #28545b;color:#d2e6e4!important}
+.seo-page .result{background:linear-gradient(135deg,#103b35,#10313e)!important;border-color:#28665a!important;color:#e4f7f0!important}
+.seo-page .result p{color:#c4dcd7!important}
+.seo-page .faq{border-color:#28505a!important}
+.seo-page .faq h3{color:#e8f6f2!important}
+.seo-page .faq p{color:#bfd2d4!important}
+.seo-page .guides a{background:#102b38!important;border-color:#28505a!important;color:#d9efeb!important}
+.seo-page .guides a:hover{background:#143b42!important}
+.seo-page .quick-grid button{background:#102b38!important;border-color:#28505a!important;color:#eaf5f3!important}
+.hero-copy .hero-proof{color:#c5d9d9!important}
+.hero-proof span{color:#d0e4e3!important}
+.hero-mascot-note{background:linear-gradient(145deg,#10333b,#0a202c)!important;border-color:#28605d!important}
+.hero-mascot-note strong{color:#72f0c5!important}
+.hero-mascot-note span{color:#bfd2d2!important}
+.privacy-compact{display:inline-flex;align-items:center;gap:7px;margin-top:10px;color:#b9d1d2;font-size:11px;line-height:1.5}
+.tool-note-details{margin:12px 0;padding:10px 13px;border:1px solid #28505a;border-radius:11px;background:#0c2732;color:#c5d9d9}
+.tool-note-details summary{color:#c7e4df;font-size:12px;font-weight:700;cursor:pointer}
+.tool-note-details p{margin:8px 0 2px;color:#b6cdcf;font-size:12px;line-height:1.7}
+.tool-note-details a{color:#71edc8}
+@media(max-width:640px){
+ .seo-page .lead{font-size:14px;line-height:1.7}
+ .tool-note-details{padding:9px 11px}
+}
