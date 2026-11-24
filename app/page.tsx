@@ -37,7 +37,14 @@ export default function Home() {
   const [format, setFormat] = useState<Format>("image/jpeg");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);\n  const resultRef = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (!result) return;\n    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;\n    requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" }));\n  }, [result]);
+  const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!result) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" }));
+  }, [result]);
 
   useEffect(() => { const selected = new URLSearchParams(window.location.search).get("tool"); if (selected === "compress" || selected === "resize" || selected === "convert" || selected === "crop") { setTool(selected); setTimeout(() => document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" }), 100); } }, []);
   useEffect(() => () => {
