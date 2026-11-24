@@ -14,7 +14,7 @@ const tools = [
   "/pdf-to-excel", "/background-remover", "/color-converter", "/url-parser",
   "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter",
   "/regex-tester", "/css-gradient-generator", "/json-validator", "/markdown-preview",
-  "/meta-tag-generator", "/robots-txt-generator", "/json-schema-generator", "/json-to-typescript", "/sql-formatter", "/cron-expression-generator", "/javascript-minifier", "/html-minifier", "/css-minifier", "/json-to-yaml-converter", "/yaml-validator", "/xml-to-json-converter", "/sql-to-json-converter", "/json-diff"
+  "/meta-tag-generator", "/robots-txt-generator", "/json-schema-generator", "/json-to-typescript", "/sql-formatter", "/cron-expression-generator", "/javascript-minifier", "/html-minifier", "/css-minifier", "/json-to-yaml-converter", "/yaml-validator", "/xml-to-json-converter", "/sql-to-json-converter", "/json-diff", "/html-to-markdown-converter"
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
