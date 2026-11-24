@@ -9,30 +9,24 @@ function scalar(value:unknown):string {
  return String(value);
 }
 function toYaml(value:unknown,level=0):string {
- const pad=" ".repeat(level);
- if(Array.isArray(value)){
-  if(!value.length)return pad+"[]";
-  return value.map(item=>{
-   if(item!==null&&typeof item==="object"){
-    const nested=toYaml(item,level+2).slice(level+2);
-    return pad+"-\n"+" ".repeat(level+2)+nested.replace(/\n/g,"\n"+" ".repeat(level+2));
-   }
-   return pad+"- "+scalar(item);
-  }).join("\n");
- }
- if(value!==null&&typeof value==="object"){
-  const entries=Object.entries(value as Record<string,unknown>);
-  if(!entries.length)return pad+"{}";
-  return entries.map(([key,item])=>{
-   const k=JSON.stringify(key);
-   if(item!==null&&typeof item==="object"){
-    const nested=toYaml(item,level+2).slice(level+2);
-    return pad+k+":\n"+" ".repeat(level+2)+nested.replace(/\n/g,"\n"+" ".repeat(level+2));
-   }
-   return pad+k+": "+scalar(item);
-  }).join("\n");
- }
- return pad+scalar(value);
+ const emit=(item:unknown,indent:number):string=>{
+  const prefix=" ".repeat(indent);
+  if(Array.isArray(item)){
+   if(item.length===0)return prefix+"[]";
+   return item.map(entry=>entry!==null&&typeof entry==="object"
+    ?prefix+"-\\n"+emit(entry,indent+2)
+    :prefix+"- "+scalar(entry)).join("\\n");
+  }
+  if(item!==null&&typeof item==="object"){
+   const entries=Object.entries(item as Record<string,unknown>);
+   if(entries.length===0)return prefix+"{}";
+   return entries.map(([key,entry])=>entry!==null&&typeof entry==="object"
+    ?prefix+JSON.stringify(key)+":\\n"+emit(entry,indent+2)
+    :prefix+JSON.stringify(key)+": "+scalar(entry)).join("\\n");
+  }
+  return prefix+scalar(item);
+ };
+ return emit(value,level);
 }
 const sample=`{
   "name": "PicToSpec",
