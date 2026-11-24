@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 20
       - run: npm install --onnxruntime-node-install-cuda=skip --onnxruntime-node-install=skip
+      - run: npm test
       - run: npm audit --omit=dev --audit-level=moderate
       - run: npm run typecheck
       - run: npm run build
