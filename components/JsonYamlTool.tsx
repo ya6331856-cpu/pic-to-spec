@@ -1,33 +1,10 @@
 "use client";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import { jsonToYaml } from "@/lib/json-to-yaml.mjs";
 const area={width:"100%",padding:14,border:"1px solid #dce7df",borderRadius:12,fontSize:14,color:"#17251e",background:"#fff",fontFamily:"ui-monospace,SFMono-Regular,Menlo,monospace"} as const;
 const primary={border:0,background:"#14634b",color:"#fff",padding:"11px 16px",borderRadius:9,fontWeight:700,cursor:"pointer"} as const;
-function scalar(value:unknown):string {
- if(typeof value==="string")return JSON.stringify(value);
- if(value===null)return "null";
- return String(value);
-}
-function toYaml(value:unknown,level=0):string {
- const emit=(item:unknown,indent:number):string=>{
-  const prefix=" ".repeat(indent);
-  if(Array.isArray(item)){
-   if(item.length===0)return prefix+"[]";
-   return item.map(entry=>entry!==null&&typeof entry==="object"
-    ?prefix+"-\n"+emit(entry,indent+2)
-    :prefix+"- "+scalar(entry)).join("\n");
-  }
-  if(item!==null&&typeof item==="object"){
-   const entries=Object.entries(item as Record<string,unknown>);
-   if(entries.length===0)return prefix+"{}";
-   return entries.map(([key,entry])=>entry!==null&&typeof entry==="object"
-    ?prefix+JSON.stringify(key)+":\n"+emit(entry,indent+2)
-    :prefix+JSON.stringify(key)+": "+scalar(entry)).join("\n");
-  }
-  return prefix+scalar(item);
- };
- return emit(value,level);
-}
+
 const sample=`{
   "name": "PicToSpec",
   "tools": ["JSON", "CSS", "HTML"],
@@ -36,7 +13,7 @@ const sample=`{
 }`;
 export default function JsonYamlTool(){
  const [source,setSource]=useState(sample);const [copied,setCopied]=useState(false);
- const result=useMemo(()=>{try{return {yaml:toYaml(JSON.parse(source)),error:""};}catch(e){return {yaml:"",error:e instanceof Error?e.message:"Invalid JSON"};}},[source]);
+ const result=useMemo(()=>{try{return {yaml:jsonToYaml(JSON.parse(source)),error:""};}catch(e){return {yaml:"",error:e instanceof Error?e.message:"Invalid JSON"};}},[source]);
  async function copy(){try{await navigator.clipboard.writeText(result.yaml);setCopied(true);window.setTimeout(()=>setCopied(false),1400);}catch{setCopied(false);}}
  function download(){const blob=new Blob([result.yaml],{type:"text/yaml"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="converted.yaml";a.click();URL.revokeObjectURL(url);}
  return <main style={{maxWidth:1000,margin:"36px auto",padding:20,color:"#17251e"}}>
