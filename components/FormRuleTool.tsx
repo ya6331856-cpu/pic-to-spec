@@ -22,7 +22,7 @@ function extractRequirements(text: string): Requirement[] {
     const value = Number(match[2]);
     if (value >= 5 && value <= 5000) target.maxKB = value;
   }
-  const dimensionMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\D{0,40}(\d{2,4})\s*[x×*]\s*(\d{2,4})\s*(px|pixel)?/g));
+  const dimensionMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\\D{0,40}(\\d{2,4})\\s*[x×*]\\s*(\\d{2,4})\\s*(px|pixels?)\\b/g));
   for (const match of dimensionMatches) {
     const kind = /sign/.test(match[1]) ? "signature" : "photo";
     const target = output.find(item => item.kind === kind)!;
@@ -56,16 +56,24 @@ function canvasBlob(file: File, req: Requirement): Promise<Blob> {
         const sw = req.width / scale, sh = req.height / scale;
         const sx = (image.naturalWidth - sw) / 2, sy = (image.naturalHeight - sh) / 2;
         context.drawImage(image, sx, sy, sw, sh, 0, 0, req.width, req.height);
-        let quality = 0.92, blob: Blob | null = null;
-        for (let i = 0; i < 12; i++) {
-          blob = await new Promise<Blob | null>(done => canvas.toBlob(done, req.format, quality));
-          if (blob && blob.size <= req.maxKB * 1024) break;
-          quality *= 0.82;
+        let blob: Blob | null = null;
+        if (req.format === "image/png") {
+          // PNG is lossless; the canvas quality argument is ignored by browsers.
+          blob = await new Promise<Blob | null>(done => canvas.toBlob(done, req.format));
+        } else {
+          let quality = 0.92;
+          for (let i = 0; i < 12; i++) {
+            blob = await new Promise<Blob | null>(done => canvas.toBlob(done, req.format, quality));
+            if (blob && blob.size <= req.maxKB * 1024) break;
+            quality *= 0.82;
+          }
         }
         if (!blob || blob.size > req.maxKB * 1024) throw new Error("Could not reach " + req.maxKB + " KB for " + req.label + ". Try a larger limit or smaller dimensions.");
         resolve(blob);
       } catch (error) { reject(error); }
-      finally { URL.revokeObjectURL(url); }
+      finally {
+        URL.revokeObjectURL(url);
+      }
     };
     image.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Could not open " + file.name + ".")); };
     image.src = url;
