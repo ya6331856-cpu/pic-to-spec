@@ -6,8 +6,7 @@ const canonicalRoutes = [
   "/", "/about", "/privacy", "/terms",
   "/age-calculator", "/ats-resume-checker", "/background-remover",
   "/base64-encoder-decoder", "/case-converter", "/compress-image-to-50kb",
-  "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/discount-calculator"
-"/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/discount-calculator", "/emi-calculator",
+  "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/discount-calculator", "/emi-calculator",
   "/formrule-ai", "/gst-calculator", "/gst-invoice-generator",
   "/hinglish-to-hindi", "/image-compressor", "/image-converter",
   "/image-cropper", "/image-resizer", "/image-to-text", "/jpg-to-pdf",
