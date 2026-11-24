@@ -89,17 +89,19 @@ export default function FormRuleTool() {
     if (!isPdf && !isImage) { setError("Choose a PDF, JPG, PNG or WebP file."); return; }
     if (source.size > 30 * 1024 * 1024) { setError("Choose a source document smaller than 30 MB."); return; }
     setBusy(true); setError(""); setStatus("");
+    let pdf: any = null;
     try {
       let text = "";
       if (source.type === "application/pdf" || source.name.toLowerCase().endsWith(".pdf")) {
         const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
         pdfjs.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" + pdfjs.version + "/pdf.worker.min.mjs";
-        const pdf = await pdfjs.getDocument({ data: await source.arrayBuffer() }).promise;
+        pdf = await pdfjs.getDocument({ data: await source.arrayBuffer() }).promise;
         const pages = Math.min(pdf.numPages, 15);
         for (let i = 1; i <= pages; i++) {
           const page = await pdf.getPage(i);
           const content = await page.getTextContent();
           text += content.items.map((item: any) => "str" in item ? item.str : "").join(" ") + "\n";
+          page.cleanup();
         }
         if (!text.trim()) throw new Error("This PDF has no selectable text. Upload a clear screenshot instead for OCR.");
       } else if (source.type.startsWith("image/")) {
@@ -113,7 +115,7 @@ export default function FormRuleTool() {
       setRequirements(extractRequirements(text));
       setStatus("Text extracted. Review and correct every requirement before preparing files.");
     } catch (e) { setError(e instanceof Error ? e.message : "Could not read this document."); }
-    finally { setBusy(false); }
+    finally { if (pdf) { try { await pdf.cleanup(); } catch {} } setBusy(false); }
   }
 
   async function makePack() {
