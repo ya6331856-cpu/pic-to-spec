@@ -6,6 +6,36 @@ import ToolSearch from "@/components/ToolSearch";
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
 
+const imageGuides: Record<Tool, { title: string; example: string; steps: string[]; tips: string[]; limits: string }> = {
+ compress: {
+  title: "How to compress an image without losing more quality than necessary",
+  example: "A 2 MB JPG can often be reduced for an email attachment or online form by choosing a target such as 200 KB. The result depends on image dimensions, detail, format and the target you choose.",
+  steps: ["Select a JPG, PNG or WebP image up to 20 MB.", "Choose a target size in KB between 5 and 5000.", "Select JPG or WebP when you need lossy size reduction; PNG may not shrink much.", "Prepare the image, inspect the dimensions and file size, then download it."],
+  tips: ["Start with a realistic target; very small files can show visible compression artefacts.", "If the target cannot be reached, resize the image first or choose a larger file-size limit.", "Compare text, edges and faces at normal viewing size before uploading."],
+  limits: "The compressor searches for a JPG or WebP quality setting that fits the selected size. It cannot guarantee a target for every image. PNG compression through the browser canvas is limited and may not reduce file size. Always follow the destination website's exact file-size and format rules."
+ },
+ resize: {
+  title: "How to resize an image to the right pixel dimensions",
+  example: "If a form asks for a maximum size of 600 × 400 pixels, enter those dimensions and keep the aspect ratio enabled to fit the original image inside that box without stretching it.",
+  steps: ["Choose your source image.", "Enter the required width and height in pixels.", "Keep aspect ratio enabled for proportional resizing, or disable it only when exact dimensions are mandatory and distortion is acceptable.", "Prepare the resized image and check its final dimensions before downloading."],
+  tips: ["Pixel dimensions and file size are different requirements; a photo can have correct dimensions but still be too large in KB.", "Use the destination form's instructions rather than assuming a passport or profile preset is an official standard.", "Avoid enlarging a tiny image excessively because resizing cannot restore missing detail."],
+  limits: "With aspect ratio enabled, the image is scaled to fit within the requested width and height; it may not fill both dimensions. Turning the ratio off can stretch the image. The output is limited to 6000 pixels per side and 40 megapixels."
+ },
+ crop: {
+  title: "How to crop an image using pixel coordinates",
+  example: "For a 1200 × 800 pixel image, a crop with Left 100, Top 50, Width 600 and Height 600 keeps a square area beginning 100 pixels from the left and 50 pixels from the top.",
+  steps: ["Choose the image and note its original pixel dimensions.", "Enter the Left and Top coordinates measured from the top-left corner.", "Enter the Width and Height of the area to keep.", "Prepare the crop and inspect the downloaded result."],
+  tips: ["Keep the crop area inside the source image; values outside its edges are rejected.", "Use a square crop for a square avatar only when the destination asks for one.", "Leave enough space around faces, signatures or important text so nothing is cut off."],
+  limits: "This cropper uses numeric pixel coordinates rather than a drag-to-select overlay. Coordinates and dimensions must be whole pixels, the crop must remain inside the source image, and the output cannot exceed 40 megapixels."
+ },
+ convert: {
+  title: "How to convert images between JPG, PNG and WebP",
+  example: "A JPG photograph can be converted to WebP for a modern website, while a transparent PNG should usually remain PNG if preserving transparency is important.",
+  steps: ["Select a JPG, PNG or WebP source image.", "Choose the output format required by your website, app or upload form.", "Prepare the converted image.", "Open the downloaded file and confirm that it displays correctly in the destination application."],
+  tips: ["JPG is widely accepted for photographs but does not preserve transparency.", "PNG supports transparency and is often useful for logos, screenshots and crisp graphics.", "WebP can reduce image size on supported platforms, but check compatibility before using it in older portals."],
+  limits: "Conversion changes the file encoding, not the image's visual content or dimensions. JPG output uses a solid background for transparent areas. Re-encoding a lossy format can reduce quality, and a new format is not guaranteed to produce a smaller file."
+ }
+};
 const presets = [
   { name: "Passport photo", w: 600, h: 600 },
   { name: "Profile photo", w: 500, h: 500 },
@@ -164,7 +194,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       </div></div>
     </section>
     
-    {!compact && <section className="guides"><a href="/compress-image-to-50kb">Compress to 50KB</a><a href="/resize-photo-for-online-form">Photo size guide</a><a href="/signature-resizer">Signature guide</a><a href="/jpg-to-webp">JPG to WebP guide</a></section>}
+    {compact && !pageTitle && <section className="tool-content" style={{maxWidth:900,margin:"30px auto",padding:"0 20px"}}><h2>{imageGuides[initialTool].title}</h2><p>{imageGuides[initialTool].example}</p><h3>Step-by-step instructions</h3><ol>{imageGuides[initialTool].steps.map(step=><li key={step}>{step}</li>)}</ol><h3>Practical tips</h3><ul>{imageGuides[initialTool].tips.map(tip=><li key={tip}>{tip}</li>)}</ul><h3>Formats, limits and important details</h3><p>{imageGuides[initialTool].limits}</p><h3>Frequently asked questions</h3><details><summary>Are my images uploaded to a server?</summary><p>No. Image processing is performed in your browser in this version. Your selected image is not sent to a PicToSpec image-processing server.</p></details><details><summary>Which image formats are supported?</summary><p>You can use JPG, PNG and WebP images. Choose an output format that is accepted by the website or app where you plan to use the result.</p></details><details><summary>Why might the output not meet my exact target?</summary><p>Image dimensions, visual detail, transparency and the selected format affect the result. Check the destination requirements and adjust the dimensions, format or target size if needed.</p></details></section>}\n    {!compact && <section className="guides"><a href="/compress-image-to-50kb">Compress to 50KB</a><a href="/resize-photo-for-online-form">Photo size guide</a><a href="/signature-resizer">Signature guide</a><a href="/jpg-to-webp">JPG to WebP guide</a></section>}
     {!compact && <footer><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><span>Images stay on your device.</span><a href="/privacy">Privacy</a></footer>}
   </main>;
 }
