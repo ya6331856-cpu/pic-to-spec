@@ -32,7 +32,8 @@ const tools = [
   { name: "FormRule AI", href: "/formrule-ai", detail: "Read form photo and signature requirements and prepare files", aliases: "exam application photo signature size form rule upload pack" },
   { name: "Passport Photo Maker", href: "/passport-photo-maker", detail: "Create passport-style photo sheets with multiple copies", aliases: "passport visa photo print 4x6 a4 photo maker" },
   { name: "PDF Page Organizer", href: "/pdf-organizer", detail: "Reorder, remove and rotate PDF pages", aliases: "pdf organize reorder delete rotate pages" },
-  { name: "Image to Text OCR", href: "/image-to-text", detail: "Extract editable English text from images", aliases: "ocr image text extract photo screenshot scan" }
+  { name: "Image to Text OCR", href: "/image-to-text", detail: "Extract editable English text from images", aliases: "ocr image text extract photo screenshot scan" },
+  { name: "ATS Resume Checker", href: "/ats-resume-checker", detail: "Review resume structure and job keyword overlap", aliases: "resume cv ats job application checker score" }
 ];
 
 export default function ToolSearch() {
