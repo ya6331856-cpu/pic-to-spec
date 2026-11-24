@@ -42,16 +42,18 @@ export default function PDFToWordTool() {
       setError("Please choose a PDF smaller than 50 MB."); return;
     }
     setBusy(true);
+    let pdf: any = null;
     try {
       const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
       pdfjs.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" + pdfjs.version + "/pdf.worker.min.mjs";
-      const pdf = await pdfjs.getDocument({ data: await next.arrayBuffer() }).promise;
+      pdf = await pdfjs.getDocument({ data: await next.arrayBuffer() }).promise;
+      if (pdf.numPages < 1) throw new Error("This PDF does not contain any pages.");
       if (pdf.numPages > MAX_PAGES) throw new Error("This tool supports up to 100 pages per conversion.");
       setFile(next); setPageCount(pdf.numPages); setLastPage(String(pdf.numPages));
       setStatus(pdf.numPages + " pages detected. Choose a page range or convert the whole document.");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not read this PDF. It may be encrypted or damaged.");
-    } finally { setBusy(false); }
+    } finally { if (pdf) { try { await pdf.cleanup(); } catch {} } setBusy(false); }
   }
 
   async function convert() {
