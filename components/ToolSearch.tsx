@@ -42,6 +42,8 @@ const tools = [
   { name: "XML Formatter", href: "/xml-formatter", detail: "Validate and indent XML markup", aliases: "xml beautifier pretty print validator" },
   { name: "CSS Formatter", href: "/css-formatter", detail: "Beautify CSS with consistent indentation", aliases: "css beautifier pretty print style sheet" },
   { name: "HTML Formatter", href: "/html-formatter", detail: "Format HTML markup with indentation", aliases: "html beautifier pretty print markup" },
+  { name: "Regex Tester", href: "/regex-tester", detail: "Test regular expressions and preview replacements", aliases: "regex regexp regular expression pattern match capture groups tester" },
+  { name: "CSS Gradient Generator", href: "/css-gradient-generator", detail: "Create linear and radial CSS gradients", aliases: "gradient background linear radial color stops css design" },
   { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "uuid guid unique id random identifier" },
   { name: "FormRule AI", href: "/formrule-ai", detail: "Read form photo and signature requirements and prepare files", aliases: "exam application photo signature size form rule upload pack" },
   { name: "Passport Photo Maker", href: "/passport-photo-maker", detail: "Create passport-style photo sheets with multiple copies", aliases: "passport visa photo print 4x6 a4 photo maker" },
