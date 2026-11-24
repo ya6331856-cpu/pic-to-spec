@@ -10,7 +10,7 @@ const presets = [
 export default function PassportPhotoTool() {
   const [file,setFile]=useState<File|null>(null);
   const [width,setWidth]=useState("413"),[height,setHeight]=useState("531");
-  const [copies,setCopies]=useState("8"),[paper,setPaper]=useState("4x6");
+  const [copies,setCopies]=useState("6"),[paper,setPaper]=useState("4x6");
   const [background,setBackground]=useState("#ffffff"),[status,setStatus]=useState(""),[error,setError]=useState("");
   const [busy,setBusy]=useState(false);
   const [previewUrl,setPreviewUrl]=useState("");
