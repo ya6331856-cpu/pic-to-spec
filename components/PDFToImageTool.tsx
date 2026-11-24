@@ -84,24 +84,27 @@ export default function PDFToImageTool() {
       for (let pageNumber = first; pageNumber <= last; pageNumber++) {
         setStatus("Converting page " + pageNumber + " of " + last + "…");
         const page = await pdf.getPage(pageNumber);
-        const base = page.getViewport({scale: 1});
-        const scale = Math.min(2, Math.sqrt(MAX_PIXELS / (base.width * base.height)));
-        const viewport = page.getViewport({scale});
         const canvas = document.createElement("canvas");
-        canvas.width = Math.max(1, Math.floor(viewport.width));
-        canvas.height = Math.max(1, Math.floor(viewport.height));
-        const context = canvas.getContext("2d", {alpha: format === "image/png"});
-        if (!context) throw new Error("Your browser could not create an image canvas.");
-        await page.render({canvas, canvasContext: context, viewport}).promise;
-        const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob(
-          value => value ? resolve(value) : reject(new Error("Could not export page " + pageNumber + " as an image.")),
-          format,
-          format === "image/jpeg" ? 0.92 : undefined
-        ));
-        const name = prefix + "-page-" + String(pageNumber).padStart(3, "0") + "." + extension;
-        imageFiles.push({name, blob});
-        canvas.width = 0; canvas.height = 0;
-        page.cleanup();
+        try {
+          const base = page.getViewport({scale: 1});
+          const scale = Math.min(2, Math.sqrt(MAX_PIXELS / (base.width * base.height)));
+          const viewport = page.getViewport({scale});
+          canvas.width = Math.max(1, Math.floor(viewport.width));
+          canvas.height = Math.max(1, Math.floor(viewport.height));
+          const context = canvas.getContext("2d", {alpha: format === "image/png"});
+          if (!context) throw new Error("Your browser could not create an image canvas.");
+          await page.render({canvas, canvasContext: context, viewport}).promise;
+          const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob(
+            value => value ? resolve(value) : reject(new Error("Could not export page " + pageNumber + " as an image.")),
+            format,
+            format === "image/jpeg" ? 0.92 : undefined
+          ));
+          const name = prefix + "-page-" + String(pageNumber).padStart(3, "0") + "." + extension;
+          imageFiles.push({name, blob});
+        } finally {
+          canvas.width = 0; canvas.height = 0;
+          page.cleanup();
+        }
       }
       let output: Blob;
       let outputName: string;
@@ -120,7 +123,8 @@ export default function PDFToImageTool() {
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not convert this PDF. Try another file.");
     } finally {
-      // Always release the UI lock, including when PDF.js fails before opening the document.
+      // Release PDF.js resources and the UI lock even if a page render or ZIP export fails.
+      if (pdf) { try { await pdf.cleanup(); } catch {} }
       setBusy(false);
     }
   }
