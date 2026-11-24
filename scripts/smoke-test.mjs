@@ -15,7 +15,7 @@ const canonicalRoutes = [
   "/pdf-to-excel", "/pdf-to-jpg", "/pdf-to-word", "/percentage-calculator",
   "/qr-code-generator", "/html-entity-encoder-decoder", "/unix-timestamp-converter",
   "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter",
-  "/duplicate-line-remover", "/text-line-reverser", "/resize-photo-for-online-form",
+  "/duplicate-line-remover", "/text-line-reverser", "/color-converter", "/url-parser", "/resize-photo-for-online-form",
   "/signature-resizer", "/unit-converter", "/url-encoder-decoder",
   "/uuid-generator", "/word-counter", "/text-compare", "/csv-cleaner"
 ];
