@@ -6,7 +6,7 @@ const tools = [
   "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
   "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter",
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
-  "/word-counter", "/text-compare", "/html-entity-encoder-decoder", "/unix-timestamp-converter", "/url-slug-generator", "/lorem-ipsum-generator", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
+  "/word-counter", "/text-compare", "/html-entity-encoder-decoder", "/unix-timestamp-converter", "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter", "/duplicate-line-remover", "/text-line-reverser", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
   "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter", "/csv-cleaner",
   "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/image-to-text", "/ats-resume-checker",
   "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer",
