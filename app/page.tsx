@@ -23,6 +23,7 @@ export default function Home() {
   const resultUrlRef = useRef("");
   const imageProbeIdRef = useRef(0);
   const processingIdRef = useRef(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>("compress");
@@ -133,7 +134,7 @@ export default function Home() {
   }
 
   return <main>
-    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><nav><a href="/image-compressor">Compressor</a><a href="/image-resizer">Resizer</a><a href="/image-cropper">Cropper</a><a href="/image-converter">Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a></header>
+    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><nav id="primary-navigation" className={mobileMenuOpen ? "is-open" : ""}><a href="/image-compressor" onClick={() => setMobileMenuOpen(false)}>Compressor</a><a href="/image-resizer" onClick={() => setMobileMenuOpen(false)}>Resizer</a><a href="/image-cropper" onClick={() => setMobileMenuOpen(false)}>Cropper</a><a href="/image-converter" onClick={() => setMobileMenuOpen(false)}>Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a><button className="mobile-nav-toggle" type="button" aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileMenuOpen} aria-controls="primary-navigation" onClick={() => setMobileMenuOpen(open => !open)}><span></span><span></span><span></span></button></header>
     <section className="hero"><div className="eyebrow">FREE ONLINE TOOLS · PRIVATE BY DESIGN</div><h1>Get everyday tasks<br/><em>done in seconds.</em></h1><p>Simple, fast tools for images, PDFs, text and calculations. No account needed.</p><ToolSearch /><div className="hero-proof"><span>✓ Free to use</span><span>✓ Works in your browser</span><span>✓ No sign-up</span></div></section>
     <section className="quick-start" aria-label="Image tools">
       <div className="quick-grid">
