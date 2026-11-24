@@ -11,6 +11,26 @@ const copy: Record<Kind,{title:string;description:string}> = {
 };
 const MAX_OUTPUT_PAGES = 500;
 const MAX_IMAGE_PIXELS = 40000000;
+const guides:Record<Kind,{intro:string;useCases:string[];tips:string[];limits:string[]}> = {
+ merge:{
+  intro:"A PDF merger combines separate PDF documents into one file. This is useful when forms, scanned pages, invoices or reports have been saved as separate documents but need to be shared or stored together. PicToSpec combines files in the order you select them and creates the output in your browser.",
+  useCases:["Combine supporting documents before submitting an application, when the receiving organisation permits a single PDF.","Join separate invoice or receipt PDFs for a monthly record.","Put a cover sheet and report together for easier sharing."],
+  tips:["Select files in the order you want them to appear; check the selected file list before merging.","Use clear file names so you can identify the correct documents.","Open the downloaded PDF and review page order, orientation and readability before sending it.","Keep an original copy of every source document."],
+  limits:["Select at least 2 and no more than 20 PDF files in one operation.","The combined input size is limited to 100 MB and the output is limited to 500 pages.","Some encrypted, damaged or unusually complex PDFs may fail to open in the browser."]
+ },
+ split:{
+  intro:"A PDF splitter extracts a continuous page range from one PDF and saves those pages as a separate document. It is useful when you only need to share selected pages or separate a section from a longer report. Page numbers are counted from 1, and both the first and last page you enter are included.",
+  useCases:["Extract a particular chapter or section from a long report.","Create a smaller copy containing only the pages requested on an application form.","Separate selected pages from a manual or statement for easier reference."],
+  tips:["Open the source PDF first and confirm the page numbers you need.","Enter the first and last page as whole numbers; the first page must not be greater than the last.","After downloading, open the new PDF and confirm that the first and last pages are correct.","Keep the original PDF because splitting creates a new copy and does not alter the source."],
+  limits:["This tool extracts one continuous page range per operation; it does not reorder or delete scattered pages.","The output range is limited to 500 pages per operation.","Encrypted or damaged PDFs may not be supported."]
+ },
+ jpg:{
+  intro:"JPG to PDF conversion places each selected JPG or PNG image on its own A4-sized PDF page. The image is scaled proportionally to fit inside the page area and centred, rather than stretched to fill the page. This is useful for turning photographs or scanned page images into a document that is easier to share or print.",
+  useCases:["Combine photographed pages into one PDF for a digital submission, if the recipient accepts image-based PDFs.","Create a printable PDF from JPG or PNG scans.","Put several related images into one document in the order selected."],
+  tips:["Choose clear, well-lit images and check that all text is readable before converting.","Select images in the order you want the pages to appear.","Use portrait or landscape source images as appropriate; each is fitted within an A4 page.","Review the PDF at normal zoom and print preview before submitting it."],
+  limits:["Only JPG and PNG images are accepted; other formats must be converted first.","Each image becomes a separate A4 page; this tool does not run OCR or make text inside photos searchable.","Images above 40 megapixels are rejected, and the combined input size is limited to 100 MB."]
+ }
+};
 const faqs:Record<Kind,{q:string;a:string}[]> = {
  merge:[{q:"Can I merge more than two PDFs?",a:"Yes. Select up to 20 PDF files. They are combined in the order shown by your file selection."},{q:"Are my PDFs uploaded?",a:"No. This tool processes the selected files in your browser. Large or encrypted PDFs may not be supported."}],
  split:[{q:"Are the first and last pages included?",a:"Yes. The page range is inclusive, so both the first and last page numbers are included in the new PDF."},{q:"Can I split a password-protected PDF?",a:"Encrypted PDFs may fail to open in this browser tool. Use an authorized, unencrypted copy if processing fails."}],
@@ -100,7 +120,7 @@ export default function PDFTool({kind}:{kind:Kind}){
   </section>
   <h2 style={{marginTop:30}}>How to use this tool</h2>
   <ol style={{color:"#66776d",lineHeight:1.9}}>{(kind==="merge"?["Select at least two PDF files.","The files are combined in the order selected.","Download the merged PDF."]:kind==="split"?["Select one PDF file.","Enter the first and last page numbers to extract.","Download the new PDF containing only those pages."]:["Select one or more JPG or PNG images.","Each image is placed on its own A4-sized PDF page.","Download the generated PDF."]).map(x=><li key={x}>{x}</li>)}</ol>
-  <p style={{fontSize:12,color:"#75847c",lineHeight:1.7}}>Files are processed in your browser and are not uploaded to PicToSpec. Very large or encrypted PDFs may fail or require a modern browser. The JPG-to-PDF tool currently supports JPG and PNG images only.</p><section className="tool-content"><h2>About this PDF tool</h2><p>{copy[kind].description} Your selected files stay in this browser session while the PDF is created.</p><h3>Frequently asked questions</h3>{faqs[kind].map(item=><details key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</section>
+  <p style={{fontSize:12,color:"#75847c",lineHeight:1.7}}>Files are processed in your browser and are not uploaded to PicToSpec. Very large or encrypted PDFs may fail or require a modern browser. The JPG-to-PDF tool currently supports JPG and PNG images only.</p><section className="tool-content"><h2>{kind==="merge"?"How to merge PDF files":kind==="split"?"How to split PDF pages":"How to convert JPG or PNG images to PDF"}</h2><p>{guides[kind].intro}</p><h3>Common uses</h3><ul>{guides[kind].useCases.map(item=><li key={item}>{item}</li>)}</ul><h3>Tips for a better result</h3><ul>{guides[kind].tips.map(item=><li key={item}>{item}</li>)}</ul><h3>File limits and compatibility</h3><ul>{guides[kind].limits.map(item=><li key={item}>{item}</li>)}</ul><h3>Privacy and processing</h3><p>Processing happens locally in your browser. Your selected files are not uploaded to a PicToSpec processing server. The browser still needs enough available memory to read and create the PDF, so very large or complex documents may not work on every device. Close other heavy tabs and try a smaller batch if processing fails.</p><h3>Frequently asked questions</h3>{faqs[kind].map(item=><details key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</section>
  </main>;
 }
 const fieldStyle:React.CSSProperties={display:"block",width:"100%",marginTop:7,padding:12,border:"1px solid #dce7df",borderRadius:8,fontSize:16};
