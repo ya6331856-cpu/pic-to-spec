@@ -54,7 +54,6 @@ export default function PDFToImageTool() {
       setPageCount(pdf.numPages);
       setEndPage(String(Math.min(pdf.numPages, 5)));
       setStatus(pdf.numPages + " pages detected. Choose the pages you want to convert.");
-      await pdf.destroy();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not read this PDF. It may be damaged or encrypted.");
     } finally { setBusy(false); }
@@ -120,7 +119,7 @@ export default function PDFToImageTool() {
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not convert this PDF. Try another file.");
     } finally {
-      if (pdf) await pdf.destroy();
+      if (pdf)
       setBusy(false);
     }
   }
