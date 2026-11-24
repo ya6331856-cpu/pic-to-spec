@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 
 const presets = [
@@ -13,7 +13,6 @@ export default function PassportPhotoTool() {
   const [copies,setCopies]=useState("8"),[paper,setPaper]=useState("4x6");
   const [background,setBackground]=useState("#ffffff"),[status,setStatus]=useState(""),[error,setError]=useState("");
   const [busy,setBusy]=useState(false);
-  const previewRef=useRef<HTMLCanvasElement>(null);
   const [previewUrl,setPreviewUrl]=useState("");
   useEffect(()=>()=>{if(previewUrl)URL.revokeObjectURL(previewUrl)},[previewUrl]);
   async function generate(){
@@ -42,7 +41,6 @@ export default function PassportPhotoTool() {
       for(let i=0;i<n;i++){const x=margin+(i%cols)*(slotW+gap)+(slotW-drawW)/2;const y=margin+Math.floor(i/cols)*(slotH+gap)+(slotH-drawH)/2;ctx.drawImage(photo,x,y,drawW,drawH);}
       const blob=await new Promise<Blob>((resolve,reject)=>sheet.toBlob(b=>b?resolve(b):reject(new Error("Could not create the print sheet.")),"image/jpeg",0.94));
       const resultUrl=URL.createObjectURL(blob);setPreviewUrl(old=>{if(old)URL.revokeObjectURL(old);return resultUrl;});
-      if(previewRef.current){previewRef.current.width=sheet.width;previewRef.current.height=sheet.height;previewRef.current.getContext("2d")?.drawImage(sheet,0,0);}
       setStatus("Print sheet ready. Check the crop and print at actual size; this is not an official photo compliance check.");
     }catch(e){setError(e instanceof Error?e.message:"Could not prepare the photo.");}
     finally{URL.revokeObjectURL(url);setBusy(false);}
@@ -58,7 +56,7 @@ export default function PassportPhotoTool() {
       <div className="quick-grid" style={{gridTemplateColumns:"repeat(2,minmax(0,1fr))"}}><label>Width px<input type="number" value={width} onChange={e=>setWidth(e.target.value)}/></label><label>Height px<input type="number" value={height} onChange={e=>setHeight(e.target.value)}/></label><label>Copies<input type="number" min="1" max="40" value={copies} onChange={e=>setCopies(e.target.value)}/></label><label>Sheet<select value={paper} onChange={e=>setPaper(e.target.value)}><option value="4x6">4 × 6 inch-style sheet</option><option value="a4">A4 sheet</option></select></label><label>Background<select value={background} onChange={e=>setBackground(e.target.value)}><option value="#ffffff">White</option><option value="#dbeafe">Light blue</option><option value="#e5e7eb">Light grey</option></select></label></div>
       <button className="primary" disabled={busy} onClick={generate}>{busy?"Preparing…":"Create photo print sheet"}</button>
       {error&&<p className="error" role="alert">{error}</p>}{status&&<p className="result" role="status">{status}</p>}
-      {previewUrl&&<><canvas ref={previewRef} style={{display:"block",maxWidth:"100%",height:"auto",marginTop:18,border:"1px solid #ddd"}}/><button className="primary" onClick={download} style={{marginTop:12}}>Download print sheet</button></>}
+      {previewUrl&&<><img src={previewUrl} alt="Generated passport photo print sheet preview" style={{display:"block",maxWidth:"100%",height:"auto",marginTop:18,border:"1px solid #ddd"}}/><button className="primary" onClick={download} style={{marginTop:12}}>Download print sheet</button></>}
     </section>
     <h2>How to use the passport photo maker</h2><ol><li>Choose a clear, front-facing image.</li><li>Select the exact dimensions required by the authority or application.</li><li>Choose the number of copies and print-sheet layout.</li><li>Download and inspect the sheet before printing.</li></ol>
     <h2>Important print tips</h2><p>Use high-quality photo paper and select actual size or 100% scale in the printer dialog. Disable fit-to-page scaling if exact physical dimensions matter. The crop is centre-based; adjust the source image beforehand if the face is not centred.</p>
