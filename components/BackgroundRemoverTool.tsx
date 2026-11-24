@@ -88,7 +88,7 @@ export default function BackgroundRemoverTool() {
     <p className="kicker">FREE AI BACKGROUND REMOVER</p>
     <h1>Remove Image Background</h1>
     <p className="lead">Remove a photo background and create a transparent PNG in your browser. No account, API key or image upload to a PicToSpec processing server.</p>
-    <p className="note">The first use downloads an AI model. Depending on your device, the model may be about 94 MiB or as large as 452 MiB; your browser may cache it for later use. Processing speed depends on your device and browser. Use a recent browser and keep this tab open while it works.</p>
+    <details className="tool-note-details"><summary>First use downloads an AI model (about 94–452 MB)</summary><p>Your browser may cache the model for later use. Processing speed depends on your device and browser. Use a recent browser and keep this tab open while it works.</p></details>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>1. Choose an image</h2>
       <input type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{chooseFile(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
