@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import JSZip from "jszip";
 
 type OutputFormat = "image/webp" | "image/jpeg" | "image/png";
@@ -48,22 +48,20 @@ export default function BatchImageCompressor() {
   const [zipBusy, setZipBusy] = useState(false);
   const totalSaved = useMemo(() => items.reduce((sum, item) => sum + (item.saved || 0), 0), [items]);
   const completed = items.filter(item => item.status === "done").length;
-  useEffect(() => () => { /* No object URLs are retained between renders. */ }, []);
 
   function addFiles(fileList: FileList | File[]) {
     const incoming = Array.from(fileList);
-    setNotice("");
-    setItems(current => {
-      const next = [...current];
-      for (const file of incoming) {
-        if (next.length >= MAX_FILES) { setNotice("You can add up to 20 images per batch."); break; }
-        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { setNotice(file.name + ": use JPG, PNG or WebP."); continue; }
-        if (file.size > MAX_BYTES) { setNotice(file.name + ": file is larger than 5 MB."); continue; }
-        if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
-        next.push({ id: (typeof crypto !== "undefined" && "randomUUID" in crypto) ? crypto.randomUUID() : file.name + "-" + file.size + "-" + next.length, file, status: "queued" });
-      }
-      return next;
-    });
+    const next = [...items];
+    let message = "";
+    for (const file of incoming) {
+      if (next.length >= MAX_FILES) { message = "You can add up to 20 images per batch."; break; }
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { message = file.name + ": use JPG, PNG or WebP."; continue; }
+      if (file.size > MAX_BYTES) { message = file.name + ": file is larger than 5 MB."; continue; }
+      if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
+      next.push({ id: (typeof crypto !== "undefined" && "randomUUID" in crypto) ? crypto.randomUUID() : file.name + "-" + file.size + "-" + next.length, file, status: "queued" });
+    }
+    setItems(next);
+    setNotice(message);
   }
 
   async function compressAll() {
