@@ -67,7 +67,14 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
   const [format, setFormat] = useState<Format>(initialFormat);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);\n  const resultRef = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (!result) return;\n    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;\n    requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" }));\n  }, [result]);
+  const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!result) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" }));
+  }, [result]);
 
   useEffect(() => () => {
     imageProbeIdRef.current += 1;
