@@ -10,7 +10,7 @@ function splitSql(source:string,separator:","|";"):string[]{
  const out:string[]=[];let start=0,quote="",depth=0;
  for(let i=0;i<source.length;i++){const ch=source[i];
   if(quote){if(ch===quote){if(source[i+1]===quote){i++;continue;}quote="";}else if(ch==="\\"&&quote!=="'")i++;continue;}
-  if(ch==="'"||ch==='"'||ch="`"){quote=ch;continue;}
+  if(ch==="'"||ch==='"'||ch==="`"){quote=ch;continue;}
   if(ch==="(")depth++;else if(ch===")")depth--;
   else if(ch===separator&&depth===0){out.push(source.slice(start,i).trim());start=i+1;}
  }
@@ -42,7 +42,7 @@ function sqlToJson(source:string):string{
   const rowsText=match[3];let groups:string[]=[];let depth=0,quote="",start=-1;
   for(let i=0;i<rowsText.length;i++){const ch=rowsText[i];
    if(quote){if(ch===quote){if(rowsText[i+1]===quote){i++;continue;}quote="";}else if(ch==="\\"&&quote!=="'")i++;continue;}
-   if(ch==="'"||ch==='"'||ch="`"){quote=ch;continue;}
+   if(ch==="'"||ch==='"'||ch==="`"){quote=ch;continue;}
    if(ch==="("){if(depth===0)start=i+1;depth++;}
    else if(ch===")"){depth--;if(depth===0&&start>=0){groups.push(rowsText.slice(start,i));start=-1;}}
    else if(depth===0&&!/[\s,;]/.test(ch))throw new Error("Unexpected text after VALUES rows: "+rowsText.slice(i));
