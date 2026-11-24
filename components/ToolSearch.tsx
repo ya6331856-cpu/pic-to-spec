@@ -33,6 +33,8 @@ const tools = [
   { name: "JSON Formatter", href: "/json-formatter", detail: "Format, validate and minify JSON", aliases: "json beautifier validator minify developer" },
   { name: "JSON Validator", href: "/json-validator", detail: "Check JSON syntax and locate parsing errors", aliases: "json validate syntax error parser checker" },
   { name: "Markdown Previewer", href: "/markdown-preview", detail: "Write Markdown and preview formatted content live", aliases: "markdown md editor live preview readme documentation" },
+  { name: "Meta Tag Generator", href: "/meta-tag-generator", detail: "Generate SEO title, description and Open Graph tags", aliases: "seo meta title description canonical og open graph social tags" },
+  { name: "Robots.txt Generator", href: "/robots-txt-generator", detail: "Create robots.txt crawl rules and sitemap directives", aliases: "robots txt crawler user agent allow disallow sitemap seo" },
   { name: "Base64 Encoder / Decoder", href: "/base64-encoder-decoder", detail: "Encode or decode Base64 text", aliases: "base64 encode decode" },
   { name: "Password Generator", href: "/password-generator", detail: "Generate a random strong password", aliases: "password secure random strong" },
   { name: "QR Code Generator", href: "/qr-code-generator", detail: "Create a QR code from text or a URL", aliases: "qr qrcode scan barcode url link" },
