@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 import { validateImageFile, validateImageDimensions, validateCropBounds } from "@/lib/image-validation.mjs";
 import { calculateResizeDimensions } from "@/lib/image-geometry.mjs";
+import { findBestImageQuality } from "@/lib/image-compression.mjs";
 
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
@@ -148,18 +149,8 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
         const limit = Number(target) * 1024;
-        let lo = 0.05, hi = 0.96;
-        let best: Blob | null = null;
-        const highestQuality = await toBlob(hi);
+        const best = await findBestImageQuality(toBlob, limit, 18);
         if (processingId !== processingIdRef.current) return;
-        if (highestQuality.size <= limit) best = highestQuality;
-        for (let i = 0; i < 18; i++) {
-          const mid = (lo + hi) / 2;
-          const candidate = await toBlob(mid);
-          if (processingId !== processingIdRef.current) return;
-          if (candidate.size <= limit) { best = candidate; lo = mid; }
-          else { hi = mid; }
-        }
         if (!best) throw new Error("Target size could not be reached. Try smaller dimensions or a larger KB target.");
         blob = best;
       } else {
