@@ -125,7 +125,7 @@ export default function PDFToWordTool() {
     <p className="kicker">FREE PDF TO WORD CONVERTER</p>
     <h1>PDF to Word Converter</h1>
     <p className="lead">Turn selectable PDF text into an editable Microsoft Word DOCX document. Choose a page range and download your converted file directly in your browser.</p>
-    <p className="note">Conversion runs in your browser. Text and basic reading order are extracted; complex layouts, tables, columns, fonts and images may not be preserved exactly. Scanned PDFs need OCR first.</p>
+    <details className="tool-note-details"><summary>Read before converting</summary><p>Conversion runs in your browser. Text and basic reading order are extracted; complex layouts, tables, columns, fonts and images may not be preserved exactly. Scanned PDFs need OCR first.</p></details>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>1. Choose your PDF</h2>
       <input type="file" accept=".pdf,application/pdf" disabled={busy} onChange={e=>{chooseFile(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
