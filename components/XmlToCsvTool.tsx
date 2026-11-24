@@ -7,7 +7,7 @@ function flatten(element:Element,prefix=""):Row{
  const children=Array.from(element.children); const text=Array.from(element.childNodes).filter(n=>n.nodeType===Node.TEXT_NODE).map(n=>n.textContent||"").join("").trim();
  if(!children.length&&text)out[prefix?prefix+"#text":"text"]=text;
  const groups=new Map<string,Element[]>(); for(const child of children)groups.set(child.tagName,[...(groups.get(child.tagName)||[]),child]);
- for(const [name,nodes] of groups){const key=prefix?prefix+"."+name:name;if(nodes.length>1)out[key]=JSON.stringify(nodes.map(n=>flatten(n)));else{const nested=flatten(nodes[0],key);if(Object.keys(nested).length)Object.assign(out,nested);else out[key]=nodes[0].textContent?.trim()||"";}}
+ for(const [name,nodes] of Array.from(groups.entries())){const key=prefix?prefix+"."+name:name;if(nodes.length>1)out[key]=JSON.stringify(nodes.map(n=>flatten(n)));else{const nested=flatten(nodes[0],key);if(Object.keys(nested).length)Object.assign(out,nested);else out[key]=nodes[0].textContent?.trim()||"";}}
  if(text&&children.length)out[prefix?prefix+"#text":"text"]=text;return out;
 }
 function cell(v:string){return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
