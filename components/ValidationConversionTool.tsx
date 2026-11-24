@@ -57,6 +57,8 @@ function xmlNodeToValue(node:Element):unknown{
  return text;
 }
 function xmlToJson(source:string):string{
+ if(!source.trim())throw new Error("Paste an XML document to convert.");
+ if(/<!\\s*(DOCTYPE|ENTITY)\\b/i.test(source))throw new Error("DOCTYPE and custom entity declarations are not supported for security reasons.");
  const doc=new DOMParser().parseFromString(source,"application/xml");
  const error=doc.querySelector("parsererror");
  if(error)throw new Error("Invalid XML: "+(error.textContent||"Check tag names, closing tags and attributes."));
