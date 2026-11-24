@@ -766,3 +766,26 @@ main:has(.tool-page-top)>p:last-child{background:#10372f;color:#9cf1cf!important
 .pixo-reopen img{width:30px;height:30px}
 @media(max-width:600px){.pixo-guide{right:10px;bottom:10px;width:min(292px,calc(100vw - 20px));padding:9px 32px 9px 9px;border-radius:15px}.pixo-guide-avatar{width:51px;height:51px}.pixo-guide-copy strong{font-size:12px}.pixo-guide-copy>span{font-size:9px}.pixo-reopen{right:12px;bottom:12px}}
 @media(prefers-reduced-motion:reduce){.pixo-guide,.pixo-reopen{scroll-behavior:auto;transition:none}}
+
+
+/* Pixo is the recognizable brand mark across headers and footers */
+.mark{
+  overflow:hidden;
+  color:transparent!important;
+  font-size:0!important;
+  background: url('/pixo.svg') center/contain no-repeat!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  width:36px!important;
+  height:36px!important;
+  margin-right:5px!important;
+}
+footer .mark{width:32px!important;height:32px!important}
+.brand{gap:6px}
+.pixo-guide,.pixo-reopen{font-family:Inter,Arial,sans-serif}
+.pixo-guide a:focus-visible,.pixo-guide button:focus-visible,.pixo-reopen:focus-visible{
+  outline:3px solid #68f0c4;outline-offset:3px
+}
+@media(max-width:600px){
+  .mark{width:32px!important;height:32px!important}
+}
