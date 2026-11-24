@@ -140,12 +140,12 @@ export default function PDFToImageTool() {
       {file&&<p>{file.name} · {(file.size/1024/1024).toFixed(2)} MB · {pageCount} pages</p>}
       <h2>2. Choose pages</h2>
       <div style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:12}}>
-        <label>First page<input aria-label="First page" type="number" min="1" max={pageCount||500} value={startPage} onChange={e=>setStartPage(e.target.value)} style={{display:"block",width:"100%",padding:12,marginTop:6}}/></label>
-        <label>Last page<input aria-label="Last page" type="number" min="1" max={pageCount||500} value={endPage} onChange={e=>setEndPage(e.target.value)} style={{display:"block",width:"100%",padding:12,marginTop:6}}/></label>
+        <label>First page<input aria-label="First page" type="number" min="1" max={pageCount||500} disabled={busy} value={startPage} onChange={e=>setStartPage(e.target.value)} style={{display:"block",width:"100%",padding:12,marginTop:6}}/></label>
+        <label>Last page<input aria-label="Last page" type="number" min="1" max={pageCount||500} disabled={busy} value={endPage} onChange={e=>setEndPage(e.target.value)} style={{display:"block",width:"100%",padding:12,marginTop:6}}/></label>
       </div>
       <p>Convert up to {MAX_PAGES} pages in one download. For the entire PDF, set the last page to {pageCount || "the final page"}.</p>
       <h2>3. Select image format</h2>
-      <select aria-label="Image format" value={format} onChange={e=>setFormat(e.target.value as OutputFormat)} style={{width:"100%",padding:12}}>
+      <select aria-label="Image format" disabled={busy} value={format} onChange={e=>setFormat(e.target.value as OutputFormat)} style={{width:"100%",padding:12}}>
         <option value="image/jpeg">JPG – smaller files, good for sharing</option>
         <option value="image/png">PNG – lossless image quality</option>
       </select>
