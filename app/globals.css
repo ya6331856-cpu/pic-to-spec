@@ -935,3 +935,82 @@ main:has(.tool-page-top) ul[style*="#66776d"]{color:#b9cdd0!important}
 .seo-page .result-ready .result-ready-heading p{color:#557568!important}
 .seo-page .result-ready>small{color:#557568!important}
 .seo-page .workspace .result-ready{color:#174d43!important}
+
+
+/* Image tools: competitor-inspired task-first workspace with accessible light surfaces. */
+main:has(.tool-page-intro) .tool-page-intro{
+  max-width:1040px;margin:28px auto 14px;padding:24px 30px;
+  border:0;border-radius:0;background:linear-gradient(100deg,#f7f8ff 0%,#f1fbfa 100%);
+  box-shadow:none;overflow:visible;
+}
+main:has(.tool-page-intro) .tool-page-intro:after{display:none}
+main:has(.tool-page-intro) .tool-page-intro .eyebrow{
+  display:inline-block;margin:0;padding:0;border:0;background:transparent;
+  color:#5b55b8;font-size:10px;letter-spacing:1.3px
+}
+main:has(.tool-page-intro) .tool-page-intro h1{
+  max-width:800px;margin:8px 0;color:#182442;font-size:clamp(26px,4vw,38px);
+  line-height:1.13;letter-spacing:-1.1px
+}
+main:has(.tool-page-intro) .tool-page-intro>p:last-child{
+  max-width:720px;margin:8px 0 0;color:#5c6980;font-size:13px;line-height:1.65
+}
+main:has(.tool-page-intro) .workspace{
+  max-width:1040px;margin:0 auto 42px;padding:clamp(18px,3vw,30px);
+  border:1px solid #e3e8f2;border-radius:18px;background:#fff;
+  box-shadow:0 12px 38px #25345b0c;color:#17233b
+}
+main:has(.tool-page-intro) .workspace-head h2{color:#17233b;font-size:22px}
+main:has(.tool-page-intro) .workspace-head small{color:#6d61cb;font-size:10px;letter-spacing:1.2px}
+main:has(.tool-page-intro) .tabs{padding:5px;background:#f1f3fa;border-radius:11px}
+main:has(.tool-page-intro) .tabs button{color:#59657b;background:transparent}
+main:has(.tool-page-intro) .tabs button.active{background:#fff;color:#315b9c;border:1px solid #dce3f1;box-shadow:0 2px 8px #23365b12}
+main:has(.tool-page-intro) .compression-mode-switch{background:#f4f6fb;border-color:#e2e7f1}
+main:has(.tool-page-intro) .compression-mode-switch button{color:#536178}
+main:has(.tool-page-intro) .compression-mode-switch button.active{background:#fff;color:#245b50;box-shadow:0 2px 8px #1d334b12}
+main:has(.tool-page-intro) .step-hint b{background:#eaf3ff;color:#315b9c}
+main:has(.tool-page-intro) .step-hint span,
+main:has(.tool-page-intro) .field>label,
+main:has(.tool-page-intro) .crop-fields label{color:#25344d}
+main:has(.tool-page-intro) .drop{
+  min-height:250px;border:1.5px dashed #aebbd0;border-radius:13px;
+  background:#f8faff;color:#25344d
+}
+main:has(.tool-page-intro) .drop:hover{background:#f1f6ff;border-color:#718bc2}
+main:has(.tool-page-intro) .drop span:not(.upload),
+main:has(.tool-page-intro) .drop small,
+main:has(.tool-page-intro) .field>p,
+main:has(.tool-page-intro) .fileinfo{color:#68758b}
+main:has(.tool-page-intro) .upload{background:#e8f0ff;color:#365fa7}
+main:has(.tool-page-intro) .field input:not([type=checkbox]),
+main:has(.tool-page-intro) .field select,
+main:has(.tool-page-intro) .crop-fields input{
+  background:#fff;color:#17233b;border:1px solid #d8dfeb;border-radius:8px
+}
+main:has(.tool-page-intro) .inputunit{border-color:#d8dfeb;background:#fff}
+main:has(.tool-page-intro) .inputunit input{color:#17233b}
+main:has(.tool-page-intro) .inputunit span{background:#f1f4f9;color:#59677f}
+main:has(.tool-page-intro) .presets button{background:#fff;border-color:#dce3ed;color:#25344d}
+main:has(.tool-page-intro) .presets span{color:#6a7890}
+main:has(.tool-page-intro) .primary{background:linear-gradient(100deg,#176b58,#247ca0);color:#fff}
+main:has(.tool-page-intro) .privacy-compact{color:#66758b}
+main:has(.tool-page-intro) .result-ready{background:linear-gradient(135deg,#effcf6,#f0f8ff)!important;color:#174d43!important}
+main:has(.tool-page-intro) .tool-content{
+  max-width:1040px!important;margin:22px auto 64px!important;padding:24px 30px!important;
+  border:1px solid #e5eaf2;border-radius:16px;background:#fff!important;
+  color:#25344d!important
+}
+main:has(.tool-page-intro) .tool-content h2,
+main:has(.tool-page-intro) .tool-content h3{color:#1b2943!important}
+main:has(.tool-page-intro) .tool-content p,
+main:has(.tool-page-intro) .tool-content li{color:#596981!important}
+main:has(.tool-page-intro) .tool-content details{background:#f7f9fc!important;border-color:#e1e7f0!important}
+main:has(.tool-page-intro) .tool-content summary{color:#273b58!important}
+@media(max-width:700px){
+ main:has(.tool-page-intro) .tool-page-intro{margin:12px 12px 8px;padding:16px 15px;background:#f6f8fc}
+ main:has(.tool-page-intro) .tool-page-intro h1{font-size:26px;line-height:1.16}
+ main:has(.tool-page-intro) .tool-page-intro>p:last-child{font-size:12px;line-height:1.55}
+ main:has(.tool-page-intro) .workspace{margin:0 10px 28px;padding:16px 13px;border-radius:14px}
+ main:has(.tool-page-intro) .drop{min-height:190px}
+ main:has(.tool-page-intro) .tool-content{margin:12px 10px 40px!important;padding:18px 15px!important}
+}
