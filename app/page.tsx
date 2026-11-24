@@ -180,6 +180,11 @@ export default function Home() {
         <a className="tool-card" href="/percentage-calculator"><b>Percentage Calculator</b><small>Calculate percentages</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/discount-calculator"><b>Discount Calculator</b><small>Find sale price and savings</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/age-calculator"><b>Age Calculator</b><small>Calculate age from birth date</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/sip-calculator"><b>SIP Calculator</b><small>Estimate monthly investment value</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/fd-rd-calculator"><b>FD & RD Calculator</b><small>Estimate deposit maturity value</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/profit-margin-calculator"><b>Profit Margin Calculator</b><small>Calculate margin, markup and profit</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/freelance-hourly-rate-calculator"><b>Freelance Hourly Rate</b><small>Estimate a sustainable hourly rate</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/simple-compound-interest-calculator"><b>Simple & Compound Interest</b><small>Compare interest calculations</small><strong>OPEN TOOL →</strong></a>
       </div></div>
       <div className="directory-category"><h3>Text and developer tools</h3><div className="quick-grid">
         <a className="tool-card" href="/word-counter"><b>Word Counter</b><small>Count words and characters</small><strong>OPEN TOOL →</strong></a>
