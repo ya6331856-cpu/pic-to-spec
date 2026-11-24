@@ -15,14 +15,14 @@ const defaults: Requirement[] = [
 function extractRequirements(text: string): Requirement[] {
   const lower = text.toLowerCase();
   const output = defaults.map(item => ({ ...item }));
-  const sizeMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\D{0,50}(\d{1,4})\s*(kb|k\s*b)/g));
+  const sizeMatches = Array.from(lower.matchAll(/(photograph|photo|passport|signature|sign)(?:(?!photograph|photo|passport|signature|sign)[\s\S]){0,50}?(\d{1,4})\s*(kb|k\s*b)/g));
   for (const match of sizeMatches) {
     const kind = /sign/.test(match[1]) ? "signature" : "photo";
     const target = output.find(item => item.kind === kind)!;
     const value = Number(match[2]);
     if (value >= 5 && value <= 5000) target.maxKB = value;
   }
-  const dimensionMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\D{0,40}(\d{2,4})\s*[x×*]\s*(\d{2,4})\s*(px|pixels?)\b/g));
+  const dimensionMatches = Array.from(lower.matchAll(/(photograph|photo|passport|signature|sign)(?:(?!photograph|photo|passport|signature|sign)[\s\S]){0,40}?(\d{2,4})\s*[x×*]\s*(\d{2,4})\s*(px|pixels?)\b/g));
   for (const match of dimensionMatches) {
     const kind = /sign/.test(match[1]) ? "signature" : "photo";
     const target = output.find(item => item.kind === kind)!;
@@ -31,7 +31,7 @@ function extractRequirements(text: string): Requirement[] {
       target.width = width; target.height = height;
     }
   }
-  const formatMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\D{0,50}(png only|png format|jpg only|jpeg only|jpg format|jpeg format)/g));
+  const formatMatches = Array.from(lower.matchAll(/(photograph|photo|passport|signature|sign)(?:(?!photograph|photo|passport|signature|sign)[\s\S]){0,50}?(png only|png format|jpg only|jpeg only|jpg format|jpeg format)/g));
   for (const match of formatMatches) {
     const kind = /sign/.test(match[1]) ? "signature" : "photo";
     const target = output.find(item => item.kind === kind)!;
