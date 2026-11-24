@@ -814,3 +814,19 @@ footer .mark{width:32px!important;height:32px!important}
 @media(max-width:520px){
   .quick-start .tool-card{min-height:142px;padding:14px 12px 38px}
 }
+
+
+/* Accessible mobile navigation for the homepage */
+.mobile-nav-toggle{display:none;flex:none;width:40px;height:40px;padding:10px;border:1px solid #28505a;border-radius:11px;background:#0b2633;cursor:pointer}
+.mobile-nav-toggle span{display:block;width:18px;height:2px;margin:4px auto;border-radius:2px;background:#75edc7;transition:transform .18s ease,opacity .18s ease}
+@media(max-width:700px){
+  main:has(> .hero)>.topbar{position:relative;z-index:90;display:flex;align-items:center}
+  main:has(> .hero)>.topbar .mobile-nav-toggle{display:block}
+  main:has(> .hero)>.topbar nav{display:none;position:absolute;top:calc(100% + 8px);left:12px;right:12px;flex-direction:column;gap:3px;padding:9px;border:1px solid #28505a;border-radius:14px;background:#0a202c;box-shadow:0 16px 36px #0008}
+  main:has(> .hero)>.topbar nav.is-open{display:flex}
+  main:has(> .hero)>.topbar nav a{display:block;padding:13px 12px;border-radius:9px;color:#d7efea;font-size:13px}
+  main:has(> .hero)>.topbar nav a:hover,main:has(> .hero)>.topbar nav a:focus-visible{background:#123c3b;color:#75edc7;outline:none}
+  main:has(> .hero)>.topbar .privacy-link{margin-left:auto}
+  main:has(> .hero)>.topbar .brand{margin-right:auto}
+}
+@media(prefers-reduced-motion:reduce){.mobile-nav-toggle span{transition:none}}
