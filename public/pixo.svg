@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+<title id="title">Pixo, the PicToSpec chameleon</title><desc id="desc">A friendly emerald green chameleon mascot with large curious eyes and a curled tail.</desc>
+<defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9ff70"/><stop offset=".42" stop-color="#27d99b"/><stop offset="1" stop-color="#087b83"/></linearGradient><linearGradient id="belly" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1ffad"/><stop offset="1" stop-color="#61e7b0"/></linearGradient><radialGradient id="eye"><stop stop-color="#18394c"/><stop offset=".75" stop-color="#061b2b"/><stop offset="1" stop-color="#020b18"/></radialGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#001c2a" flood-opacity=".35"/></filter></defs>
+<ellipse cx="120" cy="211" rx="75" ry="13" fill="#071d2a" opacity=".22"/>
+<g filter="url(#shadow)">
+<path d="M62 157c-39 1-51 31-34 48 15 16 43 9 42-7 0-9-12-12-18-5-4 5 0 11 5 10" fill="none" stroke="url(#body)" stroke-width="17" stroke-linecap="round"/>
+<path d="M80 137c-18 15-22 37-14 54 8 18 28 24 54 24h38c26 0 41-16 38-37-3-20-18-31-37-34z" fill="url(#body)" stroke="#087e75" stroke-width="3"/>
+<path d="M93 163c12 24 45 31 75 13 9 16-2 34-23 36h-34c-18-1-29-20-18-49" fill="url(#belly)" opacity=".9"/>
+<path d="M67 104c-5-34 17-65 54-73 35-8 75 10 86 43 11 34-6 68-38 81-35 15-91-3-102-51" fill="url(#body)" stroke="#087e75" stroke-width="3"/>
+<path d="M79 82c-18-18-18-38-7-49 17 3 29 16 32 33M170 47c17-16 36-14 44-2-3 18-17 30-33 33" fill="#55e6a4" stroke="#087e75" stroke-width="3" stroke-linejoin="round"/>
+<ellipse cx="105" cy="85" rx="25" ry="31" fill="#d9ff9e"/><ellipse cx="163" cy="81" rx="26" ry="32" fill="#d9ff9e"/>
+<ellipse cx="108" cy="87" rx="17" ry="23" fill="url(#eye)"/><ellipse cx="162" cy="83" rx="18" ry="24" fill="url(#eye)"/>
+<ellipse cx="102" cy="78" rx="6" ry="8" fill="#fff"/><ellipse cx="156" cy="73" rx="7" ry="9" fill="#fff"/>
+<circle cx="126" cy="115" r="3" fill="#075b61"/><circle cx="145" cy="115" r="3" fill="#075b61"/>
+<path d="M119 129c11 13 27 14 39 0-4 22-31 26-39 0" fill="#073b4b"/><path d="M125 132c8 7 18 7 26 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+<path d="M87 150c-8 10-12 22-10 34M174 147c9 10 12 22 9 34" fill="none" stroke="#baff7b" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+<path d="M113 26l8-13 9 13" fill="#a9ff68" stroke="#168d75" stroke-width="3" stroke-linejoin="round"/>
+</g><circle cx="47" cy="71" r="5" fill="#a7ff62"/><path d="M202 139l9-6m-3 18 12-1" stroke="#35e6c0" stroke-width="4" stroke-linecap="round"/>
+</svg>
