@@ -620,3 +620,94 @@ main:has(.tool-page-top) button.download-action:active {transform:scale(.985)}
   .seo-page input[type="file"],.seo-page input[type="file"]::file-selector-button,
   .seo-page .download-action,.seo-page a[download] {transition:none!important}
 }
+
+
+/* Premium batch image compression workspace */
+.compression-mode-switch{display:flex;gap:7px;width:max-content;max-width:100%;margin:0 auto 22px;padding:5px;border:1px solid #dce8e5;border-radius:13px;background:#f3f7f7}
+.compression-mode-switch button{border:0;border-radius:9px;padding:11px 16px;background:transparent;color:#61736f;font-size:12px;font-weight:750;cursor:pointer}
+.compression-mode-switch button.active{background:#102b31;color:#fff;box-shadow:0 5px 15px #102b3126}
+.compression-mode-switch button span{margin-left:6px;padding:3px 6px;border-radius:5px;background:#c9f6e6;color:#12614c;font-size:8px;letter-spacing:.5px}
+.batch-compressor{--batch-ink:#102b31;--batch-muted:#71858a;--batch-line:#dce9e8;--batch-green:#0d9b78;position:relative;overflow:hidden;margin-top:4px;padding:clamp(16px,3vw,28px);border:1px solid #d8e7e5;border-radius:22px;background:radial-gradient(ellipse at 94% 0%,#d7fff0 0,transparent 34%),radial-gradient(ellipse at 0% 100%,#e5edff 0,transparent 35%),linear-gradient(135deg,#f9ffff,#f3f8ff 58%,#f8fffb);box-shadow:0 18px 55px #102b3110;color:var(--batch-ink)}
+.batch-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:22px}
+.batch-kicker{display:block;color:#168c77;font-size:9px;font-weight:850;letter-spacing:1.8px}
+.batch-heading h2{margin:8px 0 7px;font-size:clamp(22px,3vw,30px);line-height:1.12;letter-spacing:-1.1px;color:#102b31}
+.batch-heading p{margin:0;color:#6e8288;font-size:12px;line-height:1.6}
+.batch-count{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:72px;height:72px;border:1px solid #d4e8e3;border-radius:19px;background:#ffffffb8;box-shadow:0 8px 22px #163b3210}
+.batch-count strong{font-size:25px;line-height:1;color:#0d806c}
+.batch-count span{margin-top:5px;color:#71858a;font-size:9px}
+.batch-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(220px,.75fr);gap:17px;align-items:start}
+.batch-main,.batch-settings{min-width:0;border:1px solid #dce9e8;border-radius:17px;background:#ffffffd9;box-shadow:0 8px 24px #102b3108}
+.batch-main{padding:15px}
+.batch-drop{width:100%;min-height:205px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1.5px dashed #91c8bb;border-radius:13px;background:linear-gradient(135deg,#f2fffb,#f2f7ff);color:#102b31;cursor:pointer;transition:border-color .18s,transform .18s,box-shadow .18s}
+.batch-drop:hover{border-color:#149b7b;box-shadow:inset 0 0 0 1px #149b7b30;transform:translateY(-1px)}
+.batch-upload-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,#0d9b78,#377be8);color:#fff;font-size:24px;box-shadow:0 8px 18px #0d9b7830}
+.batch-drop strong{font-size:15px}
+.batch-drop>span:not(.batch-upload-icon){color:#71858a;font-size:11px}
+.batch-drop small{margin-top:4px;color:#7b9294;font-size:8px;font-weight:800;letter-spacing:1.2px}
+.batch-drop>b{margin-top:4px;padding:10px 17px;border-radius:9px;background:#102f39;color:#fff;font-size:9px;letter-spacing:1px;box-shadow:0 5px 14px #102f3926}
+.batch-notice{margin:10px 0 0;padding:10px 12px;border-radius:9px;background:#fff5e8;color:#92541a;font-size:11px;line-height:1.5}
+.batch-list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:17px 0 9px}
+.batch-list-head>div{display:flex;flex-direction:column;gap:3px}
+.batch-list-head b{font-size:12px}
+.batch-list-head span{color:#829397;font-size:10px}
+.batch-list-head button{border:0;background:transparent;color:#71858a;font-size:10px;font-weight:700;cursor:pointer}
+.batch-list-head button:disabled{opacity:.4}
+.batch-file-list{display:grid;gap:7px;max-height:300px;overflow:auto}
+.batch-file{display:flex;align-items:center;gap:10px;min-width:0;padding:10px;border:1px solid #e6efed;border-radius:11px;background:#fff}
+.batch-file-icon{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#edf7f5;color:#177b6b;font-size:8px;font-weight:850}
+.batch-file-info{display:flex;flex:1;flex-direction:column;gap:3px;min-width:0}
+.batch-file-info b{overflow:hidden;color:#243f43;font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+.batch-file-info>span{color:#819196;font-size:9px}
+.batch-file-info small{font-size:9px;line-height:1.35}
+.batch-file-info small.is-success{color:#16856c}
+.batch-file-info small.is-error{color:#bd4d42}
+.batch-file-state{flex:none;color:#7b8c90;font-size:9px;font-weight:750}
+.batch-single-download{flex:none;width:27px;height:27px;border:1px solid #cfe6df;border-radius:8px;background:#f1fbf7;color:#087c65;font-size:16px;cursor:pointer}
+.batch-progress{margin-top:15px}
+.batch-progress>div{display:flex;justify-content:space-between;margin-bottom:7px;color:#6e8288;font-size:10px}
+.batch-progress b{color:#087c65}
+.batch-progress i{display:block;height:7px;overflow:hidden;border-radius:9px;background:#e6efed}
+.batch-progress i span{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#0d9b78,#397ce9);transition:width .2s}
+.batch-run{width:100%;display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding:14px 16px;border:0;border-radius:11px;background:linear-gradient(105deg,#102f39,#155e69 60%,#176e85);color:#fff;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 8px 19px #102f3928}
+.batch-run span{font-size:17px}
+.batch-run:disabled{opacity:.55;cursor:wait}
+.batch-success{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding:12px;border:1px solid #cce9df;border-radius:11px;background:#effbf6}
+.batch-success>div{display:flex;flex-direction:column;gap:3px}
+.batch-success b{color:#087c65;font-size:15px}
+.batch-success span{color:#72888a;font-size:9px}
+.batch-success button{border:0;border-radius:8px;padding:10px 12px;background:#087c65;color:#fff;font-size:10px;font-weight:800;cursor:pointer}
+.batch-success button:disabled{opacity:.6}
+.batch-settings{padding:17px}
+.batch-settings h3{margin:8px 0 18px;color:#17363c;font-size:16px;letter-spacing:-.3px}
+.batch-settings>label,.batch-quality-label label{display:block;margin:0 0 8px;color:#5d7378;font-size:10px;font-weight:750}
+.batch-settings select{width:100%;padding:12px;border:1px solid #dbe8e5;border-radius:9px;background:#fbfefd;color:#1a3b40;font-size:11px}
+.batch-settings select:disabled,.batch-quality:disabled{opacity:.6}
+.batch-quality-label{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.batch-quality-label label{margin:0}
+.batch-quality-label b{color:#087c65;font-size:12px}
+.batch-quality{width:100%;accent-color:#0d9b78}
+.batch-quality-ends{display:flex;justify-content:space-between;color:#8b9a9d;font-size:9px}
+.batch-private{display:flex;gap:10px;margin-top:22px;padding:12px;border:1px solid #d5eee5;border-radius:11px;background:linear-gradient(135deg,#effbf6,#f1f6ff)}
+.batch-private>span{color:#0d9b78;font-size:18px}
+.batch-private b{color:#28504d;font-size:10px}
+.batch-private p{margin:4px 0 0;color:#71858a;font-size:9px;line-height:1.5}
+.batch-limit-note{margin:14px 0 0;color:#829397;font-size:9px;line-height:1.65}
+@media(max-width:720px){
+ .compression-mode-switch{width:100%;display:grid;grid-template-columns:1fr 1fr;margin-bottom:15px}
+ .compression-mode-switch button{padding:11px 7px;font-size:10px}
+ .batch-compressor{padding:13px;border-radius:17px}
+ .batch-heading{gap:8px;margin-bottom:14px}
+ .batch-heading p{max-width:260px;font-size:10px}
+ .batch-count{min-width:58px;height:58px;border-radius:15px}
+ .batch-count strong{font-size:21px}
+ .batch-layout{grid-template-columns:1fr;gap:11px}
+ .batch-main{padding:10px}
+ .batch-drop{min-height:175px}
+ .batch-settings{padding:14px}
+ .batch-file{gap:7px;padding:8px}
+ .batch-file-icon{width:31px;height:31px}
+ .batch-file-state{font-size:8px}
+ .batch-success{align-items:flex-start;flex-direction:column}
+ .batch-success button{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.batch-drop,.batch-progress i span{transition:none}}
