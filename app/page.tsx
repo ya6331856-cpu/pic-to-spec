@@ -216,6 +216,10 @@ export default function Home() {
         <a className="tool-card" href="/csv-json-converter"><b>CSV to JSON Converter</b><small>Convert CSV and JSON data</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/csv-cleaner"><b>CSV Cleaner</b><small>Remove duplicate rows and extra spaces</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/color-converter"><b>Color Converter</b><small>Convert HEX, RGB and HSL values</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/svg-to-png-converter"><b>SVG to PNG / JPG</b><small>Convert vector artwork to images</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/favicon-generator"><b>Favicon Generator</b><small>Create an ICO website icon</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/image-color-picker"><b>Image Color Picker</b><small>Pick HEX and RGB from photos</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/base64-image-converter"><b>Base64 Image Converter</b><small>Encode and decode image data</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/url-parser"><b>URL Parser</b><small>Inspect URL parts and query strings</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-to-xml-converter"><b>JSON to XML Converter</b><small>Convert JSON data into XML</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/xml-formatter"><b>XML Formatter</b><small>Validate and indent XML markup</small><strong>OPEN TOOL →</strong></a>
