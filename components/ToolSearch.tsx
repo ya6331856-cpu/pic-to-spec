@@ -35,6 +35,7 @@ const tools = [
   { name: "PDF to JPG / PNG", href: "/pdf-to-jpg", detail: "Convert PDF pages into JPG or PNG images", aliases: "pdf to jpg pdf to png pdf converter image pages export" },
   { name: "PDF to Word", href: "/pdf-to-word", detail: "Convert selectable PDF text into an editable DOCX file", aliases: "pdf word doc docx microsoft office convert editable" },
   { name: "PDF to Excel", href: "/pdf-to-excel", detail: "Extract PDF text and table-like rows into an XLSX spreadsheet", aliases: "pdf excel xlsx spreadsheet table bank statement convert" },
+  { name: "Background Remover", href: "/background-remover", detail: "Remove photo backgrounds and export transparent PNGs", aliases: "remove background transparent png cutout bg eraser product photo" },
   { name: "Image to Text OCR", href: "/image-to-text", detail: "Extract editable English text from images", aliases: "ocr image text extract photo screenshot scan" },
   { name: "ATS Resume Checker", href: "/ats-resume-checker", detail: "Review resume structure and job keyword overlap", aliases: "resume cv ats job application checker score" },
   { name: "GST Invoice Generator", href: "/gst-invoice-generator", detail: "Create a simple GST invoice PDF", aliases: "gst tax invoice bill cgst sgst igst business" },
