@@ -14,7 +14,7 @@ const tools = [
   "/pdf-to-excel", "/background-remover", "/color-converter", "/url-parser",
   "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter",
   "/regex-tester", "/css-gradient-generator", "/json-validator", "/markdown-preview",
-  "/meta-tag-generator", "/robots-txt-generator"
+  "/meta-tag-generator", "/robots-txt-generator", "/json-schema-generator", "/json-to-typescript"
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
