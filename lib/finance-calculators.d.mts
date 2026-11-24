@@ -1,0 +1,6 @@
+export function calculateSIP(monthlyInvestment: number, annualRatePercent: number, years: number): { invested: number; estimatedValue: number; estimatedReturns: number; months: number };
+export function calculateFixedDeposit(principal: number, annualRatePercent: number, years: number, compoundsPerYear?: number): { principal: number; maturityValue: number; interestEarned: number };
+export function calculateRecurringDeposit(monthlyDeposit: number, annualRatePercent: number, years: number): { invested: number; maturityValue: number; interestEarned: number; months: number };
+export function calculateProfit(cost: number, sellingPrice: number): { cost: number; sellingPrice: number; profit: number; marginPercent: number | null; markupPercent: number };
+export function calculateHourlyRate(targetMonthlyIncome: number, monthlyExpenses: number, billableHoursPerWeek: number, taxPercent?: number): { annualBillableHours: number; requiredAnnualRevenue: number; hourlyRate: number };
+export function calculateInterest(principal: number, annualRatePercent: number, years: number, compoundsPerYear?: number): { principal: number; simpleInterest: number; simpleTotal: number; compoundInterest: number; compoundTotal: number };
