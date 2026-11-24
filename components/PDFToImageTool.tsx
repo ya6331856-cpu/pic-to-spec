@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import JSZip from "jszip";
 import ToolSearch from "@/components/ToolSearch";
+import { validatePdfPageRange } from "@/lib/pdf-page-range.mjs";
 
 type OutputFormat = "image/jpeg" | "image/png";
 const MAX_FILE_BYTES = 100 * 1024 * 1024;
@@ -63,12 +64,8 @@ export default function PDFToImageTool() {
   async function convert() {
     if (!file) { setError("Choose a PDF file first."); return; }
     const first = Number(startPage), last = Number(endPage);
-    if (!Number.isInteger(first) || !Number.isInteger(last) || first < 1 || last < first || last > pageCount) {
-      setError("Enter a valid page range between 1 and " + pageCount + "."); return;
-    }
-    if (last - first + 1 > MAX_PAGES) {
-      setError("Convert up to " + MAX_PAGES + " pages per download. Choose a smaller page range."); return;
-    }
+    const rangeError = validatePdfPageRange(first, last, pageCount, MAX_PAGES);
+    if (rangeError) { setError(rangeError); return; }
     setBusy(true); setError(""); setStatus(""); setDownload(null);
     if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
     downloadUrlRef.current = "";
