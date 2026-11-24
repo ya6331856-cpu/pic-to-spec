@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import { convertTemperature, isBelowAbsoluteZero } from "@/lib/unit-conversion.mjs";
 const units:Record<string,{name:string;factor:number;offset?:number}[]> = {
  length:[{name:"Meter (m)",factor:1},{name:"Kilometer (km)",factor:1000},{name:"Centimeter (cm)",factor:.01},{name:"Millimeter (mm)",factor:.001},{name:"Mile (mi)",factor:1609.344},{name:"Yard (yd)",factor:.9144},{name:"Foot (ft)",factor:.3048},{name:"Inch (in)",factor:.0254}],
  weight:[{name:"Kilogram (kg)",factor:1},{name:"Gram (g)",factor:.001},{name:"Milligram (mg)",factor:.000001},{name:"Pound (lb)",factor:.45359237},{name:"Ounce (oz)",factor:.028349523125},{name:"Metric tonne (t)",factor:1000}],
@@ -9,8 +10,7 @@ const units:Record<string,{name:string;factor:number;offset?:number}[]> = {
  area:[{name:"Square meter (m²)",factor:1},{name:"Square kilometer (km²)",factor:1e6},{name:"Square foot (ft²)",factor:.09290304},{name:"Acre",factor:4046.8564224},{name:"Hectare (ha)",factor:10000}],
  data:[{name:"Byte (B)",factor:1},{name:"Kilobyte (KB)",factor:1000},{name:"Megabyte (MB)",factor:1e6},{name:"Gigabyte (GB)",factor:1e9},{name:"Kibibyte (KiB)",factor:1024},{name:"Mebibyte (MiB)",factor:1048576},{name:"Gibibyte (GiB)",factor:1073741824}]
 };
-function convert(v:number,cat:string,from:number,to:number){if(cat==="temperature"){const c=from===0?v:from===1?(v-32)*5/9:v-273.15;return to===0?c:to===1?c*9/5+32:c+273.15;}return v*units[cat][from].factor/units[cat][to].factor;}
-function isBelowAbsoluteZero(v:number,from:number){return from===0?v < -273.15:from===1?v < -459.67:v < 0;}
+function convert(v:number,cat:string,from:number,to:number){if(cat==="temperature")return convertTemperature(v,from,to);return v*units[cat][from].factor/units[cat][to].factor;}
 export default function UnitConverterTool(){
  const [category,setCategory]=useState("length"),[value,setValue]=useState("1"),[from,setFrom]=useState(0),[to,setTo]=useState(1),[copyStatus,setCopyStatus]=useState("");
  const number=Number(value);
