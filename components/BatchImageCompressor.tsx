@@ -67,7 +67,7 @@ export default function BatchImageCompressor() {
   async function compressAll() {
     if (!items.length || busy) return;
     setBusy(true); setProgress(0); setNotice("");
-    const working = [...items].map(item => ({ ...item, status: "queued" as const, output: undefined, outputName: undefined, saved: undefined, message: undefined }));
+    const working: Item[] = items.map(item => ({ ...item, status: "queued", output: undefined, outputName: undefined, saved: undefined, message: undefined }));
     setItems(working);
     for (let index = 0; index < working.length; index++) {
       const item = working[index];
