@@ -38,6 +38,8 @@ const tools = [
   { name: "Cron Expression Generator", href: "/cron-expression-generator", detail: "Build and explain five-field cron schedules", aliases: "cron schedule expression generator job scheduler minutes hours daily weekly" },
   { name: "JavaScript Minifier", href: "/javascript-minifier", detail: "Remove JavaScript comments and unnecessary whitespace", aliases: "js minify minifier compress optimize javascript code smaller" },
   { name: "HTML Minifier", href: "/html-minifier", detail: "Remove HTML comments and whitespace between tags", aliases: "html minify minifier compress optimize markup smaller" },
+  { name: "CSS Minifier", href: "/css-minifier", detail: "Remove CSS comments and unnecessary whitespace", aliases: "css minify minifier compress stylesheet optimize code" },
+  { name: "JSON to YAML Converter", href: "/json-to-yaml-converter", detail: "Convert JSON data into readable YAML", aliases: "json yaml convert yaml converter config kubernetes" },
   { name: "Markdown Previewer", href: "/markdown-preview", detail: "Write Markdown and preview formatted content live", aliases: "markdown md editor live preview readme documentation" },
   { name: "Meta Tag Generator", href: "/meta-tag-generator", detail: "Generate SEO title, description and Open Graph tags", aliases: "seo meta title description canonical og open graph social tags" },
   { name: "Robots.txt Generator", href: "/robots-txt-generator", detail: "Create robots.txt crawl rules and sitemap directives", aliases: "robots txt crawler user agent allow disallow sitemap seo" },
