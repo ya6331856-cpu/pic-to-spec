@@ -133,7 +133,7 @@ export default function PDFToImageTool() {
     <p className="kicker">FREE PDF CONVERTER</p>
     <h1>PDF to JPG / PNG Converter</h1>
     <p className="lead">Convert PDF pages into clear JPG or PNG images online. Choose a page range, select an image format, and download one image or a ZIP of multiple pages.</p>
-    <p className="note">Your PDF is processed in your browser, not uploaded to PicToSpec. The PDF.js worker is loaded from a public CDN. Keep your original document and review converted images before sharing.</p>
+    <details className="tool-note-details"><summary>Processing and file details</summary><p>Your PDF is processed in your browser and is not uploaded to PicToSpec. The PDF.js worker is loaded from a public CDN. Keep your original document and review converted images before sharing.</p></details>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>1. Upload your PDF</h2>
       <input type="file" accept=".pdf,application/pdf" disabled={busy} onChange={e=>{selectPdf(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
