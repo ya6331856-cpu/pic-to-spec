@@ -7,7 +7,7 @@ const tools = [
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
   "/word-counter", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
   "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter",
-  "/uuid-generator", "/formrule-ai", "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf"
+  "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf"
 ];
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
