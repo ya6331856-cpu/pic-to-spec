@@ -63,41 +63,67 @@ function explainCron(expr:string):string {
 const keywords = new Set("select from where and or not null is in like between join inner left right full outer on as distinct group by having order limit offset union all insert into values update set delete create alter drop table index view case when then else end asc desc nulls first last exists with recursive returning conflict do default primary key foreign references unique check constraint truncate grant revoke explain analyze begin commit rollback".split(" "));
 const clauseStarts = new Set(["FROM","WHERE","GROUP BY","HAVING","ORDER BY","LIMIT","OFFSET","UNION","LEFT JOIN","RIGHT JOIN","INNER JOIN","FULL JOIN","JOIN","ON","SET","VALUES","RETURNING","WHEN","ELSE","END"]);
 function sqlTokens(source:string):string[] {
- const out:string[]=[]; let i=0;
+ const out:string[]=[];let i=0;
  while(i<source.length){
   const c=source[i],n=source[i+1];
-  if(/\\s/.test(c)){i++;continue;}
+  if(/\s/.test(c)){i++;continue;}
   if(c==="'"||c==='"'||c==="\x60"){
-   const q=c;let j=i+1;while(j<source.length){if(source[j]==="\\"){j+=2;continue;}if(source[j]===q){if(source[j+1]===q){j+=2;continue;}j++;break;}j++;}out.push(source.slice(i,j));i=j;continue;
+   const q=c;let j=i+1;
+   while(j<source.length){if(source[j]==="\\"){j+=2;continue;}if(source[j]===q){if(source[j+1]===q){j+=2;continue;}j++;break;}j++;}
+   out.push(source.slice(i,j));i=j;continue;
   }
   if(c==="-"&&n==="-"){let j=source.indexOf("\n",i);if(j<0)j=source.length;out.push(source.slice(i,j));i=j;continue;}
   if(c==="/"&&n==="*"){let j=source.indexOf("*/",i+2);j=j<0?source.length:j+2;out.push(source.slice(i,j));i=j;continue;}
-  if(/[(),;]/.test(c)){out.push(c);i++;continue;}
-  let j=i+1;while(j<source.length&&!/\\s|[(),;]/.test(source[j])&&!(source[j]==="-"&&source[j+1]==="-")&&!(source[j]==="/"&&source[j+1]==="*"))j++;
+  if(/[(),.;]/.test(c)){out.push(c);i++;continue;}
+  const operator=source.slice(i).match(/^(?:>=|<=|<>|!=|!<|!>|::|:=|->>|->|#>>|#>|\|\||&&|[=<>+*/%~^|&-])/);
+  if(operator){out.push(operator[0]);i+=operator[0].length;continue;}
+  let j=i+1;
+  while(j<source.length&&!/\s|[(),.;]/.test(source[j])&&!(source[j]==="-"&&source[j+1]==="-")&&!(source[j]==="/"&&source[j+1]==="*")&&!/^(?:>=|<=|<>|!=|::|:=|->|[=<>+*/%~^|&-])/.test(source.slice(j)))j++;
   out.push(source.slice(i,j));i=j;
  }
  return out;
 }
 function formatSql(source:string):string {
- const tokens=sqlTokens(source);let out="",depth=0,lineStart=true,prev="";
- const write=(s:string)=>{if(lineStart){out+="  ".repeat(depth);lineStart=false;}out+=s;};
- const newline=()=>{out=out.trimEnd()+"\\n";lineStart=true;};
+ const tokens=sqlTokens(source);let out="",lineStart=true,depth=0,previous="";
+ const write=(value:string)=>{if(lineStart){out+="  ".repeat(depth);lineStart=false;}out+=value;};
+ const newline=()=>{out=out.replace(/[ \t]+$/,"");if(out&&!out.endsWith("\n"))out+="\n";lineStart=true;};
+ const clauses=new Set(["SELECT","FROM","WHERE","GROUP BY","HAVING","ORDER BY","LIMIT","OFFSET","UNION","UNION ALL","INTERSECT","EXCEPT","INSERT INTO","VALUES","UPDATE","SET","DELETE FROM","RETURNING","ON CONFLICT","DO UPDATE","CREATE TABLE","ALTER TABLE","DROP TABLE","LEFT JOIN","RIGHT JOIN","FULL JOIN","FULL OUTER JOIN","INNER JOIN","CROSS JOIN","JOIN","ON","WHEN","ELSE","END"]);
+ const operators=new Set(["=",">=","<=","<>","!=",">","<","+","-","*","/","%","||","&&","LIKE","ILIKE","IN","IS","AND","OR"]);
  for(let i=0;i<tokens.length;i++){
-  const raw=tokens[i],upper=raw.toUpperCase(),next=tokens[i+1]?.toUpperCase();
-  if(raw==="("){if(prev&&/[\\w'"`)]$/.test(prev))write(" ");write("(");depth++;newline();prev=raw;continue;}
-  if(raw===")"){depth=Math.max(0,depth-1);newline();write(")");prev=raw;continue;}
-  if(raw===","){write(",");newline();prev=raw;continue;}
-  if(raw===";"){write(";");newline();prev=raw;continue;}
-  if(raw.startsWith("--")||raw.startsWith("/*")){if(!lineStart)write(" ");write(raw);newline();prev=raw;continue;}
-  const pair=upper+" "+(next||"");
-  const clause=clauseStarts.has(pair)?pair:clauseStarts.has(upper)?upper:"";
-  if(clause){if(out.trim())newline();write(clause);if(pair===clause&&next){i++;}write(" ");prev=clause;continue;}
-  const word=/^[a-z_][a-z0-9_$]*$/i.test(raw);
+  const raw=tokens[i],upper=raw.toUpperCase(),next=tokens[i+1]?.toUpperCase(),pair=upper+" "+(next||"");
+  const clause=clauses.has(pair)?pair:clauses.has(upper)?upper:"";
+  if(raw===";"){write(";");newline();previous=raw;continue;}
+  if(raw===","){write(",");newline();previous=raw;continue;}
+  if(raw==="("){
+   const subquery=["SELECT","WITH"].includes(next||"");
+   if(previous&&/[A-Za-z0-9_'\x60\]]$/.test(previous))write(" ");
+   write("(");
+   if(subquery){depth++;newline();}
+   previous=raw;continue;
+  }
+  if(raw===")"){
+   if(depth>0){depth=Math.max(0,depth-1);if(!lineStart)newline();}
+   write(")");previous=raw;continue;
+  }
+  if(raw.startsWith("--")||raw.startsWith("/*")){if(!lineStart)write(" ");write(raw);newline();previous=raw;continue;}
+  if(clause){
+   if(out.trim())newline();
+   write(clause);
+   if(pair===clause&&next)i++;
+   write(" ");previous=clause;continue;
+  }
+  const word=/^[A-Za-z_][A-Za-z0-9_$]*$/.test(raw);
   const value=word&&keywords.has(raw.toLowerCase())?upper:raw;
-  if(!lineStart&&out&&!/[\\s(]$/.test(out))write(" ");
-  write(value);prev=value;
+  if(operators.has(upper)){
+   if(!lineStart&&!out.endsWith(" "))write(" ");
+   write(value+" ");
+  }else{
+   if(!lineStart&&out&&!/[ \n(]$/.test(out))write(" ");
+   write(value);
+  }
+  previous=value;
  }
- return out.trim()+"\\n";
+ return out.trim()+"\n";
 }
 function download(text:string,name:string,type:string){const blob=new Blob([text],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
 export default function ScheduleDeveloperTools({mode}:{mode:Mode}){
