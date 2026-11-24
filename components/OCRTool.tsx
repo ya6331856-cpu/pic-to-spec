@@ -105,7 +105,7 @@ export default function OCRTool() {
       <p className="kicker">IMAGE TEXT RECOGNITION</p>
       <h1>Image to Text (OCR) Converter</h1>
       <p className="lead">Extract editable English text from a photo, screenshot or scanned image. OCR runs in your browser; review the result because image recognition can make mistakes.</p>
-      <p className="note">English OCR is enabled in this first version. Hindi and other language packs are not yet supported. Your image is processed locally, while the OCR engine and language data may be downloaded from the provider.</p>
+      <details className="tool-note-details"><summary>Supported languages and processing</summary><p>English OCR is enabled. Hindi and other language packs are not yet supported. Your image is processed locally, while the OCR engine and language data may be downloaded from the provider.</p></details>
       <section className="workspace" style={{ margin: "24px 0", padding: 20 }}>
         <h2>1. Upload an image</h2>
         <input
