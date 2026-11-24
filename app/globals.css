@@ -557,7 +557,7 @@ main:has(.tool-page-top) section:focus-within{border-color:#c9c4ef!important}
 
 /* Clear, consistent upload and download controls across every tool */
 .seo-page input[type="file"],
-main:has(.tool-page-top) input[type="file] {
+main:has(.tool-page-top) input[type="file"] {
   display:block;width:100%;max-width:100%;min-height:58px;padding:10px;
   border:1.5px dashed #aaa4e5;border-radius:14px;
   background:linear-gradient(135deg,#f8f6ff,#f2fbff);
