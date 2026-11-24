@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // actual content-update timestamp is available.
   return [
     { url: base },
-    ...[...new Set(tools)].map((path) => ({ url: base + path })),
+    ...Array.from(new Set(tools)).map((path) => ({ url: base + path })),
     { url: base + "/about" },
     { url: base + "/privacy" },
     { url: base + "/terms" }
