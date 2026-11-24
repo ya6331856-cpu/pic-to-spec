@@ -28,7 +28,8 @@ const tools = [
   { name: "QR Code Generator", href: "/qr-code-generator", detail: "Create a QR code from text or a URL", aliases: "qr qrcode scan barcode url link" },
   { name: "URL Encoder / Decoder", href: "/url-encoder-decoder", detail: "Encode or decode URL characters", aliases: "url encode decode percent uri link escape" },
   { name: "CSV to JSON Converter", href: "/csv-json-converter", detail: "Convert CSV rows and JSON arrays", aliases: "csv json excel comma separated convert" },
-  { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "uuid guid unique id random identifier" }
+  { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "uuid guid unique id random identifier" },
+  { name: "FormRule AI", href: "/formrule-ai", detail: "Read form photo and signature requirements and prepare files", aliases: "exam application photo signature size form rule upload pack" }
 ];
 
 export default function ToolSearch() {
