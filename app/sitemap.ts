@@ -12,7 +12,8 @@ const tools = [
   "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer",
   "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf", "/pdf-to-jpg", "/pdf-to-word",
   "/pdf-to-excel", "/background-remover", "/color-converter", "/url-parser",
-  "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter"
+  "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter",
+  "/regex-tester", "/css-gradient-generator"
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
