@@ -31,14 +31,18 @@ export default function PassportPhotoTool() {
       const scale=Math.max(w/img.naturalWidth,h/img.naturalHeight),sw=w/scale,sh=h/scale;
       pc.drawImage(img,(img.naturalWidth-sw)/2,(img.naturalHeight-sh)/2,sw,sh,0,0,w,h);
       const sheet=document.createElement("canvas");
-      const cols=paper==="4x6"?2:3,rows=Math.ceil(n/cols),gap=24,margin=32;
+      const gap=24,margin=32;
       const cellW=paper==="4x6"?1200:2480,cellH=paper==="4x6"?1800:3508;
-      const slotW=(cellW-margin*2-gap*(cols-1))/cols,slotH=(cellH-margin*2-gap*(rows-1))/rows;
-      const fit=Math.min(slotW/w,slotH/h),drawW=w*fit,drawH=h*fit;
-      sheet.width=cellW;sheet.height=Math.max(cellH,margin*2+rows*slotH+gap*(rows-1));
+      const maxCols=paper==="4x6"?2:3;
+      const cols=Math.max(1,Math.min(maxCols,Math.floor((cellW-margin*2+gap)/(w+gap))));
+      const rows=Math.ceil(n/cols);
+      const slotW=(cellW-margin*2-gap*(cols-1))/cols;
+      const slotH=(cellH-margin*2-gap*(rows-1))/rows;
+      if(slotW<w||slotH<h)throw new Error("These copies do not fit on the selected sheet at the exact pixel dimensions. Reduce the number of copies, choose a larger sheet, or enter smaller dimensions. The tool will not silently shrink your photos.");
+      sheet.width=cellW;sheet.height=cellH;
       const ctx=sheet.getContext("2d");if(!ctx)throw new Error("Canvas is unavailable.");
       ctx.fillStyle="#fff";ctx.fillRect(0,0,sheet.width,sheet.height);
-      for(let i=0;i<n;i++){const x=margin+(i%cols)*(slotW+gap)+(slotW-drawW)/2;const y=margin+Math.floor(i/cols)*(slotH+gap)+(slotH-drawH)/2;ctx.drawImage(photo,x,y,drawW,drawH);}
+      for(let i=0;i<n;i++){const x=margin+(i%cols)*(slotW+gap)+(slotW-w)/2;const y=margin+Math.floor(i/cols)*(slotH+gap)+(slotH-h)/2;ctx.drawImage(photo,x,y,w,h);}
       const blob=await new Promise<Blob>((resolve,reject)=>sheet.toBlob(b=>b?resolve(b):reject(new Error("Could not create the print sheet.")),"image/jpeg",0.94));
       const resultUrl=URL.createObjectURL(blob);setPreviewUrl(old=>{if(old)URL.revokeObjectURL(old);return resultUrl;});
       setStatus("Print sheet ready. Check the crop and print at actual size; this is not an official photo compliance check.");
