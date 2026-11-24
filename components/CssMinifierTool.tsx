@@ -8,7 +8,7 @@ function minifyCss(input:string){
  while(i<input.length){
   if(input[i]==="/"&&input[i+1]==="*"){
    const end=input.indexOf("*/",i+2);const comment=input.slice(i,end<0?input.length:end+2);
-   if(comment.startsWith("/*!"))out+=comment;
+   if(comment.startsWith("/*!"))out+=comment;else out+=" ";
    i=end<0?input.length:end+2;continue;
   }
   if(input[i]==="'"||input[i]==='"'){
