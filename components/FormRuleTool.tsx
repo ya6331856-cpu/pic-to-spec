@@ -22,7 +22,7 @@ function extractRequirements(text: string): Requirement[] {
     const value = Number(match[2]);
     if (value >= 5 && value <= 5000) target.maxKB = value;
   }
-  const dimensionMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\\D{0,40}(\\d{2,4})\\s*[x×*]\\s*(\\d{2,4})\\s*(px|pixels?)\\b/g));
+  const dimensionMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\D{0,40}(\d{2,4})\s*[x×*]\s*(\d{2,4})\s*(px|pixels?)\b/g));
   for (const match of dimensionMatches) {
     const kind = /sign/.test(match[1]) ? "signature" : "photo";
     const target = output.find(item => item.kind === kind)!;
