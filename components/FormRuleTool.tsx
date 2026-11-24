@@ -99,9 +99,12 @@ export default function FormRuleTool() {
         const pages = Math.min(pdf.numPages, 15);
         for (let i = 1; i <= pages; i++) {
           const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          text += content.items.map((item: any) => "str" in item ? item.str : "").join(" ") + "\n";
-          page.cleanup();
+          try {
+            const content = await page.getTextContent();
+            text += content.items.map((item: any) => "str" in item ? item.str : "").join(" ") + "\n";
+          } finally {
+            page.cleanup();
+          }
         }
         if (!text.trim()) throw new Error("This PDF has no selectable text. Upload a clear screenshot instead for OCR.");
       } else if (source.type.startsWith("image/")) {
