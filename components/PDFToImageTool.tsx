@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import JSZip from "jszip";
 import ToolSearch from "@/components/ToolSearch";
 import { validatePdfPageRange } from "@/lib/pdf-page-range.mjs";
+import { calculatePdfRenderScale } from "@/lib/pdf-render-scale.mjs";
 
 type OutputFormat = "image/jpeg" | "image/png";
 const MAX_FILE_BYTES = 100 * 1024 * 1024;
@@ -84,7 +85,8 @@ export default function PDFToImageTool() {
         const canvas = document.createElement("canvas");
         try {
           const base = page.getViewport({scale: 1});
-          const scale = Math.min(2, Math.sqrt(MAX_PIXELS / (base.width * base.height)));
+          const scale = calculatePdfRenderScale(base.width, base.height, MAX_PIXELS, 2);
+          if (!scale) throw new Error("This PDF page has invalid dimensions and cannot be rendered.");
           const viewport = page.getViewport({scale});
           canvas.width = Math.max(1, Math.floor(viewport.width));
           canvas.height = Math.max(1, Math.floor(viewport.height));
