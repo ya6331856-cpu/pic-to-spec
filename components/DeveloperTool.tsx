@@ -57,7 +57,7 @@ function toCsv(value:unknown, spreadsheetSafe:boolean):string {
  if(!Array.isArray(value)||value.some(v=>!v||typeof v!=="object"||Array.isArray(v)))throw new Error("JSON must be an array of objects to convert to CSV.");
  const objects=value as Record<string,unknown>[];if(objects.length===0)return "";const headers=Array.from(new Set(objects.flatMap(o=>Object.keys(o))));
  const cell=(v:unknown)=>{let s=v==null?"":typeof v==="object"?JSON.stringify(v):String(v);if(spreadsheetSafe&&/^\s*[=+\-@]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
- return [headers.map(cell).join(","),...objects.map(o=>headers.map(h=>cell(o[h])).join(","))].join("\\r\\n");
+ return [headers.map(cell).join(","),...objects.map(o=>headers.map(h=>cell(o[h])).join(","))].join("\r\n");
 }
 export default function DeveloperTool({kind}:{kind:Kind}){
  const [input,setInput]=useState("");const [output,setOutput]=useState("");const [error,setError]=useState("");const [mode,setMode]=useState(kind==="csv-json-converter"?"csv-json":"encode");const [urlMode,setUrlMode]=useState("component");const [count,setCount]=useState("5");const [spreadsheetSafe,setSpreadsheetSafe]=useState(true);
