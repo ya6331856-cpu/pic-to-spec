@@ -11,7 +11,8 @@ const tools = [
   "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/image-to-text", "/ats-resume-checker",
   "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer",
   "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf", "/pdf-to-jpg", "/pdf-to-word",
-  "/pdf-to-excel", "/background-remover", "/color-converter", "/url-parser"
+  "/pdf-to-excel", "/background-remover", "/color-converter", "/url-parser",
+  "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter"
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
