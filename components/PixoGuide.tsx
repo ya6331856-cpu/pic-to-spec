@@ -12,7 +12,7 @@ export default function PixoGuide() {
       <div className="pixo-guide-copy">
         <strong>Hi, I’m Pixo!</strong>
         <span>Need a hand? Pick a tool and I’ll help you get started.</span>
-        <a href="/#tools">Explore tools <span aria-hidden="true">→</span></a>
+        <a href="/#tool-directory">Explore tools <span aria-hidden="true">→</span></a>
       </div>
       <button className="pixo-guide-close" type="button" onClick={() => setOpen(false)} aria-label="Hide Pixo helper">×</button>
     </aside>
