@@ -162,7 +162,7 @@ export default function FormRuleTool() {
       <h2>Step 3 · Upload your files</h2>
       <label>Photo<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setPhoto(e.target.files?.[0]||null)}/></label>
       <label style={{display:"block",marginTop:12}}>Signature<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setSignature(e.target.files?.[0]||null)}/></label>
-      <button className="primary" disabled={busy} onClick={makePack} style={{marginTop:18}}>{busy?"Preparing…":"Prepare ZIP upload pack"}</button>
+      <button className="primary download-action" disabled={busy} onClick={makePack} style={{marginTop:18}}>{busy?"Preparing…":"↓ Prepare ZIP upload pack"}</button>
       {error&&<p role="alert" className="error">{error}</p>}
       {status&&<p role="status" className="result">{status}</p>}
     </section>
