@@ -8,7 +8,7 @@ const tools = [
   "/bulk-image-renamer-watermark", "/exif-data-viewer-remover", "/image-blur-pixelate-tool",
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
   "/sip-calculator", "/fd-rd-calculator", "/profit-margin-calculator", "/freelance-hourly-rate-calculator", "/simple-compound-interest-calculator",
-  "/word-counter", "/text-compare", "/html-entity-encoder-decoder", "/unix-timestamp-converter", "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter", "/duplicate-line-remover", "/text-line-reverser", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
+  "/word-counter", "/typing-speed-test", "/text-compare", "/html-entity-encoder-decoder", "/unix-timestamp-converter", "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter", "/duplicate-line-remover", "/text-line-reverser", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
   "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-cleaner",
 "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/csv-cleaner",
   "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/image-to-text", "/ats-resume-checker",
