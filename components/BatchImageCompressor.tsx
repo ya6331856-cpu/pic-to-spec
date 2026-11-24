@@ -51,19 +51,45 @@ export default function BatchImageCompressor() {
 
   function addFiles(fileList: FileList | File[]) {
     const incoming = Array.from(fileList);
+    const known = new Set(items.map(item => item.file.name + ":" + item.file.size));
+    const accepted: File[] = [];
     let message = "";
-    setItems(current => {
-      const next = [...current];
-      for (const file of incoming) {
-        if (next.length >= MAX_FILES) { message = "You can add up to 20 images per batch."; break; }
-        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { message = file.name + ": use JPG, PNG or WebP."; continue; }
-        if (file.size > MAX_BYTES) { message = file.name + ": file is larger than 5 MB."; continue; }
-        if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
-        next.push({ id: (typeof crypto !== "undefined" && "randomUUID" in crypto) ? crypto.randomUUID() : file.name + "-" + file.size + "-" + next.length, file, status: "queued" });
+    for (const file of incoming) {
+      if (items.length + accepted.length >= MAX_FILES) {
+        message = "You can add up to 20 images per batch.";
+        break;
       }
-      return next;
-    });
-    setNotice(message || (incoming.length > 0 ? "" : ""));
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        message = file.name + ": use JPG, PNG or WebP.";
+        continue;
+      }
+      if (file.size > MAX_BYTES) {
+        message = file.name + ": file is larger than 5 MB.";
+        continue;
+      }
+      const key = file.name + ":" + file.size;
+      if (known.has(key)) continue;
+      known.add(key);
+      accepted.push(file);
+    }
+    setNotice(message);
+    if (accepted.length) {
+      setItems(current => {
+        const next = [...current];
+        for (const file of accepted) {
+          if (next.length >= MAX_FILES) break;
+          if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
+          next.push({
+            id: (typeof crypto !== "undefined" && "randomUUID" in crypto)
+              ? crypto.randomUUID()
+              : file.name + "-" + file.size + "-" + next.length,
+            file,
+            status: "queued"
+          });
+        }
+        return next;
+      });
+    }
   }
 
   async function compressAll() {
@@ -118,7 +144,7 @@ export default function BatchImageCompressor() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url; link.download = "pictospec-compressed-images.zip"; link.click();
-      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      window.setTimeout(() => URL.revokeObjectURL(url), 30000);
     } catch { setNotice("ZIP could not be created. Try downloading the images individually."); }
     finally { setZipBusy(false); }
   }
@@ -127,7 +153,7 @@ export default function BatchImageCompressor() {
     if (!item.output || !item.outputName) return;
     const url = URL.createObjectURL(item.output);
     const link = document.createElement("a"); link.href = url; link.download = item.outputName; link.click();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    window.setTimeout(() => URL.revokeObjectURL(url), 30000);
   }
 
   return <section className="batch-compressor" aria-label="Batch image compressor">
