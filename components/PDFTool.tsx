@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import ToolSearch from "@/components/ToolSearch";
+import { validatePdfPageRange } from "@/lib/pdf-page-range.mjs";
 
 type Kind = "merge" | "split" | "jpg";
 const copy: Record<Kind,{title:string;description:string}> = {
@@ -79,8 +80,8 @@ export default function PDFTool({kind}:{kind:Kind}){
     if(files.length!==1)throw new Error("Choose exactly one PDF file.");
     const source=await PDFDocument.load(await files[0].arrayBuffer());
     const first=Number(start),last=Number(end);
-    if(!Number.isInteger(first)||!Number.isInteger(last)||first<1||last<first||last>source.getPageCount())throw new Error("Enter a valid page range. Page numbers start at 1 and must be within the PDF.");
-    if(last-first+1>MAX_OUTPUT_PAGES)throw new Error("Choose a range of 500 pages or fewer at a time.");
+    const rangeError = validatePdfPageRange(first, last, source.getPageCount(), MAX_OUTPUT_PAGES);
+    if(rangeError)throw new Error(rangeError);
     const pages=await output.copyPages(source,Array.from({length:last-first+1},(_,i)=>first-1+i));pages.forEach(page=>output.addPage(page));
    }else{
     for(const file of files){
