@@ -921,3 +921,17 @@ footer .mark{width:32px!important;height:32px!important}
  .seo-page .lead{font-size:14px;line-height:1.7}
  .tool-note-details{padding:9px 11px}
 }
+
+
+/* Final contrast pass for legacy inline-styled tools and result states. */
+main:has(.tool-page-top) p[style*="#75847c"],
+main:has(.tool-page-top) p[style*="#66776d"],
+main:has(.tool-page-top) p[style*="#64748b"],
+main:has(.tool-page-top) p[style*="#65728a"]{color:#b9cdd0!important}
+main:has(.tool-page-top) ol[style*="#66776d"],
+main:has(.tool-page-top) ul[style*="#66776d"]{color:#b9cdd0!important}
+.seo-page .result-ready{background:linear-gradient(135deg,#e8fbf2,#eaf5ff)!important;border-color:#9bdcc8!important;color:#174d43!important}
+.seo-page .result-ready .result-ready-heading b{color:#145d4c!important}
+.seo-page .result-ready .result-ready-heading p{color:#557568!important}
+.seo-page .result-ready>small{color:#557568!important}
+.seo-page .workspace .result-ready{color:#174d43!important}
