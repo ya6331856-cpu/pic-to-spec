@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import JSZip from "jszip";
 import ToolSearch from "@/components/ToolSearch";
 
@@ -23,10 +23,16 @@ export default function PDFToWordTool() {
   const [status, setStatus] = useState("");
   const [downloadUrl, setDownloadUrl] = useState("");
   const [downloadName, setDownloadName] = useState("");
+  const downloadUrlRef = useRef("");
+
+  useEffect(() => () => {
+    if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
+  }, []);
 
   async function chooseFile(next: File | null) {
     setFile(null); setPageCount(0); setError(""); setStatus("");
-    if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+    if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
+    downloadUrlRef.current = "";
     setDownloadUrl(""); setDownloadName("");
     if (!next) return;
     if (next.type !== "application/pdf" && !next.name.toLowerCase().endsWith(".pdf")) {
@@ -97,13 +103,15 @@ export default function PDFToWordTool() {
       zip.file("word/document.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+documentXml.join("")+'<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1080" w:right="1080" w:bottom="1080" w:left="1080"/></w:sectPr></w:body></w:document>');
       const blob = await zip.generateAsync({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
       const url = URL.createObjectURL(blob);
+      if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
+      downloadUrlRef.current = url;
       setDownloadUrl(url);
       setDownloadName(file.name.replace(/\.pdf$/i,"") + ".docx");
       setStatus("Editable Word document created. Review formatting and compare important details with the original PDF.");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not convert this PDF.");
     } finally {
-      if (pdf)
+      if (pdf) { try { await pdf.cleanup(); } catch {} }
       setBusy(false);
     }
   }
