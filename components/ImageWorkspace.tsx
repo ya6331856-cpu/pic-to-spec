@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import { validateImageFile, validateImageDimensions, validateCropBounds } from "@/lib/image-validation.mjs";
 
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
@@ -92,8 +93,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
     previewUrlRef.current = ""; resultUrlRef.current = "";
     setResult(null); setFile(null); setPreview("");
-    if (!["image/jpeg","image/png","image/webp"].includes(f.type)) { setError("Please choose a JPG, PNG or WebP image."); return; }
-    if (f.size > 20 * 1024 * 1024) { setError("Please choose an image smaller than 20 MB."); return; }
+    const fileError = validateImageFile(f.type, f.size); if (fileError) { setError(fileError); return; }
     const previewUrl = URL.createObjectURL(f);
     previewUrlRef.current = previewUrl;
     setFile(f); setPreview(previewUrl);
@@ -110,7 +110,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
     }
     if (tool === "resize") {
       const requestedWidth = Number(width), requestedHeight = Number(height);
-      if (!Number.isInteger(requestedWidth) || !Number.isInteger(requestedHeight) || requestedWidth < 1 || requestedHeight < 1 || requestedWidth > 6000 || requestedHeight > 6000) { setError("Enter whole-number dimensions between 1 and 6000 pixels."); return; }
+      if (!validateImageDimensions(requestedWidth, requestedHeight, 6000)) { setError("Enter whole-number dimensions between 1 and 6000 pixels."); return; }
     }
     if (tool === "crop") {
       const values = [cropX, cropY, cropW, cropH].map(Number);
@@ -129,7 +129,7 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       const sx = Number(cropX), sy = Number(cropY);
       if (tool === "crop") {
         const cropWidth = Number(cropW), cropHeight = Number(cropH);
-        if (sx >= img.naturalWidth || sy >= img.naturalHeight || cropWidth > img.naturalWidth - sx || cropHeight > img.naturalHeight - sy) throw new Error(`Crop area is outside the image. Image size: ${img.naturalWidth} × ${img.naturalHeight} px.`);
+        if (!validateCropBounds(sx, sy, cropWidth, cropHeight, img.naturalWidth, img.naturalHeight)) throw new Error(`Crop area is outside the image. Image size: ${img.naturalWidth} × ${img.naturalHeight} px.`);
         w = cropWidth; h = cropHeight;
       }
       if (tool === "resize") {
