@@ -3,42 +3,10 @@
 import { useState } from "react";
 import JSZip from "jszip";
 import ToolSearch from "@/components/ToolSearch";
+import { createDefaultFormRequirements, extractFormRequirements } from "@/lib/form-rule-extraction.mjs";
+import type { FormRequirement as Requirement } from "@/lib/form-rule-extraction.mjs";
 
-type Requirement = { kind: "photo" | "signature"; label: string; maxKB: number; width: number; height: number; format: "image/jpeg" | "image/png" };
 type Prepared = { name: string; blob: Blob; size: number; width: number; height: number };
-
-const defaults: Requirement[] = [
-  { kind: "photo", label: "Photo", maxKB: 50, width: 200, height: 230, format: "image/jpeg" },
-  { kind: "signature", label: "Signature", maxKB: 20, width: 140, height: 60, format: "image/jpeg" }
-];
-
-function extractRequirements(text: string): Requirement[] {
-  const lower = text.toLowerCase();
-  const output = defaults.map(item => ({ ...item }));
-  const sizeMatches = Array.from(lower.matchAll(/(photograph|photo|passport|signature|sign)(?:(?!photograph|photo|passport|signature|sign)[\s\S]){0,50}?(\d{1,4})\s*(kb|k\s*b)/g));
-  for (const match of sizeMatches) {
-    const kind = /sign/.test(match[1]) ? "signature" : "photo";
-    const target = output.find(item => item.kind === kind)!;
-    const value = Number(match[2]);
-    if (value >= 5 && value <= 5000) target.maxKB = value;
-  }
-  const dimensionMatches = Array.from(lower.matchAll(/(photograph|photo|passport|signature|sign)(?:(?!photograph|photo|passport|signature|sign)[\s\S]){0,40}?(\d{2,4})\s*[x×*]\s*(\d{2,4})\s*(px|pixels?)\b/g));
-  for (const match of dimensionMatches) {
-    const kind = /sign/.test(match[1]) ? "signature" : "photo";
-    const target = output.find(item => item.kind === kind)!;
-    const width = Number(match[2]), height = Number(match[3]);
-    if (width >= 20 && width <= 3000 && height >= 20 && height <= 3000) {
-      target.width = width; target.height = height;
-    }
-  }
-  const formatMatches = Array.from(lower.matchAll(/(photograph|photo|passport|signature|sign)(?:(?!photograph|photo|passport|signature|sign)[\s\S]){0,50}?(png only|png format|jpg only|jpeg only|jpg format|jpeg format)/g));
-  for (const match of formatMatches) {
-    const kind = /sign/.test(match[1]) ? "signature" : "photo";
-    const target = output.find(item => item.kind === kind)!;
-    target.format = /png/.test(match[2]) ? "image/png" : "image/jpeg";
-  }
-  return output;
-}
 
 function canvasBlob(file: File, req: Requirement): Promise<Blob> {
   return new Promise((resolve, reject) => {
@@ -82,7 +50,7 @@ function canvasBlob(file: File, req: Requirement): Promise<Blob> {
 
 export default function FormRuleTool() {
   const [source, setSource] = useState<File | null>(null);
-  const [requirements, setRequirements] = useState<Requirement[]>(defaults);
+  const [requirements, setRequirements] = useState<Requirement[]>(createDefaultFormRequirements());
   const [photo, setPhoto] = useState<File | null>(null);
   const [signature, setSignature] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
@@ -123,7 +91,7 @@ export default function FormRuleTool() {
       } else throw new Error("Choose a PDF or image file.");
       if (!text.trim()) throw new Error("No readable text was found. Try a clearer PDF or image.");
       setExtracted(text.slice(0, 12000));
-      setRequirements(extractRequirements(text));
+      setRequirements(extractFormRequirements(text));
       setStatus("Text extracted. Review and correct every requirement before preparing files.");
     } catch (e) { setError(e instanceof Error ? e.message : "Could not read this document."); }
     finally { if (pdf) { try { await pdf.cleanup(); } catch {} } setBusy(false); }
@@ -185,7 +153,7 @@ export default function FormRuleTool() {
     <p className="note">This is an assisted rule reader, not an official form validator. Extraction can miss or misread instructions. Always confirm the values below against the original notice and the receiving portal.</p>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>Step 1 · Upload the form instructions</h2>
-      <input type="file" accept=".pdf,image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{const next=e.target.files?.[0]||null;e.currentTarget.value="";setSource(next);setExtracted("");setRequirements(defaults);setStatus("");setError("");}}/>
+      <input type="file" accept=".pdf,image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{const next=e.target.files?.[0]||null;e.currentTarget.value="";setSource(next);setExtracted("");setRequirements(createDefaultFormRequirements());setStatus("");setError("");}}/>
       {source&&<p>{source.name}</p>}
       <button className="primary" disabled={busy} onClick={readSource}>{busy?"Reading…":"Read requirements"}</button>
       {extracted&&<details style={{marginTop:14}}><summary>View extracted text</summary><pre style={{whiteSpace:"pre-wrap",fontSize:12}}>{extracted}</pre></details>}
