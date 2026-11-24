@@ -22,6 +22,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <Script id="pictospec-site-schema" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              { "@type": "Organization", "@id": "https://pictospec.com/#organization", "name": "PicToSpec", "url": "https://pictospec.com/" },
+              { "@type": "WebSite", "@id": "https://pictospec.com/#website", "url": "https://pictospec.com/", "name": "PicToSpec", "publisher": { "@id": "https://pictospec.com/#organization" }, "inLanguage": "en" }
+            ]
+          })}
+        </Script>
         {children}
         {measurementId ? (
           <>
