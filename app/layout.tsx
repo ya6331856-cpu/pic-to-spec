@@ -14,7 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const configuredMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
+  const measurementId =
+    configuredMeasurementId && /^G-[A-Z0-9]+$/.test(configuredMeasurementId)
+      ? configuredMeasurementId
+      : undefined;
 
   return (
     <html lang="en">
