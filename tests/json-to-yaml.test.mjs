@@ -6,7 +6,7 @@ test("converts nested JSON objects with valid indentation",()=>{
  assert.equal(jsonToYaml({name:"PicToSpec",limits:{free:10,pro:null}}),'"name": "PicToSpec"\n"limits":\n  "free": 10\n  "pro": null');
 });
 test("converts arrays of objects and nested arrays",()=>{
- assert.equal(jsonToYaml({tools:[{name:"JSON",tags:["data","web"]},{name:"CSS",tags:[]}]}),'"tools":\n  -\n    "name": "JSON"\n    "tags":\n      - "data"\n      - "web"\n  -\n    "name": "CSS"\n    "tags":\n      []');
+ assert.equal(jsonToYaml({tools:[{name:"JSON",tags:["data","web"]},{name:"CSS",tags:[]}]}),'"tools":\n  -\n    "name": "JSON"\n    "tags":\n      - "data"\n      - "web"\n  -\n    "name": "CSS"\n    "tags": []');
 });
 test("preserves quoted strings, multiline strings and special keys",()=>{
  const value={'a:b':'say "hello"\nnext','true':"yes","":""};
