@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 import { validateImageFile, validateImageDimensions, validateCropBounds } from "@/lib/image-validation.mjs";
+import { calculateResizeDimensions } from "@/lib/image-geometry.mjs";
 
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
@@ -133,9 +134,10 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
         w = cropWidth; h = cropHeight;
       }
       if (tool === "resize") {
-        w = Number(width);
-        h = Number(height);
-        if (ratio) { const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight); w = Math.round(img.naturalWidth * scale); h = Math.round(img.naturalHeight * scale); }
+        const resized = calculateResizeDimensions(img.naturalWidth, img.naturalHeight, Number(width), Number(height), ratio, 40000000);
+        if (!resized) throw new Error("These resize dimensions are invalid or exceed the 40-megapixel safety limit.");
+        w = resized.width;
+        h = resized.height;
       }
       if (w * h > 40000000) throw new Error("This image is too large to process safely. Resize it first or choose a smaller image.");
       const canvas = document.createElement("canvas"); canvas.width = w; canvas.height = h;
