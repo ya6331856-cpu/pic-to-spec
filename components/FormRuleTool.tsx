@@ -168,7 +168,7 @@ export default function FormRuleTool() {
     <p className="note">This is an assisted rule reader, not an official form validator. Extraction can miss or misread instructions. Always confirm the values below against the original notice and the receiving portal.</p>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>Step 1 · Upload the form instructions</h2>
-      <input type="file" accept=".pdf,image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{setSource(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
+      <input type="file" accept=".pdf,image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{const next=e.target.files?.[0]||null;e.currentTarget.value="";setSource(next);setExtracted("");setRequirements(defaults);setStatus("");setError("");}}/>
       {source&&<p>{source.name}</p>}
       <button className="primary" disabled={busy} onClick={readSource}>{busy?"Reading…":"Read requirements"}</button>
       {extracted&&<details style={{marginTop:14}}><summary>View extracted text</summary><pre style={{whiteSpace:"pre-wrap",fontSize:12}}>{extracted}</pre></details>}
