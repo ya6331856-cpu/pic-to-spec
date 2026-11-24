@@ -13,7 +13,9 @@ const canonicalRoutes = [
   "/jpg-to-webp", "/json-formatter", "/passport-photo-maker",
   "/password-generator", "/pdf-merger", "/pdf-organizer", "/pdf-splitter",
   "/pdf-to-excel", "/pdf-to-jpg", "/pdf-to-word", "/percentage-calculator",
-  "/qr-code-generator", "/resize-photo-for-online-form",
+  "/qr-code-generator", "/html-entity-encoder-decoder", "/unix-timestamp-converter",
+  "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter",
+  "/duplicate-line-remover", "/text-line-reverser", "/resize-photo-for-online-form",
   "/signature-resizer", "/unit-converter", "/url-encoder-decoder",
   "/uuid-generator", "/word-counter", "/text-compare", "/csv-cleaner"
 ];
