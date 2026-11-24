@@ -144,7 +144,7 @@ export default function Home() {
         <a href="/image-converter" className="tool-card"><span>⇄</span><b>Image Converter</b><small>Convert JPG, PNG and WebP</small><strong>OPEN TOOL →</strong></a>
       </div>
     </section>
-    <section className="tool-directory" aria-label="All free online tools">
+    <section className="tool-directory" id="tool-directory" aria-label="All free online tools">
       <div className="directory-heading"><div><span className="eyebrow">THE TOOLBOX</span><h2>Find the right tool for the job</h2><p>Choose a category or open any tool directly.</p></div></div>
       <div className="directory-category"><h3>Image tools</h3><div className="quick-grid">
         <a className="tool-card" href="/image-compressor"><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
