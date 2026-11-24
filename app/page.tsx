@@ -184,6 +184,10 @@ export default function Home() {
       <div className="directory-category"><h3>Text and developer tools</h3><div className="quick-grid">
         <a className="tool-card" href="/word-counter"><b>Word Counter</b><small>Count words and characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/text-compare"><b>Text Compare</b><small>Find added and removed lines</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/html-entity-encoder-decoder"><b>HTML Entity Encoder / Decoder</b><small>Encode or decode special HTML characters</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/unix-timestamp-converter"><b>Unix Timestamp Converter</b><small>Convert timestamps to readable UTC dates</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/url-slug-generator"><b>URL Slug Generator</b><small>Create clean SEO-friendly URL slugs</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/lorem-ipsum-generator"><b>Lorem Ipsum Generator</b><small>Generate placeholder text for layouts</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/case-converter"><b>Case Converter</b><small>Change text letter case</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-formatter"><b>JSON Formatter</b><small>Format and validate JSON</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
