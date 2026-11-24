@@ -50,6 +50,10 @@ export default function BatchImageCompressor() {
   const completed = items.filter(item => item.status === "done").length;
 
   function addFiles(fileList: FileList | File[]) {
+    if (busy) {
+      setNotice("Please wait for the current batch to finish before adding more images.");
+      return;
+    }
     const incoming = Array.from(fileList);
     const known = new Set(items.map(item => item.file.name + ":" + item.file.size));
     const accepted: File[] = [];
@@ -160,8 +164,8 @@ export default function BatchImageCompressor() {
     <div className="batch-heading"><div><span className="batch-kicker">PICTOSPEC · BATCH WORKSPACE</span><h2>Compress a whole batch</h2><p>Less file weight. More room to create. All processing stays on your device.</p></div><div className="batch-count"><strong>{items.length.toString().padStart(2, "0")}</strong><span>/ 20 files</span></div></div>
     <div className="batch-layout">
       <div className="batch-main">
-        <input ref={picker} hidden type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={event => { if (event.currentTarget.files) addFiles(event.currentTarget.files); event.currentTarget.value = ""; }} />
-        <button type="button" className="batch-drop" onClick={() => picker.current?.click()} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); addFiles(event.dataTransfer.files); }}>
+        <input ref={picker} hidden type="file" multiple disabled={busy} accept="image/jpeg,image/png,image/webp" onChange={event => { if (event.currentTarget.files) addFiles(event.currentTarget.files); event.currentTarget.value = ""; }} />
+        <button type="button" className="batch-drop" disabled={busy} onClick={() => picker.current?.click()} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); addFiles(event.dataTransfer.files); }}>
           <span className="batch-upload-icon">↑</span><strong>Drop your images here</strong><span>or choose files from your device</span><small>JPG · PNG · WebP &nbsp; / &nbsp; UP TO 5 MB EACH</small><b>SELECT IMAGES</b>
         </button>
         {notice && <p className="batch-notice" role="alert">{notice}</p>}
