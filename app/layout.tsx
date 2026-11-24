@@ -4,8 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pictospec.com"),
-  title: { default: "PicToSpec — Resize, Compress & Convert Images Online", template: "%s | PicToSpec" },
-  description: "Prepare photos and signatures for online forms. Compress images to a target KB size, resize pixels and convert JPG, PNG and WebP — privately in your browser.",
+  title: { default: "PicToSpec — Free Image, PDF, Text & Calculator Tools", template: "%s | PicToSpec" },
+  description: "Use free browser-based tools to compress and resize images, merge PDFs, format text and data, create QR codes, generate passwords and calculate everyday figures. No account needed.",
   applicationName: "PicToSpec",
   alternates: { canonical: "/" },
   keywords: ["compress image to 50kb", "photo resize for online form", "signature resize", "image compressor", "JPG to WebP"],
