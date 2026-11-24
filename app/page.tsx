@@ -37,7 +37,7 @@ export default function Home() {
   const [format, setFormat] = useState<Format>("image/jpeg");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
+  const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);\n  const resultRef = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (!result) return;\n    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;\n    requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" }));\n  }, [result]);
 
   useEffect(() => { const selected = new URLSearchParams(window.location.search).get("tool"); if (selected === "compress" || selected === "resize" || selected === "convert" || selected === "crop") { setTool(selected); setTimeout(() => document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" }), 100); } }, []);
   useEffect(() => () => {
@@ -185,7 +185,7 @@ export default function Home() {
       {tool !== "convert" && <div className="field"><label>Output format</label><select value={format} onChange={e => setFormat(e.target.value as Format)}><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>}
       <div className="step-hint step-three"><b>STEP 3</b><span>Create and download</span></div><button type="button" className="primary" disabled={busy || !file} aria-busy={busy} onClick={run}>{busy ? "Preparing your image…" : "Prepare image now"} <span>→</span></button>
       {error && <p className="error" role="alert">{error}</p>}
-      {result && <div className="result" role="status" aria-live="polite"><b>✓ Image ready</b><p>{bytes(result.size)} · {result.w} × {result.h} px</p><a href={result.url} download={result.name}>Download {result.name} ↓</a></div>}
+      {result && <div className="result result-ready" ref={resultRef} role="status" aria-live="polite"><div className="result-ready-heading"><span className="result-check">✓</span><div><b>Your image is ready!</b><p>{bytes(result.size)} · {result.w} × {result.h} px</p></div></div><a className="result-download" href={result.url} download={result.name}><span>↓</span> Download image</a><small>{result.name}</small></div>}
       </div></div>
     </section>
     
