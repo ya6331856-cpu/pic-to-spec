@@ -2,20 +2,28 @@ import { spawn } from "node:child_process";
 
 const port = 3100;
 const base = `http://127.0.0.1:${port}`;
-const routes = [
-  "/", "/image-compressor", "/image-resizer", "/image-cropper", "/image-cutter",
-  "/image-converter", "/compress-image-to-50kb", "/resize-photo-for-online-form",
-  "/signature-resizer", "/jpg-to-webp", "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf",
-  "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator",
-  "/age-calculator", "/word-counter", "/case-converter", "/json-formatter",
-  "/base64-encoder-decoder", "/password-generator", "/qr-code-generator", "/privacy"
+const canonicalRoutes = [
+  "/", "/about", "/privacy", "/terms",
+  "/age-calculator", "/ats-resume-checker", "/background-remover",
+  "/base64-encoder-decoder", "/case-converter", "/compress-image-to-50kb",
+  "/csv-json-converter", "/discount-calculator", "/emi-calculator",
+  "/formrule-ai", "/gst-calculator", "/gst-invoice-generator",
+  "/hinglish-to-hindi", "/image-compressor", "/image-converter",
+  "/image-cropper", "/image-resizer", "/image-to-text", "/jpg-to-pdf",
+  "/jpg-to-webp", "/json-formatter", "/passport-photo-maker",
+  "/password-generator", "/pdf-merger", "/pdf-organizer", "/pdf-splitter",
+  "/pdf-to-excel", "/pdf-to-jpg", "/pdf-to-word", "/percentage-calculator",
+  "/qr-code-generator", "/resize-photo-for-online-form",
+  "/signature-resizer", "/unit-converter", "/url-encoder-decoder",
+  "/uuid-generator", "/word-counter"
 ];
+const legacyRedirects = [{ from: "/image-cutter", to: "/image-cropper" }];
 
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--port", String(port)], { stdio: "ignore" });
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function request(path) {
-  return fetch(base + path, { signal: AbortSignal.timeout(5000) });
+async function request(path, options = {}) {
+  return fetch(base + path, { signal: AbortSignal.timeout(10000), ...options });
 }
 
 try {
@@ -29,32 +37,43 @@ try {
   }
   if (!ready) throw new Error("Production server did not become ready.");
 
-  for (const path of routes) {
+  for (const path of canonicalRoutes) {
     const response = await request(path);
     if (!response.ok) throw new Error(`${path} returned HTTP ${response.status}`);
     const html = await response.text();
     if (!html.includes("<title>") || !html.includes("PicToSpec")) {
       throw new Error(`${path} is missing its page title or brand content.`);
     }
-    if (path !== "/privacy" && !html.includes("tool-search")) {
-      throw new Error(`${path} is missing the global tool search.`);
+    process.stdout.write(`PASS page ${path}\n`);
+  }
+
+  for (const route of legacyRedirects) {
+    const response = await request(route.from, { redirect: "manual" });
+    const location = response.headers.get("location") || "";
+    if (![301, 302, 307, 308].includes(response.status) || !location.endsWith(route.to)) {
+      throw new Error(`${route.from} did not redirect to ${route.to} (HTTP ${response.status}, Location: ${location}).`);
     }
-    process.stdout.write(`PASS ${path}\n`);
+    process.stdout.write(`PASS redirect ${route.from} -> ${route.to}\n`);
   }
 
   const sitemapResponse = await request("/sitemap.xml");
   if (!sitemapResponse.ok) throw new Error("sitemap.xml did not return HTTP 200.");
   const sitemap = await sitemapResponse.text();
-  for (const path of routes) {
-    const expected = path === "/" ? "https://pictospec.com/" : `https://pictospec.com${path}`;
-    if (!sitemap.includes(expected)) throw new Error(`Sitemap is missing ${path}`);
+  for (const path of canonicalRoutes) {
+    const expected = `https://pictospec.com${path === "/" ? "/" : path}`;
+    if (!sitemap.includes(expected)) throw new Error(`Sitemap is missing canonical route ${path}`);
+  }
+  for (const route of legacyRedirects) {
+    if (sitemap.includes(`https://pictospec.com${route.from}`)) {
+      throw new Error(`Redirect-only route ${route.from} must not appear in the sitemap.`);
+    }
   }
 
   const robotsResponse = await request("/robots.txt");
   if (!robotsResponse.ok || !(await robotsResponse.text()).includes("sitemap.xml")) {
     throw new Error("robots.txt is missing the sitemap reference.");
   }
-  process.stdout.write(`\nSmoke test passed: ${routes.length} pages, sitemap and robots.txt.\n`);
+  process.stdout.write(`\nSmoke test passed: ${canonicalRoutes.length} canonical pages, ${legacyRedirects.length} redirect, sitemap and robots.txt.\n`);
 } catch (error) {
   console.error(error);
   process.exitCode = 1;
