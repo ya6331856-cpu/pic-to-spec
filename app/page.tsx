@@ -160,6 +160,9 @@ export default function Home() {
         <a className="tool-card" href="/pdf-merger"><b>Merge PDF</b><small>Combine PDF documents</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/pdf-splitter"><b>Split PDF</b><small>Extract selected pages</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/jpg-to-pdf"><b>JPG to PDF</b><small>Convert images into PDF</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/pdf-to-jpg"><b>PDF to JPG / PNG</b><small>Convert PDF pages into images</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/pdf-to-word"><b>PDF to Word</b><small>Convert selectable PDF text to DOCX</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/pdf-to-excel"><b>PDF to Excel</b><small>Extract table-like data to XLSX</small><strong>OPEN TOOL →</strong></a>
       </div></div>
       <div className="directory-category"><h3>Calculators</h3><div className="quick-grid">
         <a className="tool-card" href="/gst-calculator"><b>GST Calculator</b><small>Calculate tax and total price</small><strong>OPEN TOOL →</strong></a>
