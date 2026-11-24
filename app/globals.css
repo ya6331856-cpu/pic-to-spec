@@ -830,3 +830,32 @@ footer .mark{width:32px!important;height:32px!important}
   main:has(> .hero)>.topbar .brand{margin-right:auto}
 }
 @media(prefers-reduced-motion:reduce){.mobile-nav-toggle span{transition:none}}
+
+
+/* Pixo mascot hero: a memorable, original brand character */
+.hero{padding:48px 22px 38px}
+.hero-main{max-width:1020px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 270px;align-items:center;gap:32px;text-align:left}
+.hero-copy{text-align:center;min-width:0}
+.hero-copy .tool-search{margin-top:24px}
+.hero-copy .hero-proof{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 20px;margin-top:20px;font-size:11px;color:#527160}
+.hero-mascot{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:250px}
+.hero-mascot-glow{position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#d7f5e5 0%,#eaf8f0 48%,transparent 72%);filter:blur(3px)}
+.hero-mascot img{position:relative;width:min(100%,240px);height:auto;max-height:240px;object-fit:contain;filter:drop-shadow(0 12px 18px #123c2820)}
+.hero-mascot-note{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:-5px;padding:10px 17px;background:#fff;border:1px solid #dcebe1;border-radius:14px;box-shadow:0 8px 22px #153d2410;text-align:center}
+.hero-mascot-note strong{font-size:13px;color:#14634b}
+.hero-mascot-note span{font-size:10px;color:#75847c}
+@media(max-width:700px){
+ .hero{padding:35px 17px 24px}
+ .hero-main{grid-template-columns:1fr;gap:10px}
+ .hero-copy{text-align:center}
+ .hero-mascot{min-height:0;margin:4px auto 0}
+ .hero-mascot img{width:150px;max-height:150px}
+ .hero-mascot-glow{width:145px;height:145px}
+ .hero-mascot-note{padding:8px 14px;margin-top:-2px}
+ .hero-mascot-note strong{font-size:12px}
+ .hero-mascot-note span{font-size:9px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .hero-mascot img{animation:pixo-gentle-float 4.5s ease-in-out infinite}
+ @keyframes pixo-gentle-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+}
