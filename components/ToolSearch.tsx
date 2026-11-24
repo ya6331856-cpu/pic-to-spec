@@ -81,6 +81,7 @@ const tools = [
   { name: "FormRule AI", href: "/formrule-ai", detail: "Read form photo and signature requirements and prepare files", aliases: "exam application photo signature size form rule upload pack" },
   { name: "Passport Photo Maker", href: "/passport-photo-maker", detail: "Create passport-style photo sheets with multiple copies", aliases: "passport visa photo print 4x6 a4 photo maker" },
   { name: "PDF Page Organizer", href: "/pdf-organizer", detail: "Reorder, remove and rotate PDF pages", aliases: "pdf organize reorder delete rotate pages" },
+  { name: "PDF Page Numbers & Watermark", href: "/pdf-page-numbers-watermark", detail: "Add page numbers or a diagonal watermark to selected PDF pages", aliases: "pdf page number numbering watermark stamp confidential draft sample label" },
   { name: "PDF to JPG / PNG", href: "/pdf-to-jpg", detail: "Convert PDF pages into JPG or PNG images", aliases: "pdf to jpg pdf to png pdf converter image pages export" },
   { name: "PDF to Word", href: "/pdf-to-word", detail: "Convert selectable PDF text into an editable DOCX file", aliases: "pdf word doc docx microsoft office convert editable" },
   { name: "PDF to Excel", href: "/pdf-to-excel", detail: "Extract PDF text and table-like rows into an XLSX spreadsheet", aliases: "pdf excel xlsx spreadsheet table bank statement convert" },
