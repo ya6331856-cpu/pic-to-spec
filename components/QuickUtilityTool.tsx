@@ -24,7 +24,9 @@ export default function QuickUtilityTool({kind}:{kind:Kind}) {
  const output=useMemo(()=>{
   if(kind==="html-entities") return mode==="encode"?escapeHtml(input):decodeHtml(input);
   if(kind==="slug") { const s=makeSlug(slug,lowercase); return s.replace(/-/g,separator); }
-  if(kind==="line-sorter") return sortTextLines(input,sortOrder,ignoreCase); return removeDuplicateLines(input,ignoreCase,trimLines,removeEmpty);\n  if(kind==="line-reverser") return reverseTextLines(input);
+  if(kind==="line-sorter") return sortTextLines(input,sortOrder,ignoreCase);
+  if(kind==="duplicate-lines") return removeDuplicateLines(input,ignoreCase,trimLines,removeEmpty);
+  if(kind==="line-reverser") return reverseTextLines(input);
   if(kind==="timestamp") { const n=Number(timestamp); if(!Number.isFinite(n)||timestamp.trim()==="") return "Enter a valid numeric timestamp."; const d=new Date(unit==="seconds"?n*1000:n); return Number.isNaN(d.getTime())?"Timestamp is outside the supported date range.":formatDate(d); }
   const count=Math.max(1,Math.min(50,Math.floor(Number(paragraphs)||1))); const wordCount=Math.max(1,Math.min(1000,Math.floor(Number(words)||1)));
   const sentence="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
