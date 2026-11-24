@@ -858,3 +858,10 @@ footer .mark{width:32px!important;height:32px!important}
  .hero-mascot img{animation:pixo-gentle-float 4.5s ease-in-out infinite}
  @keyframes pixo-gentle-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 }
+
+/* Improve Pixo hero contrast on the Midnight / Emerald background */
+.hero-copy .hero-proof{color:#c5d9d9}
+.hero-mascot-glow{background:radial-gradient(circle,#0c665b88 0%,#0a394688 48%,transparent 72%)}
+.hero-mascot-note{background:linear-gradient(145deg,#10333b,#0a202c);border-color:#28605d;box-shadow:0 8px 24px #0005}
+.hero-mascot-note strong{color:#72f0c5}
+.hero-mascot-note span{color:#bfd2d2}
