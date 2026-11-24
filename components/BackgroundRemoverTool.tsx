@@ -55,13 +55,20 @@ export default function BackgroundRemoverTool() {
       if(background!=="transparent") {
         const bitmap=await createImageBitmap(result.blob);
         const canvas=document.createElement("canvas");
-        canvas.width=bitmap.width; canvas.height=bitmap.height;
-        const ctx=canvas.getContext("2d");
-        if(!ctx) throw new Error("Your browser could not prepare the final image.");
-        const colors:Record<Exclude<OutputBackground,"transparent">,string>={white:"#ffffff",light:"#f1f5f9",black:"#111827"};
-        ctx.fillStyle=colors[background]; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.drawImage(bitmap,0,0); bitmap.close();
-        outputBlob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Could not export the image.")),"image/png"));
+        try {
+          if(bitmap.width*bitmap.height>40000000) throw new Error("The processed image exceeds the 40-megapixel safety limit.");
+          canvas.width=bitmap.width; canvas.height=bitmap.height;
+          const ctx=canvas.getContext("2d");
+          if(!ctx) throw new Error("Your browser could not prepare the final image.");
+          const colors:Record<Exclude<OutputBackground,"transparent">,string>={white:"#ffffff",light:"#f1f5f9",black:"#111827"};
+          ctx.fillStyle=colors[background]; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.drawImage(bitmap,0,0);
+          outputBlob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Could not export the image.")),"image/png"));
+        } finally {
+          bitmap.close();
+          canvas.width=0; canvas.height=0;
+        }
       }
+      if(controller.signal.aborted) throw new Error("Processing cancelled.");
       const url=URL.createObjectURL(outputBlob);
       if(resultRef.current) URL.revokeObjectURL(resultRef.current);
       resultRef.current=url; setResultUrl(url);
