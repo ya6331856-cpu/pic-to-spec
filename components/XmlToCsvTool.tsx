@@ -15,7 +15,7 @@ function convertXml(source:string){
  if(/<!DOCTYPE|<!ENTITY/i.test(source))throw new Error("DOCTYPE and custom entity declarations are not supported. Remove them and try again.");
  const doc=new DOMParser().parseFromString(source,"application/xml");if(doc.querySelector("parsererror"))throw new Error("Invalid XML. Check that all tags are properly closed and nested.");
  const root=doc.documentElement;if(!root)throw new Error("No XML root element was found.");const children=Array.from(root.children);
- const records=children.length>1&&children.every(n=>n.tagName===children[0].tagName)?children:[root];const rows=records.map(n=>flatten(n));const headers=Array.from(new Set(rows.flatMap(r=>Object.keys(r))));
+ const records=children.length>0&&children.every(n=>n.tagName===children[0].tagName)&&(children.length>1||children[0].children.length>0||children[0].attributes.length>0)?children:[root];const rows=records.map(n=>flatten(n));const headers=Array.from(new Set(rows.flatMap(r=>Object.keys(r))));
  if(!headers.length)throw new Error("No element text or attributes were found to export.");
  return [headers.map(cell).join(","),...rows.map(r=>headers.map(h=>cell(r[h]??"")).join(","))].join("\r\n");
 }
