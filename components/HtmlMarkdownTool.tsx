@@ -60,7 +60,7 @@ function convertHtml(source:string):string{
  doc.querySelectorAll("script,style,noscript,template,svg,iframe,object").forEach(el=>el.remove());
  return Array.from(doc.body.childNodes).map(node=>blockMarkdown(node)).filter(Boolean).join("\n\n").replace(/\n{3,}/g,"\n\n").trim()+"\n";
 }
-const sample=["<!doctype html>","<article>","  <h1>Welcome to PicToSpec</h1>","  <p>Useful <strong>free online tools</strong> for everyday work.</p>","  <h2>Popular tools</h2>","  <ul><li>Image Compressor</li><li>JSON Formatter</li></ul>","  <blockquote><p>Your files stay on your device.</p></blockquote>","  <p>Visit <a href=\\"https://pictospec.com\\">PicToSpec</a>.</p>","  <pre><code>const ready = true;</code></pre>","</article>"].join("\n");
+const sample=["<!doctype html>","<article>","  <h1>Welcome to PicToSpec</h1>","  <p>Useful <strong>free online tools</strong> for everyday work.</p>","  <h2>Popular tools</h2>","  <ul><li>Image Compressor</li><li>JSON Formatter</li></ul>","  <blockquote><p>Your files stay on your device.</p></blockquote>",'  <p>Visit <a href="https://pictospec.com">PicToSpec</a>.</p>',"  <pre><code>const ready = true;</code></pre>","</article>"].join("\n");
 export default function HtmlMarkdownTool(){
  const [html,setHtml]=useState(sample),[copied,setCopied]=useState(false);
  const result=useMemo(()=>{try{return {markdown:html.trim()?convertHtml(html):"",error:""};}catch(e){return {markdown:"",error:e instanceof Error?e.message:"Could not convert this HTML."};}},[html]);
