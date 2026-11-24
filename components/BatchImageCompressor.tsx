@@ -51,17 +51,19 @@ export default function BatchImageCompressor() {
 
   function addFiles(fileList: FileList | File[]) {
     const incoming = Array.from(fileList);
-    const next = [...items];
     let message = "";
-    for (const file of incoming) {
-      if (next.length >= MAX_FILES) { message = "You can add up to 20 images per batch."; break; }
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { message = file.name + ": use JPG, PNG or WebP."; continue; }
-      if (file.size > MAX_BYTES) { message = file.name + ": file is larger than 5 MB."; continue; }
-      if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
-      next.push({ id: (typeof crypto !== "undefined" && "randomUUID" in crypto) ? crypto.randomUUID() : file.name + "-" + file.size + "-" + next.length, file, status: "queued" });
-    }
-    setItems(next);
-    setNotice(message);
+    setItems(current => {
+      const next = [...current];
+      for (const file of incoming) {
+        if (next.length >= MAX_FILES) { message = "You can add up to 20 images per batch."; break; }
+        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { message = file.name + ": use JPG, PNG or WebP."; continue; }
+        if (file.size > MAX_BYTES) { message = file.name + ": file is larger than 5 MB."; continue; }
+        if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
+        next.push({ id: (typeof crypto !== "undefined" && "randomUUID" in crypto) ? crypto.randomUUID() : file.name + "-" + file.size + "-" + next.length, file, status: "queued" });
+      }
+      return next;
+    });
+    setNotice(message || (incoming.length > 0 ? "" : ""));
   }
 
   async function compressAll() {
