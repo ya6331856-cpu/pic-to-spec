@@ -48,15 +48,17 @@ export default function PDFToExcelTool() {
     if (next.type !== "application/pdf" && !next.name.toLowerCase().endsWith(".pdf")) { setError("Please select a PDF file."); return; }
     if (next.size > MAX_BYTES) { setError("Choose a PDF smaller than 40 MB."); return; }
     setBusy(true);
+    let pdf: any = null;
     try {
       const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
       pdfjs.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" + pdfjs.version + "/pdf.worker.min.mjs";
-      const pdf = await pdfjs.getDocument({data:await next.arrayBuffer()}).promise;
+      pdf = await pdfjs.getDocument({data:await next.arrayBuffer()}).promise;
+      if (pdf.numPages < 1) throw new Error("This PDF does not contain any pages.");
       if (pdf.numPages > 200) throw new Error("This tool supports PDFs up to 200 pages. Convert a smaller document.");
       setFile(next); setPageCount(pdf.numPages); setLastPage(String(Math.min(pdf.numPages, MAX_PAGES)));
       setStatus(pdf.numPages + " pages detected. Select up to " + MAX_PAGES + " pages for spreadsheet extraction.");
     } catch(e) { setError(e instanceof Error ? e.message : "Could not read this PDF. It may be damaged or encrypted."); }
-    finally { setBusy(false); }
+    finally { if (pdf) { try { await pdf.cleanup(); } catch {} } setBusy(false); }
   }
 
   async function convert() {
