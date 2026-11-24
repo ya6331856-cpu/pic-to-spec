@@ -352,3 +352,59 @@ main:has(> .hero) footer{padding-top:28px;padding-bottom:28px;border-top:1px sol
  main:has(> .hero) .directory-category .tool-card{min-height:126px;padding:13px;border-radius:13px}
  main:has(> .hero)>.tool-content{width:calc(100% - 24px);margin:0 auto 35px!important;padding:21px 17px!important;border-radius:17px}
 }
+
+
+/* Lightweight interaction and download animations across tool pages */
+main:has(.tool-page-top) a[download],.result-ready .result-download{
+ position:relative;isolation:isolate;overflow:hidden;
+ background-size:180% 100%;
+ animation:download-glow 3.2s ease-in-out infinite;
+}
+main:has(.tool-page-top) a[download]::after,.result-ready .result-download::after{
+ content:"";position:absolute;inset:-40% auto -40% -45%;width:32%;
+ background:linear-gradient(90deg,transparent,#ffffff75,transparent);
+ transform:skewX(-18deg);animation:download-shine 4.8s ease-in-out infinite;
+ pointer-events:none;
+}
+main:has(.tool-page-top) a[download]:hover,.result-ready .result-download:hover{
+ animation-play-state:paused;transform:translateY(-2px) scale(1.01);
+}
+main:has(.tool-page-top) button:not(:disabled),main:has(.tool-page-top) a:not(.back){
+ -webkit-tap-highlight-color:transparent;
+}
+main:has(.tool-page-top) button:active:not(:disabled){transform:translateY(0) scale(.985)}
+main:has(.tool-page-top) input[type=file]{
+ display:block;max-width:100%;padding:12px;border:1.5px dashed #b8b5e8!important;
+ border-radius:12px!important;background:#f8f7ff!important;color:#59647b;
+}
+main:has(.tool-page-top) input[type=file]::file-selector-button{
+ margin-right:12px;padding:10px 14px;border:0;border-radius:9px;
+ background:linear-gradient(110deg,#7357e8,#258fbd);color:#fff;font-weight:700;cursor:pointer;
+}
+main:has(.tool-page-top) input[type=file]:hover{border-color:#8172df!important;background:#f3f1ff!important}
+main:has(.tool-page-top) button[aria-busy="true"]{
+ background:linear-gradient(100deg,#7357e8,#258fbd,#18a99b)!important;
+ background-size:220% 100%!important;animation:processing-flow 1.8s linear infinite;
+}
+main:has(.tool-page-top) section{transition:border-color .2s,box-shadow .2s}
+main:has(.tool-page-top) section:focus-within{border-color:#c9c4ef!important}
+.tool-page-top .tool-search-box{transition:box-shadow .2s,border-color .2s}
+.tool-page-top .tool-search-box:focus-within{border-color:#aaa0ef;box-shadow:0 0 0 4px #7357e812}
+@keyframes download-glow{
+ 0%,100%{filter:saturate(1);box-shadow:0 8px 20px #6654ce22}
+ 50%{filter:saturate(1.18);box-shadow:0 10px 27px #6654ce38}
+}
+@keyframes download-shine{
+ 0%,22%{left:-45%}
+ 58%,100%{left:125%}
+}
+@keyframes processing-flow{to{background-position:220% 0}}
+@media(hover:none){
+ main:has(.tool-page-top) a[download]:hover,.result-ready .result-download:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+ main:has(.tool-page-top) a[download],.result-ready .result-download,
+ main:has(.tool-page-top) a[download]::after,.result-ready .result-download::after,
+ main:has(.tool-page-top) button[aria-busy="true"]{animation:none!important}
+ main:has(.tool-page-top) section,main:has(.tool-page-top) button{transition:none!important}
+}
