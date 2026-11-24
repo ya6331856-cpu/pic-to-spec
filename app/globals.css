@@ -1014,3 +1014,26 @@ main:has(.tool-page-intro) .tool-content summary{color:#273b58!important}
  main:has(.tool-page-intro) .drop{min-height:190px}
  main:has(.tool-page-intro) .tool-content{margin:12px 10px 40px!important;padding:18px 15px!important}
 }
+
+
+/* Accessibility: strengthen text contrast on light tool workspaces and cards. */
+:root{--muted:#4b5a52}
+main:has(.tool-page-intro) .tool-page-intro>p:last-child{color:#3f4d63!important}
+main:has(.tool-page-intro) .tabs button{color:#3f4d63!important}
+main:has(.tool-page-intro) .compression-mode-switch button{color:#3e4d63!important}
+main:has(.tool-page-intro) .drop span:not(.upload),
+main:has(.tool-page-intro) .drop small,
+main:has(.tool-page-intro) .field>p,
+main:has(.tool-page-intro) .fileinfo{color:#46556b!important}
+main:has(.tool-page-intro) .inputunit span,
+main:has(.tool-page-intro) .presets span{color:#46546a!important}
+main:has(.tool-page-intro) .privacy-compact{color:#46556b!important}
+main:has(.tool-page-intro) .tool-content p,
+main:has(.tool-page-intro) .tool-content li{color:#40516a!important}
+main:has(.tool-page-intro) .tool-content summary{color:#1e304b!important}
+main:has(.tool-page-intro) .tool-content a{color:#145b4b!important}
+main:has(.tool-page-intro) .workspace-head i,
+main:has(.tool-page-intro) .dims b{color:#53627a!important}
+main:has(.tool-page-intro) .result-ready .result-ready-heading p,
+main:has(.tool-page-intro) .result-ready>small{color:#405f55!important}
+main:has(.tool-page-intro) .result-ready p{color:#345b50!important}
