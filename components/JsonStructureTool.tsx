@@ -12,7 +12,7 @@ function inferSchema(value:unknown):Record<string,unknown>{
   if(!value.length)return {type:"array",items:{}};
   const variants=value.map(inferSchema);
   const unique=new Map(variants.map(v=>[JSON.stringify(v),v]));
-  const schemas=[...unique.values()];
+  const schemas=Array.from(unique.values());
   return {type:"array",items:schemas.length===1?schemas[0]:{anyOf:schemas}};
  }
  if(typeof value==="object"){
@@ -23,7 +23,7 @@ function inferSchema(value:unknown):Record<string,unknown>{
 }
 function typeName(value:unknown,depth=0):string{
  if(value===null)return "null";
- if(Array.isArray(value)){if(!value.length)return "unknown[]";const types=[...new Set(value.map(v=>typeName(v,depth+1)))];return (types.length>1?"("+types.join(" | ")+")":types[0])+"[]";}
+ if(Array.isArray(value)){if(!value.length)return "unknown[]";const types=Array.from(new Set(value.map(v=>typeName(v,depth+1))));return (types.length>1?"("+types.join(" | ")+")":types[0])+"[]";}
  if(typeof value==="object"){const entries=Object.entries(value as Record<string,unknown>);if(!entries.length)return "Record<string, unknown>";return "{\n"+entries.map(([k,v])=>"  ".repeat(depth+1)+(/^[A-Za-z_$][\\w$]*$/.test(k)?k:JSON.stringify(k))+": "+typeName(v,depth+1)+";").join("\n")+"\n"+"  ".repeat(depth)+"}";}
  return typeof value;
 }
