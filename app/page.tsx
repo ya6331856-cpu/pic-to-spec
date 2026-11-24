@@ -197,6 +197,8 @@ export default function Home() {
         <a className="tool-card" href="/url-encoder-decoder"><b>URL Encoder / Decoder</b><small>Encode and decode URL characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/csv-json-converter"><b>CSV to JSON Converter</b><small>Convert CSV and JSON data</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/csv-cleaner"><b>CSV Cleaner</b><small>Remove duplicate rows and extra spaces</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/color-converter"><b>Color Converter</b><small>Convert HEX, RGB and HSL values</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/url-parser"><b>URL Parser</b><small>Inspect URL parts and query strings</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/uuid-generator"><b>UUID Generator</b><small>Create random unique identifiers</small><strong>OPEN TOOL →</strong></a>
       </div></div>
       <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
