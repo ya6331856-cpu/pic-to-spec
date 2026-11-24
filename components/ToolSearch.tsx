@@ -36,6 +36,8 @@ const tools = [
   { name: "QR Code Generator", href: "/qr-code-generator", detail: "Create a QR code from text or a URL", aliases: "qr qrcode scan barcode url link" },
   { name: "URL Encoder / Decoder", href: "/url-encoder-decoder", detail: "Encode or decode URL characters", aliases: "url encode decode percent uri link escape" },
   { name: "CSV to JSON Converter", href: "/csv-json-converter", detail: "Convert CSV rows and JSON arrays", aliases: "csv json excel comma separated convert" },
+  { name: "Color Converter", href: "/color-converter", detail: "Convert HEX colors to RGB and HSL", aliases: "hex rgb hsl color code picker converter" },
+  { name: "URL Parser", href: "/url-parser", detail: "Split a URL into protocol, host, path and query", aliases: "parse url uri hostname domain query parameters inspect" },
   { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "uuid guid unique id random identifier" },
   { name: "FormRule AI", href: "/formrule-ai", detail: "Read form photo and signature requirements and prepare files", aliases: "exam application photo signature size form rule upload pack" },
   { name: "Passport Photo Maker", href: "/passport-photo-maker", detail: "Create passport-style photo sheets with multiple copies", aliases: "passport visa photo print 4x6 a4 photo maker" },
