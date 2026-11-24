@@ -168,7 +168,7 @@ export default function FormRuleTool() {
     <p className="note">This is an assisted rule reader, not an official form validator. Extraction can miss or misread instructions. Always confirm the values below against the original notice and the receiving portal.</p>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>Step 1 · Upload the form instructions</h2>
-      <input type="file" accept=".pdf,image/*" onChange={e=>setSource(e.target.files?.[0]||null)}/>
+      <input type="file" accept=".pdf,image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{setSource(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
       {source&&<p>{source.name}</p>}
       <button className="primary" disabled={busy} onClick={readSource}>{busy?"Reading…":"Read requirements"}</button>
       {extracted&&<details style={{marginTop:14}}><summary>View extracted text</summary><pre style={{whiteSpace:"pre-wrap",fontSize:12}}>{extracted}</pre></details>}
@@ -183,8 +183,8 @@ export default function FormRuleTool() {
         </div>
       </div>)}
       <h2>Step 3 · Upload your files</h2>
-      <label>Photo<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setPhoto(e.target.files?.[0]||null)}/></label>
-      <label style={{display:"block",marginTop:12}}>Signature<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setSignature(e.target.files?.[0]||null)}/></label>
+      <label>Photo<input type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{setPhoto(e.target.files?.[0]||null);e.currentTarget.value="";}}/></label>
+      <label style={{display:"block",marginTop:12}}>Signature<input type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{setSignature(e.target.files?.[0]||null);e.currentTarget.value="";}}/></label>
       <button className="primary download-action" disabled={busy} onClick={makePack} style={{marginTop:18}}>{busy?"Preparing…":"↓ Prepare ZIP upload pack"}</button>
       {error&&<p role="alert" className="error">{error}</p>}
       {status&&<p role="status" className="result">{status}</p>}
