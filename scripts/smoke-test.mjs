@@ -60,7 +60,7 @@ try {
   if (!sitemapResponse.ok) throw new Error("sitemap.xml did not return HTTP 200.");
   const sitemap = await sitemapResponse.text();
   for (const path of canonicalRoutes) {
-    const expected = `https://pictospec.com${path === "/" ? "/" : path}`;
+    const expected = `https://pictospec.com${path === "/" ? "" : path}`;
     if (!sitemap.includes(expected)) throw new Error(`Sitemap is missing canonical route ${path}`);
   }
   for (const route of legacyRedirects) {
