@@ -36,6 +36,7 @@ const tools = [
   { name: "JSON to TypeScript", href: "/json-to-typescript", detail: "Generate TypeScript types and interfaces from JSON", aliases: "typescript type interface ts object array json converter" },
   { name: "SQL Formatter", href: "/sql-formatter", detail: "Format SQL queries with readable indentation", aliases: "sql beautifier pretty print query formatter database mysql postgres" },
   { name: "Cron Expression Generator", href: "/cron-expression-generator", detail: "Build and explain five-field cron schedules", aliases: "cron schedule expression generator job scheduler minutes hours daily weekly" },
+  { name: "HTML to Markdown Converter", href: "/html-to-markdown-converter", detail: "Convert HTML markup into clean Markdown", aliases: "html markdown md converter headings links lists tables code" },
   { name: "JavaScript Minifier", href: "/javascript-minifier", detail: "Remove JavaScript comments and unnecessary whitespace", aliases: "js minify minifier compress optimize javascript code smaller" },
   { name: "HTML Minifier", href: "/html-minifier", detail: "Remove HTML comments and whitespace between tags", aliases: "html minify minifier compress optimize markup smaller" },
   { name: "CSS Minifier", href: "/css-minifier", detail: "Remove CSS comments and unnecessary whitespace", aliases: "css minify minifier compress stylesheet optimize code" },
