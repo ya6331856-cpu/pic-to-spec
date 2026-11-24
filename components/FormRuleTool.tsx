@@ -31,8 +31,12 @@ function extractRequirements(text: string): Requirement[] {
       target.width = width; target.height = height;
     }
   }
-  if (/png only|png format/.test(lower)) output[0].format = "image/png";
-  if (/jpg only|jpeg only|jpg format|jpeg format/.test(lower)) output[0].format = "image/jpeg";
+  const formatMatches = Array.from(lower.matchAll(/(photo|photograph|passport|signature|sign)\\D{0,50}(png only|png format|jpg only|jpeg only|jpg format|jpeg format)/g));
+  for (const match of formatMatches) {
+    const kind = /sign/.test(match[1]) ? "signature" : "photo";
+    const target = output.find(item => item.kind === kind)!;
+    target.format = /png/.test(match[2]) ? "image/png" : "image/jpeg";
+  }
   return output;
 }
 
