@@ -119,7 +119,7 @@ export default function PDFToImageTool() {
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not convert this PDF. Try another file.");
     } finally {
-      if (pdf)
+      // Always release the UI lock, including when PDF.js fails before opening the document.
       setBusy(false);
     }
   }
