@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import PixoGuide from "@/components/PixoGuide";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pictospec.com"),
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           })}
         </Script>
         {children}
+        <PixoGuide />
         {measurementId ? (
           <>
             <Script
