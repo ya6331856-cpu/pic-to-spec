@@ -197,6 +197,8 @@ export default function Home() {
         <a className="tool-card" href="/json-to-typescript"><b>JSON to TypeScript</b><small>Generate TypeScript types and interfaces</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/sql-formatter"><b>SQL Formatter</b><small>Beautify SQL queries with readable indentation</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/cron-expression-generator"><b>Cron Expression Generator</b><small>Create and explain scheduled task expressions</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/javascript-minifier"><b>JavaScript Minifier</b><small>Remove comments and unnecessary code whitespace</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/html-minifier"><b>HTML Minifier</b><small>Compress markup by removing comments and tag gaps</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/url-encoder-decoder"><b>URL Encoder / Decoder</b><small>Encode and decode URL characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/csv-json-converter"><b>CSV to JSON Converter</b><small>Convert CSV and JSON data</small><strong>OPEN TOOL →</strong></a>
