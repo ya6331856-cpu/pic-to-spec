@@ -56,6 +56,7 @@ const tools = [
   { name: "CSV to JSON Converter", href: "/csv-json-converter", detail: "Convert CSV rows into JSON objects", aliases: "csv json excel comma separated convert import" },
   { name: "JSON to CSV Converter", href: "/json-to-csv-converter", detail: "Export JSON arrays to spreadsheet-ready CSV", aliases: "json csv excel spreadsheet export nested objects delimiter" },
   { name: "JSON to Excel Converter", href: "/json-to-excel-converter", detail: "Export JSON arrays to a real Excel workbook", aliases: "json xlsx excel spreadsheet workbook export nested objects" },
+  { name: "CSV to Excel Converter", href: "/csv-to-excel-converter", detail: "Convert CSV data into a real Excel workbook", aliases: "csv xlsx excel spreadsheet convert comma semicolon tab leading zeros" },
   { name: "Color Converter", href: "/color-converter", detail: "Convert HEX colors to RGB and HSL", aliases: "hex rgb hsl color code picker converter" },
   { name: "URL Parser", href: "/url-parser", detail: "Split a URL into protocol, host, path and query", aliases: "parse url uri hostname domain query parameters inspect" },
   { name: "JSON to XML Converter", href: "/json-to-xml-converter", detail: "Convert JSON objects and arrays into XML", aliases: "json xml convert object array developer" },
