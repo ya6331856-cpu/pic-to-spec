@@ -13,7 +13,7 @@ type TextRow = { y: number; cells: CellText[] };
 
 function escapeXml(value: string) {
   // XML 1.0 forbids most C0 control characters; strip them before writing XLSX parts.
-  return value.replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/g,"")
+  return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"")
     .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
 }
 function columnName(index: number) {
