@@ -21,7 +21,7 @@ export default function QuickUtilityTool({kind}:{kind:Kind}) {
  const description=kind==="html-entities"?"Encode special characters into HTML entities or decode HTML entities back into readable text.":kind==="timestamp"?"Convert Unix timestamps between seconds, milliseconds and readable UTC dates.":kind==="slug"?"Create clean, readable URL slugs from titles and text for SEO-friendly URLs.":"Generate placeholder Lorem Ipsum text by paragraph or word count.";
  const output=useMemo(()=>{
   if(kind==="html-entities") return mode==="encode"?escapeHtml(input):decodeHtml(input);
-  if(kind==="slug") { const s=makeSlug(slug); return lowercase?s.replace(/[A-Z]/g,"x").replace(/-/g,separator):s.replace(/-/g,separator); }
+  if(kind==="slug") { const s=makeSlug(slug,lowercase); return s.replace(/-/g,separator); }
   if(kind==="timestamp") { const n=Number(timestamp); if(!Number.isFinite(n)||timestamp.trim()==="") return "Enter a valid numeric timestamp."; const d=new Date(unit==="seconds"?n*1000:n); return Number.isNaN(d.getTime())?"Timestamp is outside the supported date range.":formatDate(d); }
   const count=Math.max(1,Math.min(50,Math.floor(Number(paragraphs)||1))); const wordCount=Math.max(1,Math.min(1000,Math.floor(Number(words)||1)));
   const sentence="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
