@@ -9,11 +9,11 @@ const buttonStyle = { border:0,background:"#14634b",color:"#fff",padding:"11px 1
 
 function minifyJavaScript(source:string):string {
  let out="",i=0,space=false;
- const write=(s:string)=>{if(space&&out&&!/[\${token}([{.,;:+*/%<>=!?&|^-]$/.test(out)&&!/[\${token}([{.,;:+*/%<>=!?&|^-]/.test(s[0]||""))out+=" ";space=false;out+=s;};
+ const write=(s:string)=>{if(space&&out&&!/[\s([{.,;:+*/%<>=!?&|^-]$/.test(out)&&!/[\s([{.,;:+*/%<>=!?&|^-]/.test(s[0]||""))out+=" ";space=false;out+=s;};
  while(i<source.length){
   const c=source[i],n=source[i+1];
-  if(/\${token}/.test(c)){space=true;i++;continue;}
-  if(c==="/"&&n==="/"){i+=2;while(i<source.length&&source[i]!=="\${token}")i++;space=true;continue;}
+  if(/\s/.test(c)){space=true;i++;continue;}
+  if(c==="/"&&n==="/"){i+=2;while(i<source.length&&source[i]!=="\s")i++;space=true;continue;}
   if(c==="/"&&n==="*"){const end=source.indexOf("*/",i+2);i=end<0?source.length:end+2;space=true;continue;}
   if(c==="'"||c==='"'||c==="\x60"){
    const q=c;let j=i+1;
@@ -21,19 +21,15 @@ function minifyJavaScript(source:string):string {
    write(source.slice(i,j));i=j;continue;
   }
   if(/[([{.,;:+*/%<>=!?&|^-]/.test(c)){space=false;out=out.trimEnd()+c;i++;continue;}
-  let j=i+1;while(j<source.length&&!/\${token}|[([{.,;:+*/%<>=!?&|^-]/.test(source[j])&&!(source[j]==="/"&&(source[j+1]==="/"||source[j+1]==="*")))j++;
+  let j=i+1;while(j<source.length&&!/\s|[([{.,;:+*/%<>=!?&|^-]/.test(source[j])&&!(source[j]==="/"&&(source[j+1]==="/"||source[j+1]==="*")))j++;
   write(source.slice(i,j));i=j;
  }
  return out.trim();
 }
 function minifyHtml(source:string):string {
  return source
-  .replace(/<!--[\${token}\${token}]*?-->/g,"")
-  .replace(/>\${token}+</g,"><")
-  .replace(/\${token}{2,}/g," ")
-  .replace(/\${token}*(=)\${token}*/g,"=")
-  .replace(/\${token}*(>)\${token}*/g,">")
-  .replace(/\${token}*(<)\${token}*/g,"<")
+  .replace(/<!--[\s\s]*?-->/g,"")
+  .replace(/>\s+</g,"><")
   .trim();
 }
 function download(text:string,name:string,type:string){const blob=new Blob([text],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
