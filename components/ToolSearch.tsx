@@ -31,6 +31,8 @@ const tools = [
   { name: "CSV Cleaner", href: "/csv-cleaner", detail: "Trim cells and remove blank or duplicate rows", aliases: "clean csv remove duplicate rows blank lines whitespace spreadsheet" },
   { name: "Case Converter", href: "/case-converter", detail: "Change text to upper or lower case", aliases: "uppercase lowercase title case sentence" },
   { name: "JSON Formatter", href: "/json-formatter", detail: "Format, validate and minify JSON", aliases: "json beautifier validator minify developer" },
+  { name: "JSON Validator", href: "/json-validator", detail: "Check JSON syntax and locate parsing errors", aliases: "json validate syntax error parser checker" },
+  { name: "Markdown Previewer", href: "/markdown-preview", detail: "Write Markdown and preview formatted content live", aliases: "markdown md editor live preview readme documentation" },
   { name: "Base64 Encoder / Decoder", href: "/base64-encoder-decoder", detail: "Encode or decode Base64 text", aliases: "base64 encode decode" },
   { name: "Password Generator", href: "/password-generator", detail: "Generate a random strong password", aliases: "password secure random strong" },
   { name: "QR Code Generator", href: "/qr-code-generator", detail: "Create a QR code from text or a URL", aliases: "qr qrcode scan barcode url link" },
