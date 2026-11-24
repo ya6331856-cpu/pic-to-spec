@@ -8,8 +8,9 @@ test("converts nested JSON objects with valid indentation",()=>{
 test("converts arrays of objects and nested arrays",()=>{
  assert.equal(jsonToYaml({tools:[{name:"JSON",tags:["data","web"]},{name:"CSS",tags:[]}]}),'"tools":\n  -\n    "name": "JSON"\n    "tags":\n      - "data"\n      - "web"\n  -\n    "name": "CSS"\n    "tags":\n      []');
 });
-test("preserves strings, quotes, line breaks and special keys",()=>{
- assert.equal(jsonToYaml({'a:b':'say "hello"\nnext','true':"yes","":""}),'"a:b": "say \\"hello\\"\\\nnext"\n"true": "yes"\n"": ""');
+test("preserves quoted strings, multiline strings and special keys",()=>{
+ const value={'a:b':'say "hello"\nnext','true':"yes","":""};
+ assert.equal(jsonToYaml(value),'"a:b": '+JSON.stringify('say "hello"\nnext')+'\n"true": "yes"\n"": ""');
 });
 test("handles empty objects, arrays and root scalars",()=>{
  assert.equal(jsonToYaml({empty:{},items:[]}),'"empty": {}\n"items": []');
