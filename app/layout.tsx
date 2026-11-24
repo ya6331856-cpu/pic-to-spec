@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: { default: "PicToSpec — Free Image, PDF, Text & Calculator Tools", template: "%s | PicToSpec" },
   description: "Use free browser-based tools to compress and resize images, merge PDFs, format text and data, create QR codes, generate passwords and calculate everyday figures. No account needed.",
   applicationName: "PicToSpec",
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
   alternates: { canonical: "/" },
   openGraph: { title: "PicToSpec — Free Image, PDF, Text & Calculator Tools", description: "Compress and resize images, manage PDFs, format text and data, create QR codes and use free online calculators. No account needed.", type: "website", siteName: "PicToSpec" },
   robots: { index: true, follow: true }
