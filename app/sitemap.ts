@@ -12,7 +12,7 @@ const tools = [
   "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-cleaner",
 "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/csv-cleaner",
   "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/image-to-text", "/ats-resume-checker",
-  "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer",
+  "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer", "/pdf-page-numbers-watermark",
   "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf", "/pdf-to-jpg", "/pdf-to-word",
   "/pdf-to-excel", "/background-remover", "/color-converter", "/url-parser",
   "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter",
