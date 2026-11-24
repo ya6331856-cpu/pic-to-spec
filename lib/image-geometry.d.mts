@@ -1,0 +1,1 @@
+export function calculateResizeDimensions(sourceWidth: number, sourceHeight: number, targetWidth: number, targetHeight: number, keepAspectRatio: boolean, maxPixels?: number): { width: number; height: number } | null;
