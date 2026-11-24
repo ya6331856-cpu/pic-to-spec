@@ -34,7 +34,8 @@ const tools = [
   { name: "PDF Page Organizer", href: "/pdf-organizer", detail: "Reorder, remove and rotate PDF pages", aliases: "pdf organize reorder delete rotate pages" },
   { name: "Image to Text OCR", href: "/image-to-text", detail: "Extract editable English text from images", aliases: "ocr image text extract photo screenshot scan" },
   { name: "ATS Resume Checker", href: "/ats-resume-checker", detail: "Review resume structure and job keyword overlap", aliases: "resume cv ats job application checker score" },
-  { name: "GST Invoice Generator", href: "/gst-invoice-generator", detail: "Create a simple GST invoice PDF", aliases: "gst tax invoice bill cgst sgst igst business" }
+  { name: "GST Invoice Generator", href: "/gst-invoice-generator", detail: "Create a simple GST invoice PDF", aliases: "gst tax invoice bill cgst sgst igst business" },
+  { name: "Hinglish to Hindi", href: "/hinglish-to-hindi", detail: "Convert Roman Hindi text to Devanagari", aliases: "hinglish hindi typing roman english to devanagari converter" }
 ];
 
 export default function ToolSearch() {
