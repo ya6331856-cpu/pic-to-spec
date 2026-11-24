@@ -42,6 +42,8 @@ const tools = [
   { name: "JSON to YAML Converter", href: "/json-to-yaml-converter", detail: "Convert JSON data into readable YAML", aliases: "json yaml convert yaml converter config kubernetes" },
   { name: "YAML Validator", href: "/yaml-validator", detail: "Check common YAML indentation and syntax issues", aliases: "yaml yml validate validator lint syntax config kubernetes" },
   { name: "XML to JSON Converter", href: "/xml-to-json-converter", detail: "Convert XML elements and attributes into JSON", aliases: "xml json convert parser attributes tags api" },
+  { name: "SQL to JSON Converter", href: "/sql-to-json-converter", detail: "Convert SQL INSERT statements into JSON records", aliases: "sql insert json database rows export convert" },
+  { name: "JSON Diff Tool", href: "/json-diff", detail: "Compare two JSON values and find exact differences", aliases: "json compare diff difference changes added removed nested" },
   { name: "Markdown Previewer", href: "/markdown-preview", detail: "Write Markdown and preview formatted content live", aliases: "markdown md editor live preview readme documentation" },
   { name: "Meta Tag Generator", href: "/meta-tag-generator", detail: "Generate SEO title, description and Open Graph tags", aliases: "seo meta title description canonical og open graph social tags" },
   { name: "Robots.txt Generator", href: "/robots-txt-generator", detail: "Create robots.txt crawl rules and sitemap directives", aliases: "robots txt crawler user agent allow disallow sitemap seo" },
