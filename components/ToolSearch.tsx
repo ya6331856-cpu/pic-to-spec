@@ -25,6 +25,7 @@ const tools = [
   { name: "Freelance Hourly Rate Calculator", href: "/freelance-hourly-rate-calculator", detail: "Estimate your freelance hourly rate", aliases: "freelancer hourly rate freelance pricing income expenses billable hours" },
   { name: "Simple & Compound Interest Calculator", href: "/simple-compound-interest-calculator", detail: "Compare simple and compound interest", aliases: "simple interest compound interest calculator investment" },
   { name: "Word Counter", href: "/word-counter", detail: "Count words, characters and spaces", aliases: "word count character counter text" },
+  { name: "Typing Speed Test", href: "/typing-speed-test", detail: "Measure net WPM, typing accuracy and mistakes", aliases: "typing test speed wpm words per minute keyboard practice typing accuracy" },
   { name: "Text Compare", href: "/text-compare", detail: "Find added and removed lines between two texts", aliases: "diff compare two texts differences changes documents" },
   { name: "HTML Entity Encoder / Decoder", href: "/html-entity-encoder-decoder", detail: "Encode or decode HTML special characters", aliases: "html entity escape unescape ampersand quotes tags" },
   { name: "Unix Timestamp Converter", href: "/unix-timestamp-converter", detail: "Convert Unix seconds and milliseconds to UTC dates", aliases: "epoch timestamp date time seconds milliseconds converter" },
