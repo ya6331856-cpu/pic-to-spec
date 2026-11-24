@@ -207,7 +207,7 @@ export default function Home() {
         <a className="tool-card" href="/css-gradient-generator"><b>CSS Gradient Generator</b><small>Create custom CSS color gradients</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/uuid-generator"><b>UUID Generator</b><small>Create random unique identifiers</small><strong>OPEN TOOL →</strong></a>
       </div></div>
-      <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
+      <div className="directory-category"><h3>SEO tools</h3><div className="quick-grid">\n        <a className="tool-card" href="/meta-tag-generator"><b>Meta Tag Generator</b><small>Create SEO and social preview tags</small><strong>OPEN TOOL →</strong></a>\n        <a className="tool-card" href="/robots-txt-generator"><b>Robots.txt Generator</b><small>Create crawler access rules</small><strong>OPEN TOOL →</strong></a>\n      </div></div>\n      <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
         <a className="tool-card" href="/password-generator"><b>Password Generator</b><small>Create random strong passwords</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/qr-code-generator"><b>QR Code Generator</b><small>Create QR codes for text and links</small><strong>OPEN TOOL →</strong></a>
       </div></div>
