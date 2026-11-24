@@ -10,7 +10,7 @@ const styles = {
 };
 function escapeHtml(value:string) { return value.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c] as string)); }
 function decodeHtml(value:string) { const doc = new DOMParser().parseFromString(value,"text/html"); return doc.documentElement.textContent ?? ""; }
-function makeSlug(value:string) { return value.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/&/g," and ").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").replace(/-{2,}/g,"-"); }
+function makeSlug(value:string, useLowercase:boolean) { const normalized=value.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().replace(/&/g," and ").replace(/[^a-zA-Z0-9]+/g,"-").replace(/^-+|-+$/g,"").replace(/-{2,}/g,"-"); return useLowercase?normalized.toLowerCase():normalized; }
 function formatDate(date:Date) { return date.toISOString(); }
 export default function QuickUtilityTool({kind}:{kind:Kind}) {
  const [input,setInput]=useState(""); const [mode,setMode]=useState<"encode"|"decode">("encode"); const [copied,setCopied]=useState(false);
