@@ -4,7 +4,7 @@ const port = 3100;
 const base = `http://127.0.0.1:${port}`;
 const canonicalRoutes = [
   "/", "/about", "/privacy", "/terms",
-  "/age-calculator", "/ats-resume-checker", "/background-remover",
+  "/age-calculator", "/sip-calculator", "/fd-rd-calculator", "/profit-margin-calculator", "/freelance-hourly-rate-calculator", "/simple-compound-interest-calculator", "/ats-resume-checker", "/background-remover",
   "/base64-encoder-decoder", "/case-converter", "/compress-image-to-50kb",
   "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/discount-calculator", "/emi-calculator",
   "/formrule-ai", "/gst-calculator", "/gst-invoice-generator",
