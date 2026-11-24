@@ -4,7 +4,7 @@ const base = "https://pictospec.com";
 
 const tools = [
   "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
-  "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter",
+  "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter", "/svg-to-png-converter", "/favicon-generator", "/image-color-picker", "/base64-image-converter",
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
   "/sip-calculator", "/fd-rd-calculator", "/profit-margin-calculator", "/freelance-hourly-rate-calculator", "/simple-compound-interest-calculator",
   "/word-counter", "/text-compare", "/html-entity-encoder-decoder", "/unix-timestamp-converter", "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter", "/duplicate-line-remover", "/text-line-reverser", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
