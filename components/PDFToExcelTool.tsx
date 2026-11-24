@@ -142,7 +142,7 @@ export default function PDFToExcelTool() {
     <p className="kicker">FREE PDF TO EXCEL CONVERTER</p>
     <h1>PDF to Excel Converter</h1>
     <p className="lead">Extract selectable text and table-like rows from PDF pages into an editable Excel spreadsheet. Choose a page range and download an XLSX file.</p>
-    <p className="note">This is a best-effort text and position extractor, not an advanced table-recognition engine. Column alignment can vary in complex PDFs. Files are processed in your browser; the PDF.js worker loads from a public CDN.</p>
+    <details className="tool-note-details"><summary>Read before converting</summary><p>This tool extracts text and approximate table rows; it is not an advanced table-recognition engine. Column alignment can vary in complex PDFs. Files are processed in your browser; the PDF.js worker loads from a public CDN.</p></details>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>1. Upload your PDF</h2>
       <input type="file" accept=".pdf,application/pdf" disabled={busy} onChange={e=>{chooseFile(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
