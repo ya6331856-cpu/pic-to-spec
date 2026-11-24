@@ -15,7 +15,7 @@ const canonicalRoutes = [
   "/pdf-to-excel", "/pdf-to-jpg", "/pdf-to-word", "/percentage-calculator",
   "/qr-code-generator", "/resize-photo-for-online-form",
   "/signature-resizer", "/unit-converter", "/url-encoder-decoder",
-  "/uuid-generator", "/word-counter"
+  "/uuid-generator", "/word-counter", "/text-compare", "/csv-cleaner"
 ];
 const legacyRedirects = [{ from: "/image-cutter", to: "/image-cropper" }];
 

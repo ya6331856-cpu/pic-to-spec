@@ -20,6 +20,8 @@ const tools = [
   { name: "Discount Calculator", href: "/discount-calculator", detail: "Calculate sale price and savings", aliases: "discount sale offer off price" },
   { name: "Age Calculator", href: "/age-calculator", detail: "Calculate age from date of birth", aliases: "age dob birthday date of birth" },
   { name: "Word Counter", href: "/word-counter", detail: "Count words, characters and spaces", aliases: "word count character counter text" },
+  { name: "Text Compare", href: "/text-compare", detail: "Find added and removed lines between two texts", aliases: "diff compare two texts differences changes documents" },
+  { name: "CSV Cleaner", href: "/csv-cleaner", detail: "Trim cells and remove blank or duplicate rows", aliases: "clean csv remove duplicate rows blank lines whitespace spreadsheet" },
   { name: "Case Converter", href: "/case-converter", detail: "Change text to upper or lower case", aliases: "uppercase lowercase title case sentence" },
   { name: "JSON Formatter", href: "/json-formatter", detail: "Format, validate and minify JSON", aliases: "json beautifier validator minify developer" },
   { name: "Base64 Encoder / Decoder", href: "/base64-encoder-decoder", detail: "Encode or decode Base64 text", aliases: "base64 encode decode" },
