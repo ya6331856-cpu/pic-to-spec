@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install --onnxruntime-node-install-cuda=skip --onnxruntime-node-install=skip
       - run: npm test
       - run: npm audit --omit=dev --audit-level=moderate
