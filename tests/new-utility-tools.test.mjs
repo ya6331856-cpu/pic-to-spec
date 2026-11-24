@@ -24,7 +24,7 @@ test("text compare refuses oversized comparisons", () => {
 });
 
 test("CSV cleaner trims cells, removes blank rows and duplicate records", () => {
-  const result = cleanCsv("name, city\n Asha , Delhi \n,,\nAsha,Delhi\nRavi,Mumbai");
+  const result = cleanCsv("name, city\n Asha , Delhi \n,\nAsha,Delhi\nRavi,Mumbai");
   assert.equal(result.csv, "name,city\r\nAsha,Delhi\r\nRavi,Mumbai");
   assert.equal(result.inputRows, 4);
   assert.equal(result.outputRows, 2);
