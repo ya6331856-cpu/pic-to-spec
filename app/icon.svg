@@ -1,15 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="bg" x1="5" y1="4" x2="59" y2="61" gradientUnits="userSpaceOnUse"><stop stop-color="#071C18"/><stop offset="1" stop-color="#102F28"/></linearGradient>
-    <linearGradient id="edge" x1="8" y1="7" x2="56" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#8BFFC0"/><stop offset=".55" stop-color="#19E6A0"/><stop offset="1" stop-color="#00B9C8"/></linearGradient>
-    <linearGradient id="lens" x1="29" y1="26" x2="48" y2="46" gradientUnits="userSpaceOnUse"><stop stop-color="#D9FFF0"/><stop offset="1" stop-color="#24DFA0"/></linearGradient>
+    <linearGradient id="bg" x1="4" y1="3" x2="60" y2="62" gradientUnits="userSpaceOnUse"><stop stop-color="#071C18"/><stop offset="1" stop-color="#102F28"/></linearGradient>
+    <linearGradient id="pixo" x1="12" y1="8" x2="52" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#C7FF75"/><stop offset=".48" stop-color="#27D99B"/><stop offset="1" stop-color="#087B83"/></linearGradient>
   </defs>
   <rect x="2" y="2" width="60" height="60" rx="17" fill="url(#bg)"/>
-  <rect x="2.8" y="2.8" width="58.4" height="58.4" rx="16.2" stroke="url(#edge)" stroke-width="1.6"/>
-  <path d="M14 15.5A4.5 4.5 0 0 1 18.5 11h18A4.5 4.5 0 0 1 41 15.5v22a4.5 4.5 0 0 1-4.5 4.5h-18a4.5 4.5 0 0 1-4.5-4.5v-22Z" fill="#F4FFF9" />
-  <path d="M17.5 34.5 24 27l5 5 4-4.5 4.5 5.5v4.5h-20Z" fill="#18C98C"/>
-  <circle cx="32.5" cy="19.5" r="3" fill="#20DDA0"/>
-  <circle cx="39.5" cy="37.5" r="10.5" fill="#08251F" stroke="url(#lens)" stroke-width="3.5"/>
-  <path d="m47 45 6 6" stroke="#8BFFC0" stroke-width="5" stroke-linecap="round"/>
-  <path d="M36 37.5h7M39.5 34v7" stroke="#8BFFC0" stroke-width="1.8" stroke-linecap="round"/>
+  <rect x="2.8" y="2.8" width="58.4" height="58.4" rx="16.2" fill="none" stroke="#19E6A0" stroke-width="1.5"/>
+  <path d="M13 39c-6 5-6 13 1 15 6 2 10-5 5-8" fill="none" stroke="url(#pixo)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M17 31c-2-12 6-22 18-23 12-1 22 7 22 19 0 13-10 22-23 21-9-1-15-7-17-17Z" fill="url(#pixo)" stroke="#087E75" stroke-width="1.5"/>
+  <path d="M19 15c-4-5-3-9 1-11 5 2 8 6 8 11M43 9c4-5 9-5 12-2-1 5-5 8-10 9" fill="#8CF5A5" stroke="#087E75" stroke-width="1.4" stroke-linejoin="round"/>
+  <ellipse cx="29" cy="25" rx="7" ry="9" fill="#E4FFB0"/><ellipse cx="46" cy="24" rx="7" ry="9" fill="#E4FFB0"/>
+  <ellipse cx="30" cy="26" rx="4" ry="6" fill="#082033"/><ellipse cx="46" cy="25" rx="4" ry="6" fill="#082033"/>
+  <circle cx="28.5" cy="23.5" r="1.8" fill="#fff"/><circle cx="44.5" cy="22.5" r="1.8" fill="#fff"/>
+  <path d="M32 37c4 4 9 4 13 0" fill="none" stroke="#073B4B" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="m34 7 3-5 3 5" fill="#B9FF70" stroke="#168D75" stroke-width="1.2" stroke-linejoin="round"/>
 </svg>
