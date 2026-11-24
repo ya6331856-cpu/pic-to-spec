@@ -55,7 +55,6 @@ export default function BatchImageCompressor() {
       return;
     }
     const incoming = Array.from(fileList);
-    const known = new Set(items.map(item => item.file.name + ":" + item.file.size));
     const accepted: File[] = [];
     let message = "";
     for (const file of incoming) {
@@ -71,9 +70,6 @@ export default function BatchImageCompressor() {
         message = file.name + ": file is larger than 5 MB.";
         continue;
       }
-      const key = file.name + ":" + file.size;
-      if (known.has(key)) continue;
-      known.add(key);
       accepted.push(file);
     }
     setNotice(message);
@@ -82,7 +78,6 @@ export default function BatchImageCompressor() {
         const next = [...current];
         for (const file of accepted) {
           if (next.length >= MAX_FILES) break;
-          if (next.some(item => item.file.name === file.name && item.file.size === file.size)) continue;
           next.push({
             id: (typeof crypto !== "undefined" && "randomUUID" in crypto)
               ? crypto.randomUUID()
