@@ -203,6 +203,8 @@ export default function Home() {
         <a className="tool-card" href="/json-to-yaml-converter"><b>JSON to YAML Converter</b><small>Convert JSON data into readable YAML format</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/yaml-validator"><b>YAML Validator</b><small>Check common YAML indentation and syntax issues</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/xml-to-json-converter"><b>XML to JSON Converter</b><small>Convert XML elements and attributes into JSON</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/sql-to-json-converter"><b>SQL to JSON Converter</b><small>Convert SQL INSERT statements into JSON records</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/json-diff"><b>JSON Diff Tool</b><small>Compare two JSON values and inspect differences</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/url-encoder-decoder"><b>URL Encoder / Decoder</b><small>Encode and decode URL characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/csv-json-converter"><b>CSV to JSON Converter</b><small>Convert CSV and JSON data</small><strong>OPEN TOOL →</strong></a>
