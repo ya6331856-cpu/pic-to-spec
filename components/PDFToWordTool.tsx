@@ -43,7 +43,6 @@ export default function PDFToWordTool() {
       if (pdf.numPages > MAX_PAGES) throw new Error("This tool supports up to 100 pages per conversion.");
       setFile(next); setPageCount(pdf.numPages); setLastPage(String(pdf.numPages));
       setStatus(pdf.numPages + " pages detected. Choose a page range or convert the whole document.");
-      await pdf.destroy();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not read this PDF. It may be encrypted or damaged.");
     } finally { setBusy(false); }
@@ -104,7 +103,7 @@ export default function PDFToWordTool() {
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not convert this PDF.");
     } finally {
-      if (pdf) await pdf.destroy();
+      if (pdf)
       setBusy(false);
     }
   }
