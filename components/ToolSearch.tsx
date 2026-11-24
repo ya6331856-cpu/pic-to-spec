@@ -40,6 +40,8 @@ const tools = [
   { name: "HTML Minifier", href: "/html-minifier", detail: "Remove HTML comments and whitespace between tags", aliases: "html minify minifier compress optimize markup smaller" },
   { name: "CSS Minifier", href: "/css-minifier", detail: "Remove CSS comments and unnecessary whitespace", aliases: "css minify minifier compress stylesheet optimize code" },
   { name: "JSON to YAML Converter", href: "/json-to-yaml-converter", detail: "Convert JSON data into readable YAML", aliases: "json yaml convert yaml converter config kubernetes" },
+  { name: "YAML Validator", href: "/yaml-validator", detail: "Check common YAML indentation and syntax issues", aliases: "yaml yml validate validator lint syntax config kubernetes" },
+  { name: "XML to JSON Converter", href: "/xml-to-json-converter", detail: "Convert XML elements and attributes into JSON", aliases: "xml json convert parser attributes tags api" },
   { name: "Markdown Previewer", href: "/markdown-preview", detail: "Write Markdown and preview formatted content live", aliases: "markdown md editor live preview readme documentation" },
   { name: "Meta Tag Generator", href: "/meta-tag-generator", detail: "Generate SEO title, description and Open Graph tags", aliases: "seo meta title description canonical og open graph social tags" },
   { name: "Robots.txt Generator", href: "/robots-txt-generator", detail: "Create robots.txt crawl rules and sitemap directives", aliases: "robots txt crawler user agent allow disallow sitemap seo" },
