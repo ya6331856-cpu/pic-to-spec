@@ -11,7 +11,7 @@ const canonicalRoutes = [
   "/hinglish-to-hindi", "/image-compressor", "/image-converter",
   "/image-cropper", "/image-resizer", "/svg-to-png-converter", "/favicon-generator", "/image-color-picker", "/base64-image-converter", "/bulk-image-renamer-watermark", "/exif-data-viewer-remover", "/image-blur-pixelate-tool", "/image-to-text", "/jpg-to-pdf",
   "/jpg-to-webp", "/json-formatter", "/passport-photo-maker",
-  "/password-generator", "/pdf-merger", "/pdf-organizer", "/pdf-splitter",
+  "/password-generator", "/pdf-merger", "/pdf-organizer", "/pdf-page-numbers-watermark", "/pdf-splitter",
   "/pdf-to-excel", "/pdf-to-jpg", "/pdf-to-word", "/percentage-calculator",
   "/qr-code-generator", "/html-entity-encoder-decoder", "/unix-timestamp-converter",
   "/url-slug-generator", "/lorem-ipsum-generator", "/text-line-sorter",
