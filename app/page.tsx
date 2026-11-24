@@ -188,6 +188,9 @@ export default function Home() {
         <a className="tool-card" href="/unix-timestamp-converter"><b>Unix Timestamp Converter</b><small>Convert timestamps to readable UTC dates</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/url-slug-generator"><b>URL Slug Generator</b><small>Create clean SEO-friendly URL slugs</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/lorem-ipsum-generator"><b>Lorem Ipsum Generator</b><small>Generate placeholder text for layouts</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/text-line-sorter"><b>Text Line Sorter</b><small>Sort lines alphabetically or numerically</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/duplicate-line-remover"><b>Duplicate Line Remover</b><small>Remove repeated lines from text</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/text-line-reverser"><b>Text Line Reverser</b><small>Reverse the order of text lines</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/case-converter"><b>Case Converter</b><small>Change text letter case</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-formatter"><b>JSON Formatter</b><small>Format and validate JSON</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
