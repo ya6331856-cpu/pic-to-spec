@@ -34,6 +34,8 @@ const tools = [
   { name: "JSON Validator", href: "/json-validator", detail: "Check JSON syntax and locate parsing errors", aliases: "json validate syntax error parser checker" },
   { name: "JSON Schema Generator", href: "/json-schema-generator", detail: "Generate a JSON Schema from sample JSON", aliases: "json schema draft 2020 validation properties required types" },
   { name: "JSON to TypeScript", href: "/json-to-typescript", detail: "Generate TypeScript types and interfaces from JSON", aliases: "typescript type interface ts object array json converter" },
+  { name: "SQL Formatter", href: "/sql-formatter", detail: "Format SQL queries with readable indentation", aliases: "sql beautifier pretty print query formatter database mysql postgres" },
+  { name: "Cron Expression Generator", href: "/cron-expression-generator", detail: "Build and explain five-field cron schedules", aliases: "cron schedule expression generator job scheduler minutes hours daily weekly" },
   { name: "Markdown Previewer", href: "/markdown-preview", detail: "Write Markdown and preview formatted content live", aliases: "markdown md editor live preview readme documentation" },
   { name: "Meta Tag Generator", href: "/meta-tag-generator", detail: "Generate SEO title, description and Open Graph tags", aliases: "seo meta title description canonical og open graph social tags" },
   { name: "Robots.txt Generator", href: "/robots-txt-generator", detail: "Create robots.txt crawl rules and sitemap directives", aliases: "robots txt crawler user agent allow disallow sitemap seo" },
