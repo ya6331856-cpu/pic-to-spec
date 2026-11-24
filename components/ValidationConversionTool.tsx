@@ -34,7 +34,7 @@ function validateYamlSubset(source:string):string[]{
    if(!key){errors.push("Line "+line+": mapping key cannot be empty.");continue;}
    while(stack.length>1&&indent<=stack[stack.length-1].indent)stack.pop();
    const parent=stack[stack.length-1];
-   if(parent.indent===indent&&parent.keys.has(key))errors.push("Line "+line+": duplicate key '"+key+"'.");
+   if(parent.keys.has(key))errors.push("Line "+line+": duplicate key '"+key+"'.");
    parent.keys.add(key);
    if(text.slice(colon+1).trim()==="")stack.push({indent,keys:new Set()});
   }else if(isList){
