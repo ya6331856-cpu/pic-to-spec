@@ -18,6 +18,7 @@ const canonicalRoutes = [
   "/duplicate-line-remover", "/text-line-reverser", "/color-converter", "/url-parser", "/resize-photo-for-online-form",
   "/signature-resizer", "/unit-converter", "/url-encoder-decoder",
   "/json-to-xml-converter", "/xml-formatter", "/css-formatter", "/html-formatter",
+  "/regex-tester", "/css-gradient-generator",
   "/uuid-generator", "/word-counter", "/text-compare", "/csv-cleaner"
 ];
 const legacyRedirects = [{ from: "/image-cutter", to: "/image-cropper" }];
