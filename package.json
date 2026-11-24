@@ -28,6 +28,7 @@
   "overrides": {
     "next": {
       "postcss": "^8.5.33"
-    }
+    },
+    "@huggingface/transformers": "4.3.2"
   }
 }
