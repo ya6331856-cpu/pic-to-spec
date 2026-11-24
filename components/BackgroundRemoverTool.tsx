@@ -48,7 +48,6 @@ export default function BackgroundRemoverTool() {
       const engine=await import("@bg0/browser");
       const result=await engine.removeBackground(file,{
         quality:"quality",
-        model:"lite",
         signal:controller.signal,
         onProgress:(event)=>{setProgress(Math.max(0,Math.min(100,Math.round(event.progress*100))));setStage(event.message||event.stage||"Processing image…");}
       });
@@ -66,7 +65,7 @@ export default function BackgroundRemoverTool() {
       const url=URL.createObjectURL(outputBlob);
       if(resultRef.current) URL.revokeObjectURL(resultRef.current);
       resultRef.current=url; setResultUrl(url);
-      setDetails(result.model+" · "+result.provider+" · "+(result.durationMs/1000).toFixed(1)+" seconds");
+      setDetails(result.provider+" · "+(result.durationMs/1000).toFixed(1)+" seconds");
       setStage("Background removed successfully.");
       setProgress(100);
       requestAnimationFrame(()=>outputRef.current?.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"}));
@@ -82,7 +81,7 @@ export default function BackgroundRemoverTool() {
     <p className="kicker">FREE AI BACKGROUND REMOVER</p>
     <h1>Remove Image Background</h1>
     <p className="lead">Remove a photo background and create a transparent PNG in your browser. No account, API key or image upload to a PicToSpec processing server.</p>
-    <p className="note">The first use downloads an AI model of about 94 MiB, which your browser may cache for later use. Processing speed depends on your device and browser. Use a recent browser and keep this tab open while it works.</p>
+    <p className="note">The first use downloads an AI model. Depending on your device, the model may be about 94 MiB or as large as 452 MiB; your browser may cache it for later use. Processing speed depends on your device and browser. Use a recent browser and keep this tab open while it works.</p>
     <section className="workspace" style={{margin:"24px 0",padding:20}}>
       <h2>1. Choose an image</h2>
       <input type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e=>{chooseFile(e.target.files?.[0]||null);e.currentTarget.value="";}}/>
@@ -113,7 +112,7 @@ export default function BackgroundRemoverTool() {
       <h2>Is my photo uploaded?</h2>
       <p>The selected image is processed locally in your browser. The background-removal model files are downloaded from the model provider on first use, but your selected photo is not sent to a PicToSpec image-processing server. Browser memory and device capability affect the maximum practical image size.</p>
       <h2>Why is the first run slower?</h2>
-      <p>The browser needs to download and initialize an AI model of about 94 MiB for the lite model. The model may be cached for later visits, but browser storage can be cleared or evicted. WebGPU-capable devices may process faster; other devices can use the WebAssembly fallback.</p>
+      <p>The browser needs to download and initialize an AI model. Depending on device capability, the selected model may be about 94 MiB or up to 452 MiB. The model may be cached for later visits, but browser storage can be cleared or evicted. WebGPU-capable devices may process faster; other devices can use the WebAssembly fallback.</p>
       <h2>Frequently asked questions</h2>
       <div className="faq"><h3>Does it create a transparent PNG?</h3><p>Yes. Transparent PNG is the default. You can also place the cutout on a white, light grey or black background.</p></div>
       <div className="faq"><h3>Can I remove the background from a product photo?</h3><p>Yes, product photos are a useful case. Inspect small edges, shadows, handles and reflective parts before publishing the result.</p></div>
