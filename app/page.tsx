@@ -203,6 +203,8 @@ export default function Home() {
         <a className="tool-card" href="/xml-formatter"><b>XML Formatter</b><small>Validate and indent XML markup</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/css-formatter"><b>CSS Formatter</b><small>Beautify CSS declarations</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/html-formatter"><b>HTML Formatter</b><small>Format HTML with readable indentation</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/regex-tester"><b>Regex Tester</b><small>Test patterns and inspect matches</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/css-gradient-generator"><b>CSS Gradient Generator</b><small>Create custom CSS color gradients</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/uuid-generator"><b>UUID Generator</b><small>Create random unique identifiers</small><strong>OPEN TOOL →</strong></a>
       </div></div>
       <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
