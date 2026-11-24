@@ -80,6 +80,10 @@ export default function FormRuleTool() {
 
   async function readSource() {
     if (!source) { setError("Upload a PDF, image or screenshot first."); return; }
+    const isPdf = source.type === "application/pdf" || source.name.toLowerCase().endsWith(".pdf");
+    const isImage = ["image/jpeg", "image/png", "image/webp"].includes(source.type);
+    if (!isPdf && !isImage) { setError("Choose a PDF, JPG, PNG or WebP file."); return; }
+    if (source.size > 30 * 1024 * 1024) { setError("Choose a source document smaller than 30 MB."); return; }
     setBusy(true); setError(""); setStatus("");
     try {
       let text = "";
@@ -109,7 +113,26 @@ export default function FormRuleTool() {
   }
 
   async function makePack() {
-    setBusy(true); setError(""); setStatus("");
+    setError(""); setStatus("");
+    for (const req of requirements) {
+      if (!Number.isInteger(req.maxKB) || req.maxKB < 5 || req.maxKB > 5000 ||
+          !Number.isInteger(req.width) || req.width < 20 || req.width > 3000 ||
+          !Number.isInteger(req.height) || req.height < 20 || req.height > 3000) {
+        setError("Check each requirement: file size must be 5–5000 KB and dimensions must be 20–3000 pixels.");
+        return;
+      }
+    }
+    for (const selected of [photo, signature]) {
+      if (selected && (!["image/jpeg", "image/png", "image/webp"].includes(selected.type) || selected.size > 20 * 1024 * 1024)) {
+        setError("Photo and signature files must be JPG, PNG or WebP and smaller than 20 MB each.");
+        return;
+      }
+    }
+    if (!photo && !signature) {
+      setError("Upload at least a photo or signature.");
+      return;
+    }
+    setBusy(true);
     try {
       const zip = new JSZip();
       const prepared: Prepared[] = [];
