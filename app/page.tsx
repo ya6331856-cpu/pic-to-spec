@@ -199,6 +199,10 @@ export default function Home() {
         <a className="tool-card" href="/csv-cleaner"><b>CSV Cleaner</b><small>Remove duplicate rows and extra spaces</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/color-converter"><b>Color Converter</b><small>Convert HEX, RGB and HSL values</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/url-parser"><b>URL Parser</b><small>Inspect URL parts and query strings</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/json-to-xml-converter"><b>JSON to XML Converter</b><small>Convert JSON data into XML</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/xml-formatter"><b>XML Formatter</b><small>Validate and indent XML markup</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/css-formatter"><b>CSS Formatter</b><small>Beautify CSS declarations</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/html-formatter"><b>HTML Formatter</b><small>Format HTML with readable indentation</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/uuid-generator"><b>UUID Generator</b><small>Create random unique identifiers</small><strong>OPEN TOOL →</strong></a>
       </div></div>
       <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
