@@ -7,7 +7,7 @@ const tools = [
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
   "/word-counter", "/case-converter", "/json-formatter", "/base64-encoder-decoder",
   "/password-generator", "/qr-code-generator", "/url-encoder-decoder", "/csv-json-converter",
-  "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/image-to-text", "/ats-resume-checker", "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer", "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf"
+  "/uuid-generator", "/formrule-ai", "/passport-photo-maker", "/image-to-text", "/ats-resume-checker", "/hinglish-to-hindi", "/gst-invoice-generator", "/unit-converter", "/pdf-organizer", "/pdf-merger", "/pdf-splitter", "/jpg-to-pdf", "/pdf-to-jpg"
 ];
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
