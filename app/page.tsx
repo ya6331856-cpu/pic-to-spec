@@ -201,6 +201,8 @@ export default function Home() {
         <a className="tool-card" href="/html-minifier"><b>HTML Minifier</b><small>Compress markup by removing comments and tag gaps</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/css-minifier"><b>CSS Minifier</b><small>Remove comments and unnecessary stylesheet whitespace</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-to-yaml-converter"><b>JSON to YAML Converter</b><small>Convert JSON data into readable YAML format</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/yaml-validator"><b>YAML Validator</b><small>Check common YAML indentation and syntax issues</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/xml-to-json-converter"><b>XML to JSON Converter</b><small>Convert XML elements and attributes into JSON</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/base64-encoder-decoder"><b>Base64 Encoder / Decoder</b><small>Encode or decode text</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/url-encoder-decoder"><b>URL Encoder / Decoder</b><small>Encode and decode URL characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/csv-json-converter"><b>CSV to JSON Converter</b><small>Convert CSV and JSON data</small><strong>OPEN TOOL →</strong></a>
