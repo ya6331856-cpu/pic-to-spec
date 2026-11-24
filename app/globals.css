@@ -408,3 +408,87 @@ main:has(.tool-page-top) section:focus-within{border-color:#c9c4ef!important}
  main:has(.tool-page-top) button[aria-busy="true"]{animation:none!important}
  main:has(.tool-page-top) section,main:has(.tool-page-top) button{transition:none!important}
 }
+
+
+/* Consistent interaction design for the newer tool workspaces */
+.seo-page{
+ width:min(100% - 32px,900px);margin:30px auto 64px;padding:clamp(18px,3vw,30px);
+ border:1px solid #e5e8f3;border-radius:24px;
+ background:linear-gradient(180deg,#ffffff 0%,#fcfcff 100%);
+ box-shadow:0 18px 55px #29345a0b;
+}
+.seo-page .tool-page-top{margin:0 0 30px}
+.seo-page .back{margin:0;color:#6654ce}
+.seo-page .kicker{display:inline-flex;padding:7px 11px;border-radius:999px;background:#f0edff;color:#6654ce;font-weight:800}
+.seo-page h1{color:#1b2945}
+.seo-page .lead{color:#65728a}
+.seo-page .workspace{
+ margin:24px 0 30px;padding:clamp(16px,3vw,25px);
+ border:1px solid #e4e7f2;border-radius:20px;
+ background:linear-gradient(145deg,#fff,#f9faff);
+ box-shadow:0 12px 32px #29345a0c;
+}
+.seo-page .workspace h2{margin:18px 0 12px;color:#263454;font-size:clamp(17px,2vw,20px)}
+.seo-page .workspace h2:first-child{margin-top:0}
+.seo-page .workspace label{color:#354260;font-size:13px;font-weight:700}
+.seo-page .workspace input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.seo-page .workspace select,.seo-page .workspace textarea{
+ width:100%;max-width:100%;min-height:44px;margin-top:7px;padding:11px 13px;
+ border:1px solid #dfe4f1;border-radius:11px;background:#fff;color:#1c2944;
+ font:inherit;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.seo-page .workspace input:focus,.seo-page .workspace select:focus,.seo-page .workspace textarea:focus{
+ border-color:#9d91ed;box-shadow:0 0 0 4px #7560df17;
+}
+.seo-page .workspace input[type="file"]{
+ display:block;width:100%;max-width:100%;padding:13px;
+ border:1.5px dashed #b8b5e8;border-radius:13px;background:#f8f7ff;color:#59647b;
+}
+.seo-page .workspace input[type="file"]::file-selector-button{
+ margin-right:12px;padding:10px 14px;border:0;border-radius:9px;
+ background:linear-gradient(110deg,#7357e8,#258fbd);color:#fff;font-weight:700;cursor:pointer;
+}
+.seo-page .primary{
+ min-height:50px;margin-top:10px;border-radius:12px;
+ background:linear-gradient(100deg,#7357e8,#258fbd 58%,#18a99b);
+ box-shadow:0 9px 22px #7357e82b;font-size:14px;
+ transition:transform .18s,box-shadow .18s,filter .18s;
+}
+.seo-page .primary:not(:disabled):hover{transform:translateY(-2px);filter:saturate(1.12);box-shadow:0 13px 27px #7357e838}
+.seo-page .primary:active:not(:disabled){transform:scale(.985)}
+.seo-page .primary:disabled{cursor:not-allowed;opacity:.5}
+.seo-page .result{
+ margin-top:17px;padding:17px;border:1px solid #c9e9dd;border-radius:15px;
+ background:linear-gradient(135deg,#effcf6,#f1f7ff);color:#245f58;
+ animation:result-arrive .32s ease-out;
+}
+.seo-page .result-download,.seo-page a.result-download{
+ display:flex;min-height:50px;align-items:center;justify-content:center;gap:9px;
+ margin-top:12px;padding:12px 18px;border:0;border-radius:12px;
+ background:linear-gradient(100deg,#087f67,#167fba);color:#fff!important;
+ text-decoration:none;font-size:14px;font-weight:800;
+ box-shadow:0 8px 20px #087f672b;transition:transform .2s,box-shadow .2s;
+ animation:download-glow 3.2s ease-in-out infinite;
+}
+.seo-page .result-download:hover{transform:translateY(-2px);box-shadow:0 12px 25px #087f6738}
+.seo-page .quick-grid{gap:10px}
+.seo-page .quick-grid button{
+ min-height:48px;border:1px solid #e1e5f1;border-radius:11px;background:#fff;
+ color:#354260;transition:transform .18s,border-color .18s,box-shadow .18s;
+}
+.seo-page .quick-grid button:hover{transform:translateY(-2px);border-color:#b8b1f0;box-shadow:0 8px 20px #6654ce14}
+.seo-page .faq{padding:15px 0;border-bottom:1px solid #e9ebf4}
+.seo-page .faq h3{color:#354260}
+.seo-page .guides{width:100%;padding:0;margin:25px 0 0}
+.seo-page .guides a{border-color:#e3e6f2;border-radius:12px;background:#fff;transition:transform .18s,border-color .18s,box-shadow .18s}
+.seo-page .guides a:hover{transform:translateY(-2px);border-color:#b8b1f0;background:#fff;box-shadow:0 9px 22px #6654ce12}
+@media(max-width:640px){
+ .seo-page{width:calc(100% - 20px);margin:12px auto 38px;padding:17px 14px;border-radius:18px}
+ .seo-page .tool-page-top{margin-bottom:24px}
+ .seo-page .workspace{padding:15px 12px;border-radius:16px}
+ .seo-page .result-download{min-height:54px;font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .seo-page .primary,.seo-page .quick-grid button,.seo-page .guides a,.seo-page .result-download{transition:none!important;animation:none!important}
+ .seo-page .result{animation:none}
+}
