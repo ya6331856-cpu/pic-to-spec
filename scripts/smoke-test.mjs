@@ -9,7 +9,7 @@ const canonicalRoutes = [
   "/csv-json-converter", "/json-to-csv-converter", "/json-to-excel-converter", "/csv-to-excel-converter", "/discount-calculator", "/emi-calculator",
   "/formrule-ai", "/gst-calculator", "/gst-invoice-generator",
   "/hinglish-to-hindi", "/image-compressor", "/image-converter",
-  "/image-cropper", "/image-resizer", "/svg-to-png-converter", "/favicon-generator", "/image-color-picker", "/base64-image-converter", "/image-to-text", "/jpg-to-pdf",
+  "/image-cropper", "/image-resizer", "/svg-to-png-converter", "/favicon-generator", "/image-color-picker", "/base64-image-converter", "/bulk-image-renamer-watermark", "/exif-data-viewer-remover", "/image-blur-pixelate-tool", "/image-to-text", "/jpg-to-pdf",
   "/jpg-to-webp", "/json-formatter", "/passport-photo-maker",
   "/password-generator", "/pdf-merger", "/pdf-organizer", "/pdf-splitter",
   "/pdf-to-excel", "/pdf-to-jpg", "/pdf-to-word", "/percentage-calculator",
