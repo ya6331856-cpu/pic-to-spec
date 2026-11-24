@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 const base = "https://pictospec.com";
-const lastModified = new Date("2026-11-23");
+const lastModified = new Date("2026-11-24");
 const tools = [
   "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
   "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter",
