@@ -126,7 +126,7 @@ export default function BackgroundRemoverTool() {
       <div className="faq"><h3>Will every image be perfect?</h3><p>No. AI segmentation can leave halos or remove parts of a subject, especially around fine hair, glass, similar colours or complicated scenes. Check the preview before using the result.</p></div>
       <div className="faq"><h3>Why does it not work on my phone?</h3><p>AI processing needs device memory and browser support. Close unused tabs, try a smaller image, use a recent browser, or retry after reloading if the model fails to initialize.</p></div>
     </section>
-    <p className="note">Open-source notices: the browser library is Apache-2.0 and the BiRefNet model weights are MIT-licensed. Review the <a href="https://github.com/opencoredev/bg0/blob/main/packages/browser/THIRD_PARTY_NOTICES.md" target="_blank" rel="noreferrer">third-party license notices</a>.</p>
+    <details className="tool-note-details"><summary>Open-source licenses</summary><p>The browser library is Apache-2.0 and the BiRefNet model weights are MIT-licensed. Review the <a href="https://github.com/opencoredev/bg0/blob/main/packages/browser/THIRD_PARTY_NOTICES.md" target="_blank" rel="noreferrer">third-party license notices</a>.</p></details>
     <section className="guides"><a href="/image-compressor">Image Compressor</a><a href="/image-cropper">Image Cropper</a><a href="/image-to-text">Image to Text OCR</a><a href="/passport-photo-maker">Passport Photo Maker</a></section>
   </main>;
 }
