@@ -14,15 +14,15 @@ function toYaml(value:unknown,level=0):string {
   if(Array.isArray(item)){
    if(item.length===0)return prefix+"[]";
    return item.map(entry=>entry!==null&&typeof entry==="object"
-    ?prefix+"-\\n"+emit(entry,indent+2)
-    :prefix+"- "+scalar(entry)).join("\\n");
+    ?prefix+"-\n"+emit(entry,indent+2)
+    :prefix+"- "+scalar(entry)).join("\n");
   }
   if(item!==null&&typeof item==="object"){
    const entries=Object.entries(item as Record<string,unknown>);
    if(entries.length===0)return prefix+"{}";
    return entries.map(([key,entry])=>entry!==null&&typeof entry==="object"
-    ?prefix+JSON.stringify(key)+":\\n"+emit(entry,indent+2)
-    :prefix+JSON.stringify(key)+": "+scalar(entry)).join("\\n");
+    ?prefix+JSON.stringify(key)+":\n"+emit(entry,indent+2)
+    :prefix+JSON.stringify(key)+": "+scalar(entry)).join("\n");
   }
   return prefix+scalar(item);
  };
