@@ -44,10 +44,11 @@ export default function PDFToImageTool() {
       setError("This tool supports PDF files up to 100 MB."); return;
     }
     setBusy(true);
+    let pdf: any = null;
     try {
       const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
       pdfjs.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" + pdfjs.version + "/pdf.worker.min.mjs";
-      const pdf = await pdfjs.getDocument({data: await next.arrayBuffer()}).promise;
+      pdf = await pdfjs.getDocument({data: await next.arrayBuffer()}).promise;
       if (pdf.numPages < 1) throw new Error("This PDF does not contain any pages.");
       if (pdf.numPages > 500) throw new Error("This tool supports PDFs up to 500 pages. Use a smaller document.");
       setFile(next);
@@ -56,7 +57,7 @@ export default function PDFToImageTool() {
       setStatus(pdf.numPages + " pages detected. Choose the pages you want to convert.");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not read this PDF. It may be damaged or encrypted.");
-    } finally { setBusy(false); }
+    } finally { if (pdf) { try { await pdf.cleanup(); } catch {} } setBusy(false); }
   }
 
   async function convert() {
