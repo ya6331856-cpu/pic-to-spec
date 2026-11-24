@@ -13,11 +13,18 @@ PicToSpec is a browser-based collection of practical image, PDF, text, data, QR-
 - `/image-cropper` — crop an image by pixel coordinates
 - `/image-converter` — convert between supported image formats
 - `/jpg-to-webp` — convert JPG images to WebP
+- `/background-remover` — remove image backgrounds in the browser
+- `/image-to-text` — extract English text from images using OCR
+- `/passport-photo-maker` — prepare passport-style photo sheets
 
 ### PDF tools
 - `/pdf-merger` — combine PDF files
 - `/pdf-splitter` — extract a page range from a PDF
+- `/pdf-organizer` — reorder, remove and rotate PDF pages
 - `/jpg-to-pdf` — create a PDF from images
+- `/pdf-to-jpg` — render PDF pages as JPG or PNG images
+- `/pdf-to-word` — extract selectable PDF text into DOCX
+- `/pdf-to-excel` — extract table-like PDF content into XLSX
 
 ### Calculators
 - `/age-calculator`
@@ -25,6 +32,7 @@ PicToSpec is a browser-based collection of practical image, PDF, text, data, QR-
 - `/emi-calculator`
 - `/gst-calculator`
 - `/percentage-calculator`
+- `/unit-converter`
 
 ### Text and developer tools
 - `/word-counter`
@@ -34,6 +42,10 @@ PicToSpec is a browser-based collection of practical image, PDF, text, data, QR-
 - `/url-encoder-decoder`
 - `/csv-json-converter`
 - `/uuid-generator`
+- `/hinglish-to-hindi`
+- `/formrule-ai` — rule-based form photo and signature requirement helper
+- `/ats-resume-checker` — heuristic resume structure and keyword review
+- `/gst-invoice-generator` — basic GST invoice PDF template
 
 ### QR and password tools
 - `/qr-code-generator`
@@ -61,12 +73,16 @@ Open the local development URL printed by Next.js.
 ## Quality checks
 
 ```bash
+npm test
 npm run typecheck
 npm run build
 npm audit --omit=dev --audit-level=moderate
+node scripts/smoke-test.mjs
 ```
 
-The GitHub Actions workflow runs dependency installation, the production-dependency audit, TypeScript typechecking and the Next.js production build on pushes to `main` and pull requests targeting `main`.
+GitHub Actions runs the unit tests, production-dependency audit, TypeScript typecheck, production build and production-route smoke tests on pushes to `main`, pull requests targeting `main`, and the scheduled verification workflow.
+
+The production smoke test checks all canonical pages, the legacy image-cutter redirect, sitemap entries and the robots sitemap reference. It does not replace real-device interaction testing.
 
 ## Optional Google Analytics 4
 
@@ -78,4 +94,4 @@ Analytics is disabled unless the site owner sets `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 - Sitemap: `https://pictospec.com/sitemap.xml`
 - Robots file: `https://pictospec.com/robots.txt`
 
-The sitemap includes the homepage, 25 tool pages and the About, Privacy and Terms pages. Submit the sitemap in Google Search Console's **Sitemaps** section. Use URL Inspection for individual canonical pages; the presence of a URL in the sitemap does not guarantee indexing or ranking.
+The sitemap includes the homepage, 37 tool pages and the About, Privacy and Terms pages. Submit the sitemap in Google Search Console's **Sitemaps** section. Use URL Inspection for individual canonical pages; the presence of a URL in the sitemap does not guarantee indexing or ranking.
