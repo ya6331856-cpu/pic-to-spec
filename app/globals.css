@@ -291,3 +291,64 @@ main:has(.tool-page-top)>p:last-child{padding:13px 15px;border-radius:12px;backg
 @keyframes result-arrive{from{opacity:.65;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){.result-ready{padding:15px!important}.result-ready .result-download{min-height:54px;font-size:16px}}
 @media(prefers-reduced-motion:reduce){.result-ready{animation:none}.result-ready .result-download{transition:none}}
+
+
+/* Homepage UX polish: put the primary image workspace before the directory */
+main:has(> .hero){display:flex;flex-direction:column;min-height:100vh;background:linear-gradient(180deg,#f8f9ff 0%,#fff 48%,#f8faff 100%)}
+main:has(> .hero)>.topbar{order:0;width:100%;max-width:none;padding-left:max(calc((100vw - 1160px)/2),clamp(16px,4vw,34px));padding-right:max(calc((100vw - 1160px)/2),clamp(16px,4vw,34px))}
+main:has(> .hero)>.hero{order:1;width:100%;padding:clamp(54px,7vw,88px) 20px 48px}
+main:has(> .hero)>.workspace{order:2;width:min(100% - 36px,1040px);margin:18px auto 34px;padding:clamp(20px,3vw,34px);border:1px solid #e2e6f4;border-radius:24px;background:rgba(255,255,255,.94);box-shadow:0 24px 70px #29345a13}
+main:has(> .hero)>.quick-start{order:3;width:min(100%,1160px);margin:10px auto 38px}
+main:has(> .hero)>.tool-directory{order:4;width:100%;max-width:none;margin:0 auto 52px;padding:42px max(calc((100vw - 1160px)/2),clamp(16px,4vw,34px));background:linear-gradient(135deg,#f4f5ff 0%,#f1fbfa 55%,#fff7f4 100%);border-top:1px solid #e9eaf5;border-bottom:1px solid #e9eaf5}
+main:has(> .hero)>.tool-content{order:5;width:min(100% - 36px,1040px);margin:8px auto 52px!important;padding:clamp(22px,4vw,38px)!important}
+main:has(> .hero)>.guides{order:6}
+main:has(> .hero)>footer{order:7;width:100%;background:#fff}
+main:has(> .hero) .hero h1{max-width:850px;margin:20px auto 17px;font-size:clamp(40px,6.2vw,72px);line-height:1.02;letter-spacing:-3.4px}
+main:has(> .hero) .hero>p{max-width:650px;font-size:clamp(14px,1.5vw,17px);line-height:1.75}
+main:has(> .hero) .hero .tool-search{width:min(100%,680px);margin:30px auto 0}
+main:has(> .hero) .hero .tool-search-box{min-height:62px;padding:7px 18px;border-radius:18px}
+main:has(> .hero) .hero .tool-search-box input{font-size:15px}
+main:has(> .hero) .hero-proof{margin-top:20px}
+main:has(> .hero) .workspace-head h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.9px}
+main:has(> .hero) .tabs{padding:6px;border-radius:13px;background:#f2f3fb}
+main:has(> .hero) .tabs button{flex:1;border-radius:10px;font-size:13px}
+main:has(> .hero) .tabs button.active{background:linear-gradient(110deg,#7357e8,#268ebc);color:#fff;border-color:transparent;box-shadow:0 7px 18px #7357e82c}
+main:has(> .hero) .drop{min-height:270px;border:2px dashed #aaa8df;border-radius:18px;background:linear-gradient(145deg,#f8f7ff,#f4fbff);transition:border-color .2s,background .2s,transform .2s}
+main:has(> .hero) .drop:hover{border-color:#7357e8;background:linear-gradient(145deg,#f2efff,#effbff);transform:translateY(-2px)}
+main:has(> .hero) .drop .upload{width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#7357e8,#18a9c5);color:#fff;box-shadow:0 10px 24px #7357e833}
+main:has(> .hero) .primary{min-height:54px;border-radius:13px;background:linear-gradient(100deg,#7357e8,#258fbd 58%,#18a99b);box-shadow:0 10px 22px #7357e82b;font-size:14px}
+main:has(> .hero) .privacy{border:1px solid #e5e8f4;border-radius:13px;background:#f8f9ff;color:#6955c8}
+main:has(> .hero) .quick-grid{gap:14px}
+main:has(> .hero) .quick-start .tool-card{min-height:158px;padding:18px 17px 43px;border:1px solid #e2e6f2;border-radius:17px;background:linear-gradient(145deg,#fff,#fbfbff);box-shadow:0 8px 25px #29345a0a}
+main:has(> .hero) .quick-start .tool-card>span{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#eeeaff,#e4f8f7);color:#6654ce;font-size:19px}
+main:has(> .hero) .quick-start .tool-card:hover{transform:translateY(-4px);border-color:#b8b1f0;box-shadow:0 16px 32px #6654ce18}
+main:has(> .hero) .directory-heading{max-width:1160px;margin:0 auto 28px}
+main:has(> .hero) .directory-category{max-width:1160px;margin:30px auto}
+main:has(> .hero) .directory-category h3{display:flex;align-items:center;gap:10px;font-size:18px;letter-spacing:-.3px}
+main:has(> .hero) .directory-category h3:before{content:"";width:7px;height:22px;border-radius:9px;background:linear-gradient(180deg,#7357e8,#18a9c5)}
+main:has(> .hero) .directory-category .tool-card{min-height:145px;padding:18px;border-radius:16px;background:#ffffffd9;box-shadow:0 7px 22px #29345a08}
+main:has(> .hero) .directory-category .tool-card:hover{border-color:#aaa0f2;box-shadow:0 14px 28px #6654ce16}
+main:has(> .hero) .tool-content{border:1px solid #e6e8f3;border-radius:22px;background:#fff;box-shadow:0 12px 34px #29345a09}
+main:has(> .hero) .tool-content h2{font-size:clamp(24px,3vw,32px)}
+main:has(> .hero) footer{padding-top:28px;padding-bottom:28px;border-top:1px solid #e7eaf3}
+@media(max-width:700px){
+ main:has(> .hero)>.topbar{height:62px;padding:0 14px;gap:8px}
+ main:has(> .hero)>.topbar .brand{font-size:17px;white-space:nowrap}
+ main:has(> .hero)>.topbar .privacy-link{font-size:10px;white-space:nowrap}
+ main:has(> .hero)>.hero{padding:48px 16px 28px}
+ main:has(> .hero) .hero h1{font-size:clamp(38px,10vw,52px);letter-spacing:-2px}
+ main:has(> .hero) .hero>p{font-size:13px}
+ main:has(> .hero) .hero .tool-search{margin-top:23px}
+ main:has(> .hero) .hero .tool-search-box{min-height:54px;padding:5px 13px}
+ main:has(> .hero) .hero .tool-search-box input{font-size:13px}
+ main:has(> .hero)>.workspace{width:calc(100% - 22px);margin:10px auto 28px;padding:17px 13px;border-radius:19px}
+ main:has(> .hero) .columns{gap:20px}
+ main:has(> .hero) .drop{min-height:220px}
+ main:has(> .hero)>.quick-start{padding:0 11px;margin:0 auto 28px}
+ main:has(> .hero) .quick-start .tool-card{min-height:140px;padding:13px 12px 38px;border-radius:14px}
+ main:has(> .hero)>.tool-directory{padding:30px 14px;margin-bottom:32px}
+ main:has(> .hero) .directory-category{margin:25px auto}
+ main:has(> .hero) .directory-category .quick-grid{gap:9px}
+ main:has(> .hero) .directory-category .tool-card{min-height:126px;padding:13px;border-radius:13px}
+ main:has(> .hero)>.tool-content{width:calc(100% - 24px);margin:0 auto 35px!important;padding:21px 17px!important;border-radius:17px}
+}
