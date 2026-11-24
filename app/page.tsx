@@ -187,6 +187,7 @@ export default function Home() {
         <a className="tool-card" href="/pdf-organizer"><b>PDF Page Organizer</b><small>Reorder, remove and rotate pages</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/ats-resume-checker"><b>ATS Resume Checker</b><small>Review resume structure and keywords</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/gst-invoice-generator"><b>GST Invoice Generator</b><small>Create a simple invoice PDF</small><strong>OPEN TOOL →</strong></a>
+        <a className="tool-card" href="/unit-converter"><b>Unit Converter</b><small>Convert everyday measurements</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/hinglish-to-hindi"><b>Hinglish to Hindi</b><small>Type Hindi using English letters</small><strong>OPEN TOOL →</strong></a>
       </div></div>
     </section>
