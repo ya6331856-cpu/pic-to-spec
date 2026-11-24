@@ -553,3 +553,70 @@ main:has(.tool-page-top) section:focus-within{border-color:#c9c4ef!important}
   .directory-category .tool-card { transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease; }
   .seo-page .workspace:hover { box-shadow: 0 20px 48px #29345a12; }
 }
+
+
+/* Clear, consistent upload and download controls across every tool */
+.seo-page input[type="file"],
+main:has(.tool-page-top) input[type="file] {
+  display:block;width:100%;max-width:100%;min-height:58px;padding:10px;
+  border:1.5px dashed #aaa4e5;border-radius:14px;
+  background:linear-gradient(135deg,#f8f6ff,#f2fbff);
+  color:#536079;font-size:13px;cursor:pointer;
+  transition:border-color .2s,background .2s,box-shadow .2s;
+}
+.seo-page input[type="file"]:hover,
+main:has(.tool-page-top) input[type="file"]:hover {
+  border-color:#7563dc;background:linear-gradient(135deg,#f0edff,#edfaff);
+  box-shadow:0 6px 18px #6654ce12;
+}
+.seo-page input[type="file"]::file-selector-button,
+main:has(.tool-page-top) input[type="file"]::file-selector-button {
+  min-height:38px;margin-right:12px;padding:0 15px;border:0;border-radius:10px;
+  background:linear-gradient(110deg,#7357e8,#258fbd 65%,#18a99b);
+  color:#fff;font-size:12px;font-weight:800;letter-spacing:.1px;
+  box-shadow:0 5px 13px #7357e82b;cursor:pointer;
+  transition:transform .18s,box-shadow .18s,filter .18s;
+}
+.seo-page input[type="file"]::file-selector-button:hover,
+main:has(.tool-page-top) input[type="file"]::file-selector-button:hover {
+  filter:saturate(1.15);transform:translateY(-1px);box-shadow:0 8px 18px #7357e83b;
+}
+.seo-page .download-action,
+.seo-page a[download],
+main:has(.tool-page-top) a[download],
+main:has(.tool-page-top) button.download-action {
+  display:inline-flex;min-height:50px;align-items:center;justify-content:center;gap:9px;
+  padding:12px 20px;border:0;border-radius:13px;
+  background:linear-gradient(105deg,#087f67,#1687b7 58%,#6654ce);
+  color:#fff!important;text-decoration:none;font-size:14px;font-weight:850;
+  box-shadow:0 9px 22px #087f6730;cursor:pointer;
+  transition:transform .18s,box-shadow .18s,filter .18s;
+}
+.seo-page .download-action:hover,
+.seo-page a[download]:hover,
+main:has(.tool-page-top) a[download]:hover,
+main:has(.tool-page-top) button.download-action:hover {
+  transform:translateY(-2px);filter:saturate(1.12);box-shadow:0 13px 28px #087f6740;
+}
+.seo-page .download-action:active,
+.seo-page a[download]:active,
+main:has(.tool-page-top) button.download-action:active {transform:scale(.985)}
+.seo-page .result-download,
+.seo-page a.result-download {width:100%;min-height:56px;font-size:15px;letter-spacing:.1px}
+.seo-page button:focus-visible,
+.seo-page a:focus-visible,
+.seo-page input:focus-visible,
+.seo-page select:focus-visible,
+.seo-page textarea:focus-visible {
+  outline:3px solid #8e80e8;outline-offset:3px;
+}
+@media(max-width:640px){
+  .seo-page input[type="file"] {min-height:64px;padding:9px;font-size:12px}
+  .seo-page input[type="file"]::file-selector-button {min-height:40px;margin-right:8px;padding:0 12px}
+  .seo-page .download-action,.seo-page a[download],
+  main:has(.tool-page-top) button.download-action {width:100%;min-height:54px}
+}
+@media(prefers-reduced-motion:reduce){
+  .seo-page input[type="file"],.seo-page input[type="file"]::file-selector-button,
+  .seo-page .download-action,.seo-page a[download] {transition:none!important}
+}
