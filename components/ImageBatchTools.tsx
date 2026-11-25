@@ -10,7 +10,7 @@ const secondary: React.CSSProperties = { border:"1px solid #d5e4da", borderRadiu
 const allowed = ["image/jpeg","image/png","image/webp"];
 const loadImage = (file: File) => new Promise<HTMLImageElement>((resolve,reject)=>{const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{URL.revokeObjectURL(url);resolve(img)};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("This image could not be opened."))};img.src=url;});
 const canvasBlob = (canvas: HTMLCanvasElement, type="image/png", quality=.92) => new Promise<Blob>((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Could not export the image in this browser.")),type,quality));
-function saveBlob(blob: Blob, name: string) { const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();window.setTimeout(()=>URL.revokeObjectURL(url),1500); }
+function saveBlob(blob: Blob, name: string) { const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();window.setTimeout(()=>URL.revokeObjectURL(url),60000); }
 
 export default function ImageBatchTools({mode}:{mode:Mode}) {
  const [files,setFiles]=useState<File[]>([]),[preview,setPreview]=useState(""),[error,setError]=useState(""),[status,setStatus]=useState(""),[busy,setBusy]=useState(false);
