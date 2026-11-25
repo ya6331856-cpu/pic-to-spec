@@ -1109,3 +1109,92 @@ main:has(> .hero) .quick-start .tool-card strong {
   color: #68edc3 !important;
   font-style: normal !important;
 }
+
+
+/* Consistent white form labels across every tool workspace.
+   Dark label chips keep contrast readable even on light tool panels. */
+main:has(.tool-page-top) label,
+main:has(.tool-page-intro) .workspace label,
+main:has(.tool-page-intro) .crop-fields label,
+main:has(.tool-page-intro) .field>label {
+  color:#f2fbf8!important;
+  background:linear-gradient(135deg,#102b38,#0b202c);
+  border:1px solid #28505a;
+  border-radius:9px;
+  padding:9px 11px;
+}
+main:has(.tool-page-top) label input,
+main:has(.tool-page-top) label select,
+main:has(.tool-page-intro) .workspace label input,
+main:has(.tool-page-intro) .workspace label select,
+main:has(.tool-page-intro) .workspace label textarea,
+main:has(.tool-page-intro) .crop-fields label input {
+  color:#17233b;
+}
+
+
+/* Subtle moving shine for primary actions across all tool workspaces. */
+@keyframes pictospec-action-shine {
+  0%, 68% { transform: translateX(-160%) skewX(-18deg); opacity: 0; }
+  74% { opacity: .55; }
+  88%, 100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+.seo-page .primary:not(:disabled),
+.seo-page .download-action,
+.seo-page a[download],
+.seo-page .result-download,
+main:has(.tool-page-top) .primary:not(:disabled),
+main:has(.tool-page-top) .batch-run:not(:disabled),
+main:has(.tool-page-top) .download-action,
+main:has(.tool-page-top) a[download],
+main:has(.tool-page-top) button.download-action,
+main:has(.tool-page-top) .batch-single-download:not(:disabled) {
+  position: relative; isolation: isolate; overflow: hidden;
+}
+.seo-page .primary:not(:disabled)::after,
+.seo-page .download-action::after,
+.seo-page a[download]::after,
+.seo-page .result-download::after,
+main:has(.tool-page-top) .primary:not(:disabled)::after,
+main:has(.tool-page-top) .batch-run:not(:disabled)::after,
+main:has(.tool-page-top) .download-action::after,
+main:has(.tool-page-top) a[download]::after,
+main:has(.tool-page-top) button.download-action::after,
+main:has(.tool-page-top) .batch-single-download:not(:disabled)::after {
+  content: ""; position: absolute; z-index: 1; top: -35%; bottom: -35%; left: 0;
+  width: 34%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  animation: pictospec-action-shine 4.4s ease-in-out infinite;
+}
+.seo-page input[type="file"]::file-selector-button,
+main:has(.tool-page-top) input[type="file"]::file-selector-button {
+  animation: pictospec-upload-shine 4.4s ease-in-out infinite;
+}
+@keyframes pictospec-upload-shine {
+  0%, 68%, 90%, 100% { filter: brightness(1); }
+  78% { filter: brightness(1.18); }
+}
+.seo-page .drop,main:has(.tool-page-top) .drop,
+main:has(.tool-page-top) .batch-drop {
+  position: relative; isolation: isolate; overflow: hidden;
+}
+.seo-page .drop::after,main:has(.tool-page-top) .drop::after,
+main:has(.tool-page-top) .batch-drop::after {
+  content: ""; position: absolute; z-index: 0; top: -20%; bottom: -20%; left: 0;
+  width: 25%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(120,170,255,.12), transparent);
+  transform: translateX(-180%) skewX(-18deg);
+  animation: pictospec-action-shine 5.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .seo-page .primary::after,.seo-page .download-action::after,.seo-page a[download]::after,
+  .seo-page .result-download::after,main:has(.tool-page-top) .primary::after,
+  main:has(.tool-page-top) .batch-run::after,main:has(.tool-page-top) .download-action::after,
+  main:has(.tool-page-top) a[download]::after,main:has(.tool-page-top) button.download-action::after,
+  main:has(.tool-page-top) .batch-single-download::after,
+  .seo-page input[type="file"]::file-selector-button,
+  main:has(.tool-page-top) input[type="file"]::file-selector-button,
+  .seo-page .drop::after,main:has(.tool-page-top) .drop::after,
+  main:has(.tool-page-top) .batch-drop::after { animation: none !important; }
+}

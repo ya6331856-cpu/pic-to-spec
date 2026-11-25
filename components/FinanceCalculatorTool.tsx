@@ -37,7 +37,7 @@ export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
       setResult(data);
     } catch(e) { setError(e instanceof Error?e.message:"Please check the values and try again."); }
   }
-  const field=(label:string,key:string,placeholder?:string)=><label style={{display:"grid",gap:7,fontWeight:700,color:"#24372e"}}>{label}<input type="number" min="0" step="any" value={values[key]||""} onChange={e=>set(key,e.target.value)} placeholder={placeholder||"Enter value"} style={inputStyle}/></label>;
+  const field=(label:string,key:string,placeholder?:string)=><label style={{display:"grid",gap:7,fontWeight:700,color:kind==="profit"?"#fff":"#24372e"}}>{label}<input type="number" min="0" step="any" value={values[key]||""} onChange={e=>set(key,e.target.value)} placeholder={placeholder||"Enter value"} style={inputStyle}/></label>;
   const outputLabels: Record<string,string> = {invested:"Total amount invested",estimatedValue:"Estimated future value",estimatedReturns:"Estimated returns",months:"Number of monthly deposits",principal:"Principal amount",maturityValue:"Estimated maturity value",interestEarned:"Estimated interest earned",cost:"Cost price",sellingPrice:"Selling price",profit:"Profit / loss",marginPercent:"Profit margin",markupPercent:"Markup",annualBillableHours:"Billable hours per year",requiredAnnualRevenue:"Required annual revenue",hourlyRate:"Suggested hourly rate",simpleInterest:"Simple interest",simpleTotal:"Total with simple interest",compoundInterest:"Compound interest",compoundTotal:"Total with compound interest"};
   const percentKeys=["marginPercent","markupPercent"];
   return <main style={{maxWidth:980,margin:"32px auto",padding:20,color:"#17251e"}}>
@@ -45,9 +45,9 @@ export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
     <p style={{fontSize:11,letterSpacing:2,color:"#14634b",fontWeight:800,marginTop:32}}>FREE ONLINE CALCULATOR</p>
     <h1 style={{fontSize:"clamp(30px,6vw,44px)",letterSpacing:-1.2,margin:"10px 0"}}>{titles[kind]}</h1>
     <p style={{color:"#46556b",lineHeight:1.7,maxWidth:760}}>{descriptions[kind]}</p>
-    <section style={{marginTop:22,padding:20,border:"1px solid #e0e9e3",borderRadius:16,background:"#fff",boxShadow:"0 8px 28px rgba(20,60,40,.05)"}}>
+    <section style={{marginTop:22,padding:20,border:"1px solid #e0e9e3",borderRadius:16,background:kind==="profit"?"#17372b":"#fff",boxShadow:"0 8px 28px rgba(20,60,40,.05)"}}>
       <div style={{display:"flex",flexWrap:"wrap",gap:12,alignItems:"end",marginBottom:18}}>
-        <label style={{display:"grid",gap:7,fontWeight:700,color:"#24372e"}}>Currency<select value={currency} onChange={e=>{setCurrency(e.target.value);setResult(null);}} style={inputStyle}><option value="INR">INR — Indian Rupee</option><option value="USD">USD — US Dollar</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="AED">AED — UAE Dirham</option></select></label>
+        <label style={{display:"grid",gap:7,fontWeight:700,color:kind==="profit"?"#fff":"#24372e"}}>Currency<select value={currency} onChange={e=>{setCurrency(e.target.value);setResult(null);}} style={inputStyle}><option value="INR">INR — Indian Rupee</option><option value="USD">USD — US Dollar</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="AED">AED — UAE Dirham</option></select></label>
         {kind==="fd-rd"&&<label style={{display:"grid",gap:7,fontWeight:700,color:"#24372e"}}>Deposit type<select value={mode} onChange={e=>{setMode(e.target.value as "fd"|"rd");setResult(null);}} style={inputStyle}><option value="fd">Fixed Deposit (FD)</option><option value="rd">Recurring Deposit (RD)</option></select></label>}
       </div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,220px),1fr))",gap:14}}>
