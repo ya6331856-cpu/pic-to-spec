@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const tools = [
   { name: "Image Compressor", href: "/image-compressor", detail: "Reduce image size in KB or MB", aliases: "compress image photo reduce size kb mb" },
-  { name: "Compress Image to 50KB", href: "/compress-image-to-50kb", detail: "Prepare an image under 50KB", aliases: "50kb 50 kb 20kb 100kb 200kb photo size" },
+  { name: "Compress Image to 50KB", href: "/compress-image-to-50kb", detail: "Prepare an image under 50KB", aliases: "compress image to 50kb 50 kb 20kb 100kb compress image to 100kb 200kb target file size photo size" },
   { name: "Image Resizer", href: "/image-resizer", detail: "Change image width and height", aliases: "resize image dimensions pixels" },
   { name: "Photo for Online Form", href: "/resize-photo-for-online-form", detail: "Resize a photo for application forms", aliases: "online form passport photo application" },
   { name: "Signature Resizer", href: "/signature-resizer", detail: "Resize a signature image", aliases: "signature sign size" },
@@ -78,7 +78,7 @@ const tools = [
   { name: "HTML Formatter", href: "/html-formatter", detail: "Format HTML markup with indentation", aliases: "html beautifier pretty print markup" },
   { name: "Regex Tester", href: "/regex-tester", detail: "Test regular expressions and preview replacements", aliases: "regex regexp regular expression pattern match capture groups tester" },
   { name: "CSS Gradient Generator", href: "/css-gradient-generator", detail: "Create linear and radial CSS gradients", aliases: "gradient background linear radial color stops css design" },
-  { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "uuid guid unique id random identifier" },
+  { name: "UUID Generator", href: "/uuid-generator", detail: "Generate random UUID version 4 identifiers", aliases: "online uuid generator random uuid generator uuid v4 uuid guid unique id random identifier" },
   { name: "FormRule AI", href: "/formrule-ai", detail: "Read form photo and signature requirements and prepare files", aliases: "exam application photo signature size form rule upload pack" },
   { name: "Passport Photo Maker", href: "/passport-photo-maker", detail: "Create passport-style photo sheets with multiple copies", aliases: "passport visa photo print 4x6 a4 photo maker" },
   { name: "PDF Page Organizer", href: "/pdf-organizer", detail: "Reorder, remove and rotate PDF pages", aliases: "pdf organize reorder delete rotate pages" },
