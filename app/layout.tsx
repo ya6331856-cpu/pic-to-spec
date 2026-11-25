@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const measurementId =
     configuredMeasurementId && /^G-[A-Z0-9]+$/.test(configuredMeasurementId)
       ? configuredMeasurementId
-      : undefined;
+      : "G-8DFX5TRQY0";
 
   return (
     <html lang="en">
@@ -35,23 +35,19 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Script>
         {children}
         <PixoGuide />
-        {measurementId ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                window.gtag = gtag;
-                gtag('js', new Date());
-                gtag('config', '${measurementId}', { anonymize_ip: true });
-              `}
-            </Script>
-          </>
-        ) : null}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '${measurementId}', { anonymize_ip: true });
+          `}
+        </Script>
       </body>
     </html>
   );
