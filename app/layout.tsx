@@ -5,8 +5,8 @@ import PixoGuide from "@/components/PixoGuide";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pictospec.com"),
-  title: { default: "PicToSpec — Free Image, PDF, Text & Calculator Tools", template: "%s | PicToSpec" },
-  description: "Use free browser-based tools to compress and resize images, merge PDFs, format text and data, create QR codes, generate passwords and calculate everyday figures. No account needed.",
+  title: { default: "PicToSpec — Free Image, PDF, Text & Calculator Tools", template: "%s" },
+  description: "Free online image, PDF, text and calculator tools. Compress photos, manage documents and get quick results in your browser.",
   applicationName: "PicToSpec",
   icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
   alternates: { canonical: "/" },
