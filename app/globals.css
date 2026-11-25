@@ -1109,3 +1109,25 @@ main:has(> .hero) .quick-start .tool-card strong {
   color: #68edc3 !important;
   font-style: normal !important;
 }
+
+
+/* Consistent white form labels across every tool workspace.
+   Dark label chips keep contrast readable even on light tool panels. */
+main:has(.tool-page-top) label,
+main:has(.tool-page-intro) .workspace label,
+main:has(.tool-page-intro) .crop-fields label,
+main:has(.tool-page-intro) .field>label {
+  color:#f2fbf8!important;
+  background:linear-gradient(135deg,#102b38,#0b202c);
+  border:1px solid #28505a;
+  border-radius:9px;
+  padding:9px 11px;
+}
+main:has(.tool-page-top) label input,
+main:has(.tool-page-top) label select,
+main:has(.tool-page-intro) .workspace label input,
+main:has(.tool-page-intro) .workspace label select,
+main:has(.tool-page-intro) .workspace label textarea,
+main:has(.tool-page-intro) .crop-fields label input {
+  color:#17233b;
+}
