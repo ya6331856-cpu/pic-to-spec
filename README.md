@@ -94,4 +94,4 @@ Analytics is disabled unless the site owner sets `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 - Sitemap: `https://pictospec.com/sitemap.xml`
 - Robots file: `https://pictospec.com/robots.txt`
 
-The sitemap includes the homepage, 37 tool pages and the About, Privacy and Terms pages. Submit the sitemap in Google Search Console's **Sitemaps** section. Use URL Inspection for individual canonical pages; the presence of a URL in the sitemap does not guarantee indexing or ranking.
+The sitemap lists the homepage, tool pages and the About, Privacy and Terms pages. The production-route smoke test checks that every canonical route is served successfully and represented in the sitemap, and that redirect-only routes are excluded. Submit the sitemap in Google Search Console's **Sitemaps** section. Use URL Inspection for individual canonical pages; the presence of a URL in the sitemap does not guarantee indexing or ranking.
