@@ -151,9 +151,35 @@ export default function ImageWorkspace({ initialTool = "compress", initialTarget
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
         const limit = Number(target) * 1024;
-        const best = await findBestImageQuality(toBlob, limit, 18);
-        if (processingId !== processingIdRef.current) return;
-        if (!best) throw new Error("Target size could not be reached. Try smaller dimensions or a larger KB target.");
+        let best: Blob | null = null;
+        const sourceWidth = w, sourceHeight = h;
+        // First preserve the original dimensions. If quality alone cannot fit,
+        // reduce dimensions gradually while preserving the aspect ratio.
+        for (let resizeAttempt = 0; resizeAttempt < 8; resizeAttempt++) {
+          const scale = Math.pow(0.85, resizeAttempt);
+          const attemptWidth = Math.max(1, Math.round(sourceWidth * scale));
+          const attemptHeight = Math.max(1, Math.round(sourceHeight * scale));
+          canvas.width = attemptWidth;
+          canvas.height = attemptHeight;
+          const attemptContext = canvas.getContext("2d");
+          if (!attemptContext) throw new Error("Your browser does not support image processing.");
+          if (format === "image/jpeg") {
+            attemptContext.fillStyle = "#fff";
+            attemptContext.fillRect(0, 0, attemptWidth, attemptHeight);
+          }
+          attemptContext.imageSmoothingEnabled = true;
+          attemptContext.imageSmoothingQuality = "high";
+          attemptContext.drawImage(img, 0, 0, attemptWidth, attemptHeight);
+          best = await findBestImageQuality(toBlob, limit, 18);
+          if (processingId !== processingIdRef.current) return;
+          if (best) {
+            w = attemptWidth;
+            h = attemptHeight;
+            break;
+          }
+          if (Math.max(attemptWidth, attemptHeight) <= 320) break;
+        }
+        if (!best) throw new Error("This image could not fit the selected target, even after reducing its dimensions. Try a larger KB target.");
         blob = best;
       } else {
         blob = await toBlob(0.92);
