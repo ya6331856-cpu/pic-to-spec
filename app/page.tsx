@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import { findBestImageQuality } from "@/lib/image-compression.mjs";
 
 type Tool = "compress" | "resize" | "convert" | "crop";
 type Format = "image/jpeg" | "image/png" | "image/webp";
@@ -113,19 +114,35 @@ export default function Home() {
       let blob: Blob;
       if (tool === "compress" && format !== "image/png") {
         const limit = Number(target) * 1024;
-        let lo = 0.05, hi = 0.96;
+        const sourceWidth = w, sourceHeight = h;
         let best: Blob | null = null;
-        const highestQuality = await toBlob(hi);
-        if (processingId !== processingIdRef.current) return;
-        if (highestQuality.size <= limit) best = highestQuality;
-        for (let i = 0; i < 18; i++) {
-          const mid = (lo + hi) / 2;
-          const candidate = await toBlob(mid);
+        // Match the dedicated compressor: preserve dimensions first, then
+        // scale down proportionally only when quality reduction is insufficient.
+        for (let resizeAttempt = 0; resizeAttempt < 8; resizeAttempt++) {
+          const scale = Math.pow(0.85, resizeAttempt);
+          const attemptWidth = Math.max(1, Math.round(sourceWidth * scale));
+          const attemptHeight = Math.max(1, Math.round(sourceHeight * scale));
+          canvas.width = attemptWidth;
+          canvas.height = attemptHeight;
+          const attemptContext = canvas.getContext("2d");
+          if (!attemptContext) throw new Error("Your browser does not support image processing.");
+          if (format === "image/jpeg") {
+            attemptContext.fillStyle = "#fff";
+            attemptContext.fillRect(0, 0, attemptWidth, attemptHeight);
+          }
+          attemptContext.imageSmoothingEnabled = true;
+          attemptContext.imageSmoothingQuality = "high";
+          attemptContext.drawImage(img, 0, 0, attemptWidth, attemptHeight);
+          best = await findBestImageQuality(toBlob, limit, 18);
           if (processingId !== processingIdRef.current) return;
-          if (candidate.size <= limit) { best = candidate; lo = mid; }
-          else { hi = mid; }
+          if (best) {
+            w = attemptWidth;
+            h = attemptHeight;
+            break;
+          }
+          if (Math.max(attemptWidth, attemptHeight) <= 320) break;
         }
-        if (!best) throw new Error("Target size could not be reached. Try smaller dimensions or a larger KB target.");
+        if (!best) throw new Error("This image could not fit the selected target, even after reducing its dimensions. Try a larger KB target.");
         blob = best;
       } else {
         blob = await toBlob(0.92);
