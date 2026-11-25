@@ -1037,3 +1037,75 @@ main:has(.tool-page-intro) .dims b{color:#53627a!important}
 main:has(.tool-page-intro) .result-ready .result-ready-heading p,
 main:has(.tool-page-intro) .result-ready>small{color:#405f55!important}
 main:has(.tool-page-intro) .result-ready p{color:#345b50!important}
+
+/* Final homepage card contrast fix: pair dark cards with bright, readable text. */
+main:has(> .hero) > .tool-directory {
+  background: linear-gradient(135deg, #071923 0%, #0b202c 55%, #0c252e 100%) !important;
+  color: #eaf5f3 !important;
+}
+main:has(> .hero) .directory-category h3 {
+  color: #effaf8 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-style: normal !important;
+}
+main:has(> .hero) > .tool-directory .directory-category .tool-card {
+  background: linear-gradient(145deg, #102b38 0%, #0b202c 100%) !important;
+  border: 1px solid #2a5360 !important;
+  color: #f1fbf8 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-style: normal !important;
+  opacity: 1 !important;
+  box-shadow: 0 10px 28px #0004 !important;
+}
+main:has(> .hero) > .tool-directory .directory-category .tool-card b {
+  color: #f2fbfa !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-size: 13px;
+  font-style: normal !important;
+  font-weight: 750 !important;
+  line-height: 1.4;
+}
+main:has(> .hero) > .tool-directory .directory-category .tool-card small {
+  color: #b9ced1 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-size: 11px;
+  font-style: normal !important;
+  font-weight: 450 !important;
+  line-height: 1.55;
+}
+main:has(> .hero) > .tool-directory .directory-category .tool-card strong {
+  color: #68edc3 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-size: 9px;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.7px;
+}
+main:has(> .hero) > .tool-directory .directory-category .tool-card:hover,
+main:has(> .hero) > .tool-directory .directory-category .tool-card:focus-visible {
+  background: linear-gradient(145deg, #143b42 0%, #102838 100%) !important;
+  border-color: #39c7a8 !important;
+  box-shadow: 0 14px 34px #00d9ae24 !important;
+  transform: translateY(-3px);
+}
+
+/* Keep the homepage's quick-access cards equally legible. */
+main:has(> .hero) .quick-start .tool-card {
+  background: linear-gradient(145deg, #102b38 0%, #0b202c 100%) !important;
+  border-color: #2a5360 !important;
+  color: #f1fbf8 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-style: normal !important;
+}
+main:has(> .hero) .quick-start .tool-card b {
+  color: #f2fbfa !important;
+  font-style: normal !important;
+}
+main:has(> .hero) .quick-start .tool-card small {
+  color: #b9ced1 !important;
+  font-style: normal !important;
+}
+main:has(> .hero) .quick-start .tool-card strong {
+  color: #68edc3 !important;
+  font-style: normal !important;
+}
