@@ -88,6 +88,10 @@ The production smoke test checks all canonical pages, the legacy image-cutter re
 
 Analytics is disabled unless the site owner sets `NEXT_PUBLIC_GA_MEASUREMENT_ID` in the hosting environment. To enable it, create a GA4 web data stream and set the variable to its Measurement ID (normally beginning with `G-`). Do not put credentials, API secrets or private tokens in this public variable. The privacy policy explains the optional analytics collection.
 
+## Country and regional preferences
+
+The country selector initially supports India, United States, United Kingdom, Canada, Australia, United Arab Emirates and Singapore. The selection is stored in the browser's local storage on the user's device. Finance calculator currency formatting follows the selected country, and the unit converter chooses metric or US-customary defaults where applicable. Currency selection changes display formatting only; it does not perform foreign-exchange conversion. The GST calculator remains India-specific until each additional country's tax rules can be verified and maintained.
+
 ## Search and indexing
 
 - Canonical website origin: `https://pictospec.com`
