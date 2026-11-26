@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import { useCountrySettings } from "@/components/CountrySelector";
 import { calculateSIP, calculateFixedDeposit, calculateRecurringDeposit, calculateProfit, calculateHourlyRate, calculateInterest } from "@/lib/finance-calculators.mjs";
 
 type Kind = "sip" | "fd-rd" | "profit" | "freelance" | "interest";
@@ -18,12 +19,13 @@ const titles: Record<Kind,string> = { sip:"SIP Calculator", "fd-rd":"FD & RD Cal
 export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
   const [values,setValues] = useState<Record<string,string>>({amount:"5000",rate:"12",years:"10",cost:"80",selling:"100",monthlyIncome:"3000",expenses:"500",hours:"20",tax:"20",frequency:"4"});
   const [mode,setMode] = useState<"fd"|"rd">("fd");
-  const [currency,setCurrency] = useState("INR");
+  const { country } = useCountrySettings();
+  const currency = country.currency;
   const [result,setResult] = useState<Record<string,number|null>|null>(null);
   const [error,setError] = useState("");
   const set=(key:string,value:string)=>{setValues(old=>({...old,[key]:value}));setResult(null);setError("");};
   const number=(key:string)=>Number(values[key]);
-  const money=(n:number|null|undefined)=>n===null||n===undefined?"—":new Intl.NumberFormat("en-IN",{style:"currency",currency,maximumFractionDigits:2}).format(n);
+  const money=(n:number|null|undefined)=>n===null||n===undefined?"—":new Intl.NumberFormat(country.locale,{style:"currency",currency,minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
   function calculate(){
     setError("");setResult(null);
     try {
@@ -47,7 +49,7 @@ export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
     <p style={{color:"#46556b",lineHeight:1.7,maxWidth:760}}>{descriptions[kind]}</p>
     <section style={{marginTop:22,padding:20,border:"1px solid #e0e9e3",borderRadius:16,background:kind==="profit"?"#17372b":"#fff",boxShadow:"0 8px 28px rgba(20,60,40,.05)"}}>
       <div style={{display:"flex",flexWrap:"wrap",gap:12,alignItems:"end",marginBottom:18}}>
-        <label style={{display:"grid",gap:7,fontWeight:700,color:kind==="profit"?"#fff":"#24372e"}}>Currency<select value={currency} onChange={e=>{setCurrency(e.target.value);setResult(null);}} style={inputStyle}><option value="INR">INR — Indian Rupee</option><option value="USD">USD — US Dollar</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="AED">AED — UAE Dirham</option></select></label>
+        <div style={{display:"grid",gap:4,fontWeight:700,color:kind==="profit"?"#fff":"#24372e"}}><span>Selected currency</span><strong>{country.currency}</strong><small style={{fontWeight:500,opacity:.75}}>Based on the country setting above. No exchange-rate conversion is applied.</small></div>
         {kind==="fd-rd"&&<label style={{display:"grid",gap:7,fontWeight:700,color:"#24372e"}}>Deposit type<select value={mode} onChange={e=>{setMode(e.target.value as "fd"|"rd");setResult(null);}} style={inputStyle}><option value="fd">Fixed Deposit (FD)</option><option value="rd">Recurring Deposit (RD)</option></select></label>}
       </div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,220px),1fr))",gap:14}}>
@@ -61,7 +63,7 @@ export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
     <p style={{fontSize:12,color:"#68786f",lineHeight:1.7,marginTop:16}}>Estimates only. Actual returns, rates, fees, taxes and compounding rules depend on the financial institution, product and applicable laws. This calculator does not provide investment, tax or financial advice.</p>
     <section className="tool-content"><h2>How to use the {titles[kind]}</h2><ol><li>Enter the amount, rate and duration or the business figures requested above.</li><li>Choose the available options and select Calculate now.</li><li>Review the estimate and compare it with the terms from your bank, provider or accountant.</li></ol><h3>Calculation assumptions</h3>
       {kind==="sip"?<p>The SIP estimate assumes equal contributions at the end of each month and a constant nominal annual return divided into monthly periods. Actual mutual fund returns are market-linked, variable and not guaranteed. Taxes and fund expenses are not included.</p>:kind==="fd-rd"?<p>FD uses the selected compounding frequency. RD is an approximate estimate using monthly compounding and month-end deposits; actual bank RD maturity values can differ because institutions may apply quarterly compounding, rounding and product-specific rules. Check the bank's official maturity quote before investing.</p>:kind==="profit"?<p>Profit or loss is selling price minus cost price. Profit margin divides profit by selling price; markup divides profit by cost price. These percentages are different and do not include overheads, tax, shipping or other business costs unless you include them in cost.</p>:kind==="freelance"?<p>The suggested hourly rate annualizes your monthly income goal and expenses, adjusts for the estimated tax percentage, then divides by annual billable hours (52 weeks). It does not automatically account for unpaid leave, non-billable admin time, insurance, platform fees or currency conversion.</p>:<p>Simple interest is calculated on the original principal. Compound interest applies the selected compounding frequency. The calculator assumes the stated annual rate stays constant for the full period and excludes fees and taxes.</p>}
-      <h3>Frequently asked questions</h3><details><summary>Are these results guaranteed?</summary><p>No. They are mathematical estimates based on the values and assumptions you enter. Verify actual product terms with the provider.</p></details><details><summary>Are my figures uploaded?</summary><p>No. The calculations run in your browser; the values are not sent to a PicToSpec calculation server.</p></details><details><summary>Can I use a different currency?</summary><p>Yes. Select a currency for display. Currency selection changes the symbol and formatting only; it does not convert exchange rates.</p></details>
+      <h3>Frequently asked questions</h3><details><summary>Are these results guaranteed?</summary><p>No. They are mathematical estimates based on the values and assumptions you enter. Verify actual product terms with the provider.</p></details><details><summary>Are my figures uploaded?</summary><p>No. The calculations run in your browser; the values are not sent to a PicToSpec calculation server.</p></details><details><summary>How is the currency chosen?</summary><p>Currency follows the country selected in the Country & format setting. This changes formatting only; it does not convert exchange rates.</p></details>
     </section>
   </main>;
 }

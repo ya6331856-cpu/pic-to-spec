@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import CountrySelector from "@/components/CountrySelector";
 
 const tools = [
   { name: "Image Compressor", href: "/image-compressor", detail: "Reduce image size in KB or MB", aliases: "compress image photo reduce size kb mb" },
@@ -141,5 +142,6 @@ export default function ToolSearch() {
       {matches.length ? matches.map((tool,index)=><a key={tool.href} id={`tool-option-${index}`} role="option" aria-selected={index===activeIndex} className={index===activeIndex?"active":""} onMouseEnter={()=>setActiveIndex(index)} href={tool.href}><span><b>{tool.name}</b><small>{tool.detail}</small></span><strong>OPEN →</strong></a>) : <p role="status" aria-live="polite">No matching tool found. Try a shorter search.</p>}
       <button className="search-dismiss" type="button" onClick={()=>setOpen(false)}>Close results</button>
     </div>}
+    <CountrySelector />
   </div>;
 }
