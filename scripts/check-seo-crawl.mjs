@@ -5,6 +5,9 @@ const appDir = path.join(process.cwd(), "app");
 const sitemapFile = path.join(appDir, "sitemap.ts");
 const robotsFile = path.join(appDir, "robots.ts");
 
+// Legacy aliases that intentionally redirect to a canonical tool page.
+const redirectOnlyRoutes = new Set(["/image-cutter"]);
+
 function walkPages(dir, relative = "") {
   const pages = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -14,7 +17,7 @@ function walkPages(dir, relative = "") {
     if (entry.isDirectory()) pages.push(...walkPages(absolute, rel));
     else if (entry.isFile() && entry.name === "page.tsx") {
       const route = relative ? "/" + relative.split(path.sep).join("/") : "/";
-      if (!route.split("/").some((part) => part.startsWith("[") && part.endsWith("]"))) pages.push(route);
+      if (!route.split("/").some((part) => part.startsWith("[") && part.endsWith("]")) && !redirectOnlyRoutes.has(route)) pages.push(route);
     }
   }
   return pages;

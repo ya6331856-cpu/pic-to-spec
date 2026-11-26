@@ -8,5 +8,6 @@ export function calculateQuickTool(
   c: string,
   dob: string,
   gstMode: "intra" | "inter",
-  nowOrSettings?: Date | QuickDisplaySettings
+  nowOrSettings?: Date | QuickDisplaySettings,
+  extraDisplaySettings?: QuickDisplaySettings
 ): QuickResult;
