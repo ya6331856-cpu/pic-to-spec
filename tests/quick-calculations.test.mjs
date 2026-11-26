@@ -11,3 +11,14 @@ test("discount returns sale price and savings",()=>{const r=calculateQuickTool("
 test("GST and discount reject rates above 100",()=>{assert.equal(calculateQuickTool("gst","100","101","","","intra"),"GST rate must be between 0% and 100%.");assert.equal(calculateQuickTool("discount","100","101","","","intra"),"Discount must be between 0% and 100%.");});
 test("age calculation handles birthday and leap-year calendar dates",()=>{const r=calculateQuickTool("age","","","","2000-02-29","intra",new Date(2026,1,28));assert.equal(r.main,"25 years");assert.equal(r.extra,"11 months and 30 days");});
 test("age rejects future and invalid dates",()=>{assert.equal(calculateQuickTool("age","","","","2027-01-01","intra",new Date(2026,0,1)),"Choose a valid date in the past.");assert.equal(calculateQuickTool("age","","","","2025-02-30","intra",new Date(2026,0,1)),"Choose a valid date in the past.");});
+
+test("EMI formats monetary results using the selected country locale and currency",()=>{
+  const r=calculateQuickTool("emi","12000","0","1","","intra",new Date(2026,0,1),{locale:"en-US",currency:"USD"});
+  assert.equal(r.main,"$1,000");
+  assert.match(r.extra,/Interest: \$0/);
+});
+test("discount formats price and savings using the selected country currency",()=>{
+  const r=calculateQuickTool("discount","2000","15","","","intra",new Date(2026,0,1),{locale:"en-GB",currency:"GBP"});
+  assert.equal(r.main,"£1,700");
+  assert.equal(r.extra,"You save £300");
+});
