@@ -25,7 +25,7 @@ export default function QuickTool({kind}:{kind:Kind}) {
  const { country, setCountryCode } = useCountrySettings();
  const result=useMemo(()=>{
    if(kind==="gst" && country.code!=="IN") return null;
-   return calculateQuickTool(kind,a,b,c,dob,gstMode,new Date(),{locale:country.locale,currency:country.currency});
+   return calculateQuickTool(kind,a,b,c,dob,gstMode,{locale:country.locale,currency:country.currency});
  },[kind,a,b,c,dob,gstMode,country.code,country.locale,country.currency]);
  const money=(amount:number)=>new Intl.NumberFormat(country.locale,{style:"currency",currency:country.currency,minimumFractionDigits:0,maximumFractionDigits:2}).format(amount);
  const exampleText=kind==="discount"
