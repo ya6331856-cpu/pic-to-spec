@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import { useCountrySettings } from "@/components/CountrySelector";
 import { calculateSIP, calculateFixedDeposit, calculateRecurringDeposit, calculateProfit, calculateHourlyRate, calculateInterest } from "@/lib/finance-calculators.mjs";
 
 type Kind = "sip" | "fd-rd" | "profit" | "freelance" | "interest";
@@ -18,12 +19,13 @@ const titles: Record<Kind,string> = { sip:"SIP Calculator", "fd-rd":"FD & RD Cal
 export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
   const [values,setValues] = useState<Record<string,string>>({amount:"5000",rate:"12",years:"10",cost:"80",selling:"100",monthlyIncome:"3000",expenses:"500",hours:"20",tax:"20",frequency:"4"});
   const [mode,setMode] = useState<"fd"|"rd">("fd");
-  const [currency,setCurrency] = useState("INR");
+  const { country } = useCountrySettings();
+  const currency = country.currency;
   const [result,setResult] = useState<Record<string,number|null>|null>(null);
   const [error,setError] = useState("");
   const set=(key:string,value:string)=>{setValues(old=>({...old,[key]:value}));setResult(null);setError("");};
   const number=(key:string)=>Number(values[key]);
-  const money=(n:number|null|undefined)=>n===null||n===undefined?"—":new Intl.NumberFormat("en-IN",{style:"currency",currency,maximumFractionDigits:2}).format(n);
+  const money=(n:number|null|undefined)=>n===null||n===undefined?"—":new Intl.NumberFormat(country.locale,{style:"currency",currency,minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
   function calculate(){
     setError("");setResult(null);
     try {
@@ -47,7 +49,7 @@ export default function FinanceCalculatorTool({kind}:{kind:Kind}) {
     <p style={{color:"#46556b",lineHeight:1.7,maxWidth:760}}>{descriptions[kind]}</p>
     <section style={{marginTop:22,padding:20,border:"1px solid #e0e9e3",borderRadius:16,background:kind==="profit"?"#17372b":"#fff",boxShadow:"0 8px 28px rgba(20,60,40,.05)"}}>
       <div style={{display:"flex",flexWrap:"wrap",gap:12,alignItems:"end",marginBottom:18}}>
-        <label style={{display:"grid",gap:7,fontWeight:700,color:kind==="profit"?"#fff":"#24372e"}}>Currency<select value={currency} onChange={e=>{setCurrency(e.target.value);setResult(null);}} style={inputStyle}><option value="INR">INR — Indian Rupee</option><option value="USD">USD — US Dollar</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="AED">AED — UAE Dirham</option></select></label>
+        <div style={{display:"grid",gap:4,fontWeight:700,color:kind==="profit"?"#fff":"#24372e"}}><span>Selected currency</span><strong>{country.currency}</strong><small style={{fontWeight:500,opacity:.75}}>Based on the country setting above. No exchange-rate conversion is applied.</small></div>
         {kind==="fd-rd"&&<label style={{display:"grid",gap:7,fontWeight:700,color:"#24372e"}}>Deposit type<select value={mode} onChange={e=>{setMode(e.target.value as "fd"|"rd");setResult(null);}} style={inputStyle}><option value="fd">Fixed Deposit (FD)</option><option value="rd">Recurring Deposit (RD)</option></select></label>}
       </div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,220px),1fr))",gap:14}}>
