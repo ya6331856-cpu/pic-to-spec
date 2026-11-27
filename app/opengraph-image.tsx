@@ -37,7 +37,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "center", position: "relative" }}>
           <div style={{ display: "flex", width: 330, height: 330, alignItems: "center", justifyContent: "center", borderRadius: 165, background: "linear-gradient(145deg, #ffffffdd, #eefaf8bb)", border: "1px solid #d9e8ed", boxShadow: "0 28px 70px #4e5ea01f" }}>
-            <img src="https://pictospec.com/pixo.svg" width="280" height="280" />
+            <img src="https://pictospec.com/pixo.svg" width="280" height="280" alt="Pixo, the PicToSpec mascot" />
           </div>
           <div style={{ display: "flex", position: "absolute", bottom: 50, right: 0, padding: "13px 20px", borderRadius: 16, background: "#ffffff", color: "#176b58", fontSize: 18, fontWeight: 800, border: "1px solid #dcece7" }}>Say hello to Pixo!</div>
         </div>
