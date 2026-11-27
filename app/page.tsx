@@ -156,7 +156,7 @@ export default function Home() {
       <a className="category-shortcut pdf-shortcut" href="#pdf-tools"><span aria-hidden="true">▤</span><b>PDF</b><small>Merge, split and organize</small><strong>Explore tools ↗</strong></a>
       <a className="category-shortcut calc-shortcut" href="#calculators"><span aria-hidden="true">∑</span><b>Calculators</b><small>Get quick, clear estimates</small><strong>Explore tools ↗</strong></a>
       <a className="category-shortcut text-shortcut" href="#text-tools"><span aria-hidden="true">T</span><b>Text</b><small>Write, count and compare</small><strong>Explore tools ↗</strong></a>
-      <a className="category-shortcut dev-shortcut" href="#developer-tools"><span aria-hidden="true">{ }</span><b>Developer</b><small>Format, validate and convert</small><strong>Explore tools ↗</strong></a>
+      <a className="category-shortcut dev-shortcut" href="#developer-tools"><span aria-hidden="true">{"{ }"}</span><b>Developer</b><small>Format, validate and convert</small><strong>Explore tools ↗</strong></a>
       <a className="category-shortcut seo-shortcut" href="#seo-tools"><span aria-hidden="true">⌕</span><b>SEO tools</b><small>Prepare search metadata</small><strong>Explore tools ↗</strong></a>
     </section>
     <section className="quick-start" aria-label="Popular image tools">
