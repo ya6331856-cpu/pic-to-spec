@@ -15,9 +15,8 @@ export const metadata: Metadata = {
   category: "technology",
   keywords: ["free online tools", "image compressor", "PDF tools", "GST calculator", "text tools", "developer tools", "SEO tools"],
   icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
-  openGraph: { title: "PicToSpec — Free Image, PDF, Text & Calculator Tools", description: "Compress and resize images, manage PDFs, format text and data, create QR codes and use free online calculators. No account needed.", url: "https://pictospec.com/", locale: "en_US", type: "website", siteName: "PicToSpec", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "PicToSpec free online tools with Pixo the mascot" }] },
+  openGraph: { title: "PicToSpec — Free Image, PDF, Text & Calculator Tools", description: "Compress and resize images, manage PDFs, format text and data, create QR codes and use free online calculators. No account needed.", locale: "en_US", type: "website", siteName: "PicToSpec", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "PicToSpec free online tools with Pixo the mascot" }] },
   twitter: { card: "summary_large_image", title: "PicToSpec — Free Online Tools", description: "Free browser-based tools for images, PDFs, text, calculations and development.", images: ["/opengraph-image"] },
-  alternates: { canonical: "https://pictospec.com/" },
   robots: { index: true, follow: true }
 };
 
