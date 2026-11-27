@@ -159,10 +159,17 @@ export default function Home() {
     finally { if (processingId === processingIdRef.current) setBusy(false); }
   }
 
-  return <main>
-    <header className="topbar"><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><nav id="primary-navigation" className={mobileMenuOpen ? "is-open" : ""}><a href="/image-compressor" onClick={() => setMobileMenuOpen(false)}>Compressor</a><a href="/image-resizer" onClick={() => setMobileMenuOpen(false)}>Resizer</a><a href="/image-cropper" onClick={() => setMobileMenuOpen(false)}>Cropper</a><a href="/image-converter" onClick={() => setMobileMenuOpen(false)}>Converter</a></nav><a className="privacy-link" href="/privacy">Privacy</a><button className="mobile-nav-toggle" type="button" aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileMenuOpen} aria-controls="primary-navigation" onClick={() => setMobileMenuOpen(open => !open)}><span></span><span></span><span></span></button></header>
+  return <main className="homepage">
     <section className="hero"><div className="hero-main"><div className="hero-copy"><div className="eyebrow">FREE ONLINE TOOLS · PRIVATE BY DESIGN</div><h1>Get everyday tasks<br/><em>done in seconds.</em></h1><p>Simple, fast tools for images, PDFs, text and calculations. No account needed.</p><ToolSearch /><div className="hero-proof"><span>✓ Free to use</span><span>✓ Works in your browser</span><span>✓ No sign-up</span></div></div><div className="hero-mascot" aria-label="Pixo, the PicToSpec mascot"><div className="hero-mascot-glow"></div><img src="/pixo.svg" alt="Pixo the friendly PicToSpec chameleon mascot" width="240" height="240" fetchPriority="low" /><div className="hero-mascot-note"><strong>Hi, I’m Pixo!</strong><span>Let’s make your work easier.</span></div></div></div></section>
-    <section className="quick-start" aria-label="Image tools">
+    <section className="category-shortcuts" aria-label="Browse tool categories">
+      <a className="category-shortcut image-shortcut" href="#image-tools"><span aria-hidden="true">✧</span><b>Image</b><small>Compress, crop and convert</small><strong>Explore tools ↗</strong></a>
+      <a className="category-shortcut pdf-shortcut" href="#pdf-tools"><span aria-hidden="true">▤</span><b>PDF</b><small>Merge, split and organize</small><strong>Explore tools ↗</strong></a>
+      <a className="category-shortcut calc-shortcut" href="#calculators"><span aria-hidden="true">∑</span><b>Calculators</b><small>Get quick, clear estimates</small><strong>Explore tools ↗</strong></a>
+      <a className="category-shortcut text-shortcut" href="#text-tools"><span aria-hidden="true">T</span><b>Text</b><small>Write, count and compare</small><strong>Explore tools ↗</strong></a>
+      <a className="category-shortcut dev-shortcut" href="#developer-tools"><span aria-hidden="true">{ }</span><b>Developer</b><small>Format, validate and convert</small><strong>Explore tools ↗</strong></a>
+      <a className="category-shortcut seo-shortcut" href="#seo-tools"><span aria-hidden="true">⌕</span><b>SEO tools</b><small>Prepare search metadata</small><strong>Explore tools ↗</strong></a>
+    </section>
+    <section className="quick-start" aria-label="Popular image tools">
       <div className="quick-grid">
         <a href="/background-remover" className="tool-card"><span>✦</span><b>Background Remover</b><small>Make photo backgrounds transparent</small><strong>OPEN TOOL →</strong></a>
         <a href="/image-compressor" className="tool-card"><span>↘</span><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
@@ -173,7 +180,7 @@ export default function Home() {
     </section>
     <section className="tool-directory" id="tool-directory" aria-label="All free online tools">
       <div className="directory-heading"><div><span className="eyebrow">THE TOOLBOX</span><h2>Find the right tool for the job</h2><p>Choose a category or open any tool directly.</p></div></div>
-      <div className="directory-category"><h3>Image tools</h3><div className="quick-grid">
+      <div className="directory-category" id="image-tools"><h3>Image tools</h3><div className="quick-grid">
         <a className="tool-card" href="/image-compressor"><b>Image Compressor</b><small>Reduce image file size</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/image-resizer"><b>Image Resizer</b><small>Set exact image dimensions</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/image-cropper"><b>Image Cropper</b><small>Crop images by pixel size</small><strong>OPEN TOOL →</strong></a>
@@ -183,7 +190,7 @@ export default function Home() {
         <a className="tool-card" href="/signature-resizer"><b>Signature Resizer</b><small>Resize signature images</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/jpg-to-webp"><b>JPG to WebP</b><small>Convert images to WebP</small><strong>OPEN TOOL →</strong></a>
       </div></div>
-      <div className="directory-category"><h3>PDF tools</h3><div className="quick-grid">
+      <div className="directory-category" id="pdf-tools"><h3>PDF tools</h3><div className="quick-grid">
         <a className="tool-card" href="/pdf-merger"><b>Merge PDF</b><small>Combine PDF documents</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/pdf-splitter"><b>Split PDF</b><small>Extract selected pages</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/jpg-to-pdf"><b>JPG to PDF</b><small>Convert images into PDF</small><strong>OPEN TOOL →</strong></a>
@@ -192,7 +199,7 @@ export default function Home() {
         <a className="tool-card" href="/pdf-to-excel"><b>PDF to Excel</b><small>Extract table-like data to XLSX</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/pdf-page-numbers-watermark"><b>PDF Page Numbers & Watermark</b><small>Add page numbers or a diagonal text watermark</small><strong>OPEN TOOL →</strong></a>
       </div></div>
-      <div className="directory-category"><h3>Calculators</h3><div className="quick-grid">
+      <div className="directory-category" id="calculators"><h3>Calculators</h3><div className="quick-grid">
         <a className="tool-card" href="/gst-calculator"><b>GST Calculator</b><small>Calculate tax and total price</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/emi-calculator"><b>EMI Calculator</b><small>Estimate monthly loan EMI</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/percentage-calculator"><b>Percentage Calculator</b><small>Calculate percentages</small><strong>OPEN TOOL →</strong></a>
@@ -204,7 +211,7 @@ export default function Home() {
         <a className="tool-card" href="/freelance-hourly-rate-calculator"><b>Freelance Hourly Rate</b><small>Estimate a sustainable hourly rate</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/simple-compound-interest-calculator"><b>Simple & Compound Interest</b><small>Compare interest calculations</small><strong>OPEN TOOL →</strong></a>
       </div></div>
-      <div className="directory-category"><h3>Text and developer tools</h3><div className="quick-grid">
+      <div className="directory-category" id="text-tools"><h3>Text tools</h3><div className="quick-grid">
         <a className="tool-card" href="/word-counter"><b>Word Counter</b><small>Count words and characters</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/typing-speed-test"><b>Typing Speed Test</b><small>Measure WPM, accuracy and typing errors</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/text-compare"><b>Text Compare</b><small>Find added and removed lines</small><strong>OPEN TOOL →</strong></a>
@@ -216,6 +223,8 @@ export default function Home() {
         <a className="tool-card" href="/duplicate-line-remover"><b>Duplicate Line Remover</b><small>Remove repeated lines from text</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/text-line-reverser"><b>Text Line Reverser</b><small>Reverse the order of text lines</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/case-converter"><b>Case Converter</b><small>Change text letter case</small><strong>OPEN TOOL →</strong></a>
+      </div></div>
+      <div className="directory-category" id="developer-tools"><h3>Developer tools</h3><div className="quick-grid">
         <a className="tool-card" href="/json-formatter"><b>JSON Formatter</b><small>Format and validate JSON</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-schema-generator"><b>JSON Schema Generator</b><small>Generate a schema from sample JSON</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/json-to-typescript"><b>JSON to TypeScript</b><small>Generate TypeScript types and interfaces</small><strong>OPEN TOOL →</strong></a>
@@ -248,11 +257,18 @@ export default function Home() {
         <a className="tool-card" href="/css-gradient-generator"><b>CSS Gradient Generator</b><small>Create custom CSS color gradients</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/uuid-generator"><b>UUID Generator</b><small>Create random unique identifiers</small><strong>OPEN TOOL →</strong></a>
       </div></div>
-      <div className="directory-category"><h3>SEO tools</h3><div className="quick-grid">\n        <a className="tool-card" href="/meta-tag-generator"><b>Meta Tag Generator</b><small>Create SEO and social preview tags</small><strong>OPEN TOOL →</strong></a>\n        <a className="tool-card" href="/robots-txt-generator"><b>Robots.txt Generator</b><small>Create crawler access rules</small><strong>OPEN TOOL →</strong></a>\n      </div></div>\n      <div className="directory-category"><h3>Generators</h3><div className="quick-grid">
+      <div className="directory-category" id="seo-tools">
+        <h3>SEO tools</h3>
+        <div className="quick-grid">
+          <a className="tool-card" href="/meta-tag-generator"><b>Meta Tag Generator</b><small>Create SEO and social preview tags</small><strong>OPEN TOOL →</strong></a>
+          <a className="tool-card" href="/robots-txt-generator"><b>Robots.txt Generator</b><small>Create crawler access rules</small><strong>OPEN TOOL →</strong></a>
+        </div>
+      </div>
+      <div className="directory-category" id="generators"><h3>Generators</h3><div className="quick-grid">
         <a className="tool-card" href="/password-generator"><b>Password Generator</b><small>Create random strong passwords</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/qr-code-generator"><b>QR Code Generator</b><small>Create QR codes for text and links</small><strong>OPEN TOOL →</strong></a>
       </div></div>
-      <div className="directory-category"><h3>New document & application tools</h3><div className="quick-grid">
+      <div className="directory-category" id="more-tools"><h3>More useful tools</h3><div className="quick-grid">
         <a className="tool-card" href="/formrule-ai"><b>FormRule AI</b><small>Read photo and signature upload rules</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/passport-photo-maker"><b>Passport Photo Maker</b><small>Create a multi-copy photo print sheet</small><strong>OPEN TOOL →</strong></a>
         <a className="tool-card" href="/image-to-text"><b>Image to Text OCR</b><small>Extract English text from images</small><strong>OPEN TOOL →</strong></a>
@@ -279,6 +295,6 @@ export default function Home() {
     </section>
     
     <section className="guides"><a href="/compress-image-to-50kb">Compress to 50KB</a><a href="/resize-photo-for-online-form">Photo size guide</a><a href="/signature-resizer">Signature guide</a><a href="/jpg-to-webp">JPG to WebP guide</a></section>
-    <footer><a className="brand" href="/"><span className="mark">P</span>PicToSpec</a><span>Your files stay on your device.</span><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:ya6331856@gmail.com">Contact</a></footer>
+    
   </main>;
 }
