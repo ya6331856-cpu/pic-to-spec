@@ -1225,10 +1225,27 @@ main:has(.tool-page-top) .batch-drop::after {
   --ps-shadow-lg: 0 24px 66px #29345a16;
   --ps-content: 1220px;
   --ps-focus: #6e61df;
+  --ps-font-body: "Inter", Arial, sans-serif;
+  --ps-font-display: "Inter", Arial, sans-serif;
+  --ps-font-size-xs: 10px;
+  --ps-font-size-sm: 12px;
+  --ps-font-size-md: 14px;
+  --ps-font-size-lg: 18px;
+  --ps-space-1: 4px;
+  --ps-space-2: 8px;
+  --ps-space-3: 12px;
+  --ps-space-4: 16px;
+  --ps-space-5: 24px;
+  --ps-space-6: 32px;
+  --ps-space-7: 48px;
+  --ps-button-height: 44px;
+  --ps-button-radius: 12px;
+  --ps-card-padding: 17px;
+  color-scheme: light;
 }
 
 html { scroll-padding-top: 98px; }
-body { color: var(--ps-ink); background: var(--ps-page); }
+body { color: var(--ps-ink); background: var(--ps-page); font-family: var(--ps-font-body); }
 button, input, select, textarea { font: inherit; }
 :where(a, button, input, select, textarea):focus-visible {
   outline: 3px solid var(--ps-focus);
@@ -1277,7 +1294,7 @@ button, input, select, textarea { font: inherit; }
 .site-nav a:hover::after { transform: scaleX(1); }
 .site-header-actions { display: flex; align-items: center; gap: 12px; }
 .site-header-cta {
-  display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px;
+  display: inline-flex; min-height: var(--ps-button-height); align-items: center; justify-content: center; gap: 8px;
   padding: 0 16px; border: 1px solid #dedaf8; border-radius: 12px;
   background: linear-gradient(120deg, #f1efff, #ecfbfa); color: #5d4cc4;
   text-decoration: none; font-size: 12px; font-weight: 800;
@@ -1347,7 +1364,7 @@ button, input, select, textarea { font: inherit; }
 }
 .category-shortcut {
   position: relative; display: flex; min-width: 0; min-height: 150px; flex-direction: column;
-  align-items: flex-start; gap: 7px; overflow: hidden; padding: 17px 16px 16px;
+  align-items: flex-start; gap: var(--ps-space-2); overflow: hidden; padding: var(--ps-card-padding) 16px 16px;
   border: 1px solid var(--ps-line); border-radius: var(--ps-radius-md);
   background: linear-gradient(150deg, #fff, #fbfcff); color: var(--ps-ink);
   text-decoration: none; box-shadow: var(--ps-shadow-sm);
