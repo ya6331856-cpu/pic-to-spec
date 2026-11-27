@@ -24,7 +24,6 @@ export default function Home() {
   const resultUrlRef = useRef("");
   const imageProbeIdRef = useRef(0);
   const processingIdRef = useRef(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [tool, setTool] = useState<Tool>("compress");
@@ -41,15 +40,6 @@ export default function Home() {
   const [error, setError] = useState("");
   const [result, setResult] = useState<{ url: string; name: string; size: number; w: number; h: number } | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMobileMenuOpen(false);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [mobileMenuOpen]);
 
   useEffect(() => {
     if (!result) return;
