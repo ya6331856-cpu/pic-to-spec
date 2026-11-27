@@ -1,4 +1,5 @@
 "use client";
+import ToolLearningSection from "@/components/ToolLearningSection";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 
@@ -110,5 +111,6 @@ export default function ValidationConversionTool({mode}:{mode:Mode}){
    {mode==="xml"?<label style={{display:"grid",gap:8,fontWeight:700}}>JSON output<textarea readOnly value={output} spellCheck={false} style={{...area,minHeight:250,background:"#f7faf8"}}/></label>:<p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>Scope: this lightweight checker focuses on common indentation and mapping mistakes. It is not a complete YAML 1.2 parser, so a clean result does not guarantee that every YAML feature or application-specific schema is valid. For production configuration, also run the file through your target platform's YAML parser.</p>}
    {mode==="xml"&&<p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>Attributes are stored under <code>@attributes</code>, repeated sibling tags become arrays, and mixed text is stored under <code>#text</code>. XML namespaces are retained in element names. Conversion runs locally; no file is uploaded.</p>}
   </section>
- </main>;
+ {mode === "xml" && <ToolLearningSection tool="xml-to-json" />}
+  </main>;
 }

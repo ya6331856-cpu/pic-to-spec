@@ -1,4 +1,5 @@
 "use client";
+import ToolLearningSection from "@/components/ToolLearningSection";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 import { jsonToYaml } from "@/lib/json-to-yaml.mjs";
@@ -28,5 +29,6 @@ export default function JsonYamlTool(){
    <label style={{display:"grid",gap:8,fontWeight:700}}>YAML output<textarea readOnly value={result.yaml} spellCheck={false} style={{...area,minHeight:250,background:"#f7faf8"}}/></label>
    <p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>String values and keys are emitted with double quotes to avoid YAML type ambiguity. This converter handles standard JSON data only; comments, dates and YAML-specific features are not part of JSON and are not generated.</p>
   </section>
- </main>;
+ <ToolLearningSection tool="json-to-yaml" />
+  </main>;
 }

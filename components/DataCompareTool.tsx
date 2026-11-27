@@ -1,4 +1,5 @@
 "use client";
+import ToolLearningSection from "@/components/ToolLearningSection";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 
@@ -116,5 +117,6 @@ export default function DataCompareTool({mode}:{mode:Mode}){
    </>}
    <p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>Comparison is structural and type-sensitive. Object key order is ignored; array order matters. The tool compares parsed JSON values, not raw formatting or whitespace.</p>
   </section>}
- </main>;
+ <ToolLearningSection tool={mode === "sql-json" ? "sql-to-json" : "json-diff"} />
+  </main>;
 }

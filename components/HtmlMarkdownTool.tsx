@@ -1,4 +1,5 @@
 "use client";
+import ToolLearningSection from "@/components/ToolLearningSection";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
 const area={width:"100%",minHeight:280,padding:14,border:"1px solid #dce7df",borderRadius:12,fontSize:13,lineHeight:1.65,color:"#17251e",background:"#fff",fontFamily:"ui-monospace,SFMono-Regular,Menlo,monospace",resize:"vertical" as const};
@@ -78,5 +79,6 @@ export default function HtmlMarkdownTool(){
    <label style={{display:"grid",gap:8,fontWeight:700}}>Markdown output<textarea readOnly value={result.markdown} spellCheck={false} style={{...area,background:"#f7faf8"}}/></label>
    <p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>This is a client-side HTML-to-Markdown converter, not a browser rendering engine. It converts the supplied markup structure, removes scripts and embedded active content, and does not execute HTML or JavaScript. Complex layouts and CSS styling may need manual cleanup.</p>
   </section>
- </main>;
+ <ToolLearningSection tool="html-to-markdown" />
+  </main>;
 }

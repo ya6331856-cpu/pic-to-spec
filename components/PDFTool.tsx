@@ -1,4 +1,5 @@
 "use client";
+import { RelatedToolLinks } from "@/components/ToolLearningSection";
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import ToolSearch from "@/components/ToolSearch";
@@ -122,6 +123,18 @@ export default function PDFTool({kind}:{kind:Kind}){
   <h2 style={{marginTop:30}}>How to use this tool</h2>
   <ol style={{color:"#66776d",lineHeight:1.9}}>{(kind==="merge"?["Select at least two PDF files.","The files are combined in the order selected.","Download the merged PDF."]:kind==="split"?["Select one PDF file.","Enter the first and last page numbers to extract.","Download the new PDF containing only those pages."]:["Select one or more JPG or PNG images.","Each image is placed on its own A4-sized PDF page.","Download the generated PDF."]).map(x=><li key={x}>{x}</li>)}</ol>
   <p style={{fontSize:12,color:"#75847c",lineHeight:1.7}}>Files are processed in your browser and are not uploaded to PicToSpec. Very large or encrypted PDFs may fail or require a modern browser. The JPG-to-PDF tool currently supports JPG and PNG images only.</p><section className="tool-content"><h2>{kind==="merge"?"How to merge PDF files":kind==="split"?"How to split PDF pages":"How to convert JPG or PNG images to PDF"}</h2><p>{guides[kind].intro}</p><h3>Common uses</h3><ul>{guides[kind].useCases.map(item=><li key={item}>{item}</li>)}</ul><h3>Tips for a better result</h3><ul>{guides[kind].tips.map(item=><li key={item}>{item}</li>)}</ul><h3>File limits and compatibility</h3><ul>{guides[kind].limits.map(item=><li key={item}>{item}</li>)}</ul><h3>Privacy and processing</h3><p>Processing happens locally in your browser. Your selected files are not uploaded to a PicToSpec processing server. The browser still needs enough available memory to read and create the PDF, so very large or complex documents may not work on every device. Close other heavy tabs and try a smaller batch if processing fails.</p><h3>Frequently asked questions</h3>{faqs[kind].map(item=><details key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</section>
- </main>;
+ <RelatedToolLinks heading="Related PDF tools" items={kind === "merge" ? [
+    { href: "/pdf-splitter", title: "Split PDF", description: "Extract a selected page range into a separate PDF." },
+    { href: "/pdf-organizer", title: "PDF Page Organizer", description: "Reorder, remove or rotate pages in a document." },
+    { href: "/pdf-page-numbers-watermark", title: "PDF Page Numbers & Watermark", description: "Add page numbers or a text watermark." }
+  ] : kind === "split" ? [
+    { href: "/pdf-merger", title: "Merge PDF", description: "Combine multiple documents in the selected order." },
+    { href: "/pdf-organizer", title: "PDF Page Organizer", description: "Reorder, remove or rotate pages." },
+    { href: "/pdf-to-jpg", title: "PDF to JPG", description: "Turn PDF pages into image files." }
+  ] : [
+    { href: "/pdf-merger", title: "Merge PDF", description: "Combine separate PDF documents." },
+    { href: "/pdf-organizer", title: "PDF Page Organizer", description: "Arrange and rotate PDF pages." }
+  ]} />
+  </main>;
 }
 const fieldStyle:React.CSSProperties={display:"block",width:"100%",marginTop:7,padding:12,border:"1px solid #dce7df",borderRadius:8,fontSize:16};

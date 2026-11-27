@@ -1,4 +1,5 @@
 "use client";
+import { RelatedToolLinks } from "@/components/ToolLearningSection";
 import { useMemo, useState } from "react";
 import JSZip from "jszip";
 import ToolSearch from "@/components/ToolSearch";
@@ -64,5 +65,10 @@ export default function JsonToExcelTool() {
    <p style={{fontSize:13,color:"#607168",lineHeight:1.6}}>The workbook is generated in your browser. Each object becomes a spreadsheet row; property names become column headings. Strings are written as text cells, so content beginning with = is not treated as an Excel formula. JSON arrays of objects are supported; a single JSON object must be wrapped in an array.</p>
   </section>
   <section className="tool-content"><h2>How to convert JSON to Excel</h2><ol><li>Paste a valid JSON array containing objects with matching or different properties.</li><li>Keep nested flattening enabled to create columns such as profile.name, or disable it to keep nested values in one cell.</li><li>Download the .xlsx workbook and open it in Microsoft Excel, Google Sheets or compatible spreadsheet software.</li></ol><h3>Example JSON</h3><pre><code>{sample}</code></pre><h3>Frequently asked questions</h3><details><summary>Does this create a real Excel file?</summary><p>Yes. The download is an XLSX workbook, not a CSV file renamed with an Excel extension.</p></details><details><summary>Are numbers kept as numbers?</summary><p>Finite numeric values are written as numeric spreadsheet cells. Boolean values are written as boolean cells and text is kept as text.</p></details><details><summary>Is my JSON uploaded?</summary><p>No. Conversion and workbook generation run locally in your browser.</p></details></section>
- </main>;
+ <RelatedToolLinks heading="Related data tools" items={[
+    { href: "/json-to-csv-converter", title: "JSON to CSV", description: "Export records to a lightweight CSV file." },
+    { href: "/csv-to-excel-converter", title: "CSV to Excel", description: "Convert CSV rows into a real Excel workbook." },
+    { href: "/json-validator", title: "JSON Validator", description: "Check source JSON syntax before exporting." }
+  ]} />
+  </main>;
 }
