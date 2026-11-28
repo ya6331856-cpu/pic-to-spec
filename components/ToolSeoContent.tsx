@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import ToolStructuredData from "@/components/ToolStructuredData";
 
 type ToolLink = { label: string; href: string };
 type ToolFaq = { question: string; answer: string };
@@ -13,6 +14,7 @@ type ToolSeoContentProps = {
   limitations: string;
   faqs: ToolFaq[];
   related?: ToolLink[];
+  applicationCategory?: "DeveloperApplication" | "UtilitiesApplication" | "EducationalApplication" | "BusinessApplication" | "FinanceApplication";
 };
 
 export default function ToolSeoContent({
@@ -25,31 +27,16 @@ export default function ToolSeoContent({
   limitations,
   faqs,
   related = [],
+  applicationCategory = "DeveloperApplication",
 }: ToolSeoContentProps) {
-  const url = `https://pictospec.com${path}`;
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://pictospec.com/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: title,
-      },
-    ],
-  };
 
   return (
     <section className="seo-page tool-seo-content" aria-label={`Guide to ${title}`}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      <ToolStructuredData
+        path={path}
+        name={title}
+        description={intro}
+        applicationCategory={applicationCategory}
       />
       <nav aria-label="Breadcrumb" style={{ fontSize: 12, marginBottom: 22, color: "#718078" }}>
         <a href="/">Home</a>
