@@ -33,16 +33,16 @@ function flatten(element: Element, prefix = ""): FlatRow {
     groups.set(child.tagName, [...(groups.get(child.tagName) || []), child]);
   }
 
-  for (const [name, nodes] of groups) {
+  groups.forEach((nodes: Element[], name: string) => {
     const key = prefix ? prefix + "." + name : name;
     if (nodes.length > 1) {
-      result[key] = JSON.stringify(nodes.map((node) => flatten(node)));
+      result[key] = JSON.stringify(nodes.map((node: Element) => flatten(node)));
     } else {
       const nested = flatten(nodes[0], key);
       if (Object.keys(nested).length) Object.assign(result, nested);
       else result[key] = nodes[0].textContent?.trim() || "";
     }
-  }
+  });
 
   if (directText && children.length) {
     result[prefix ? prefix + "#text" : "text"] = directText;
