@@ -31,7 +31,7 @@ export default function ToolSeoContent({
 }: ToolSeoContentProps) {
 
   return (
-    <section className="seo-page tool-seo-content" aria-label={`Guide to ${title}`}>
+    <section className="seo-page tool-content tool-seo-content" aria-label={`Guide to ${title}`}>
       <ToolStructuredData
         path={path}
         name={title}
