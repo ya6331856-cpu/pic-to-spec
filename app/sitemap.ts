@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 const base = "https://pictospec.com";
 
 const tools = [
-  "/resources/image-format-guide", "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
+  "/resources", "/resources/image-format-guide", "/resources/json-csv-xml-guide", "/compress-image-to-50kb", "/resize-photo-for-online-form", "/signature-resizer",
   "/jpg-to-webp", "/image-compressor", "/image-resizer", "/image-cropper", "/image-converter", "/svg-to-png-converter", "/favicon-generator", "/image-color-picker", "/base64-image-converter",
   "/bulk-image-renamer-watermark", "/exif-data-viewer-remover", "/image-blur-pixelate-tool",
   "/gst-calculator", "/emi-calculator", "/percentage-calculator", "/discount-calculator", "/age-calculator",
