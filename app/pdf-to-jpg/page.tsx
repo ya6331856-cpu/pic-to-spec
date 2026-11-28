@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 import PDFToImageTool from "@/components/PDFToImageTool";
+import PDFToJpgGuide from "@/components/PDFToJpgGuide";
 import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
-  title: "PDF to JPG Converter – Convert PDF Pages to Images",
+  title: "PDF to JPG Converter Online – Convert PDF Pages to Images",
   description:
-    "Convert selected PDF pages to JPG or PNG images online. Choose a page range and image quality format; download one image or a ZIP of up to 30 pages. Files stay in your browser.",
+    "Convert PDF pages to JPG or PNG images online. Select up to 30 pages, download a single image or ZIP, and process files in your browser. Free PDF to image converter.",
   alternates: { canonical: "/pdf-to-jpg" },
   openGraph: {
-    title: "PDF to JPG / PNG Converter | PicToSpec",
+    title: "PDF to JPG Converter Online – JPG & PNG | PicToSpec",
     description:
-      "Turn PDF pages into JPG or PNG images. Select pages, choose a format, and download images or a ZIP archive.",
+      "Turn selected PDF pages into JPG or PNG images. Choose a page range and download one image or a ZIP archive.",
     type: "website",
     url: "https://pictospec.com/pdf-to-jpg",
   },
   twitter: {
     card: "summary",
-    title: "PDF to JPG / PNG Converter | PicToSpec",
+    title: "PDF to JPG Converter Online | PicToSpec",
     description:
-      "Convert a selected PDF page range to JPG or PNG images in your browser.",
+      "Convert selected PDF pages to JPG or PNG in your browser. Download one image or a ZIP of multiple pages.",
   },
 };
 
@@ -28,7 +29,7 @@ export default function Page() {
       <ToolStructuredData
         path="/pdf-to-jpg"
         name="PDF to JPG and PNG Converter"
-        description="A browser-based converter that renders selected PDF pages as JPG or PNG images. One page downloads as an image; multiple pages are packaged into a ZIP archive."
+        description="A browser-based PDF page converter that renders selected pages as JPG or PNG images. One page downloads as an image; multiple pages are packaged into a ZIP archive."
         applicationCategory="UtilitiesApplication"
         features={[
           "Convert selected PDF pages to JPG or PNG",
@@ -40,6 +41,7 @@ export default function Page() {
         ]}
       />
       <PDFToImageTool />
+      <PDFToJpgGuide />
     </>
   );
 }
