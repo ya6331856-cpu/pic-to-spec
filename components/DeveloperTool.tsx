@@ -8,7 +8,7 @@ type Kind = "url-encoder-decoder" | "csv-json-converter" | "uuid-generator";
 const details: Record<Kind,{title:string;description:string}> = {
  "url-encoder-decoder": {title:"URL Encoder and Decoder",description:"Encode special characters for URLs or decode percent-encoded text. Choose full URL or URL component mode."},
  "csv-json-converter": {title:"CSV to JSON Converter",description:"Convert CSV rows into JSON objects or turn JSON arrays into CSV. Supports quoted commas, quotes and line breaks."},
- "uuid-generator": {title:"Online UUID Generator",description:"Generate random UUID v4 identifiers online. Create a single ID or a batch of up to 100 random UUIDs, then copy them instantly."}
+ "uuid-generator": {title:"Free Random UUID Generator",description:"Generate random UUID v4 IDs online. Create 1 to 100 at once, choose an output format, copy the batch or download it as TXT or JSON."}
 };
 const guides:Record<Kind,{example:string;steps:string[];tips:string[];caveat:string}> = {
  "url-encoder-decoder":{
