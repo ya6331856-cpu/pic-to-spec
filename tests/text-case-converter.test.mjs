@@ -8,8 +8,8 @@ test("upper and lower case handle Unicode text", () => {
 });
 
 test("title, capitalized and sentence case are distinct", () => {
-  assert.equal(convertTextCase("the quick brown fox", "title"), "The Quick Brown Fox");
-  assert.equal(convertTextCase("the quick brown fox", "capitalize"), "The Quick Brown Fox");
+  assert.equal(convertTextCase("the lord of the rings", "title"), "The Lord of the Rings");
+  assert.equal(convertTextCase("the lord of the rings", "capitalize"), "The Lord Of The Rings");
   assert.equal(convertTextCase("THE QUICK. THE FOX!", "sentence"), "The quick. The fox!");
 });
 
