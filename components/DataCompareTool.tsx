@@ -167,7 +167,7 @@ export default function DataCompareTool({mode}:{mode:Mode}){
   <div className="tool-page-top"><a href="/" style={{color:"#14634b",fontWeight:700,textDecoration:"none"}}>← PicToSpec home</a><ToolSearch/></div>
   <p style={{fontSize:11,letterSpacing:2,color:"#14634b",fontWeight:800,marginTop:35}}>FREE DEVELOPER TOOL</p>
   <h1 style={{fontSize:"clamp(30px,6vw,44px)",letterSpacing:-1.3,margin:"10px 0"}}>{title}</h1>
-  <p style={{color:"#46556b",lineHeight:1.7}}>{mode==="sql-json"?"Turn basic SQL INSERT statements into JSON records. Supports multiple rows, quoted strings, numbers, NULL and boolean literals. Processing happens in your browser.":"Compare two JSON documents structurally. Find added, removed, changed and type-changed values with JSONPath-style locations and RFC 6901 JSON Pointer paths. Comparison runs in your browser."}</p>
+  <p style={{color:"#46556b",lineHeight:1.7}}>{mode==="sql-json"?"Turn basic SQL INSERT statements into JSON records. Supports multiple rows, quoted strings, numbers, NULL and boolean literals. Processing happens in your browser.":"Compare two JSON documents structurally. Find added, removed, changed and type-changed values with readable property paths and RFC 6901 JSON Pointer paths. Comparison runs in your browser."}</p>
 
   {mode==="sql-json"?<section style={{display:"grid",gap:14,marginTop:24}}>
    <label style={{display:"grid",gap:8,fontWeight:700}}>SQL INSERT statements<textarea value={source} onChange={e=>setSource(e.target.value)} spellCheck={false} style={{...area,minHeight:280}} placeholder="INSERT INTO users (id, name) VALUES (1, 'Aisha');"/></label>
