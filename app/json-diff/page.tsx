@@ -6,7 +6,7 @@ import ToolStructuredData from "@/components/ToolStructuredData";
 export const metadata: Metadata = {
   title: "JSON Diff Tool Online – Compare JSON & Find Differences",
   description:
-    "Compare two JSON documents online. Find added, removed, changed and type-changed values with exact paths, JSON Pointer, filters and a downloadable report.",
+    "Compare two JSON files or pasted values online. Find added, removed, changed and type-changed values with exact paths, filters and a downloadable report.",
   alternates: { canonical: "/json-diff" },
   openGraph: {
     title: "JSON Diff Tool – Compare Two JSON Documents | PicToSpec",
@@ -39,6 +39,7 @@ export default function Page() {
           "Format both input values and swap comparison sides",
           "Copy individual JSON Pointer paths",
           "Copy or download a complete JSON difference report",
+          "Open local JSON files up to 1 MiB per side without uploading them",
           "Process both JSON inputs locally in the browser",
         ]}
       />
