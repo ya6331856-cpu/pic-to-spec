@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PDFOrganizerTool from "@/components/PDFOrganizerTool";
+import PDFOrganizerGuide from "@/components/PDFOrganizerGuide";
 import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
@@ -39,6 +40,7 @@ export default function Page() {
         ]}
       />
       <PDFOrganizerTool />
+      <PDFOrganizerGuide />
     </>
   );
 }
