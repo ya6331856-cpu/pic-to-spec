@@ -310,6 +310,13 @@ export default function PdfPageNumbersWatermarkTool() {
           <p>No. The PDF is read and updated locally in your browser. It is not sent to a PicToSpec PDF processing server.</p>
         </details>
       </section>
+
+      <section className="guides" aria-label="Related PDF tools">
+        <a href="/pdf-organizer">Reorder and rotate PDF pages</a>
+        <a href="/pdf-merger">Merge PDF files</a>
+        <a href="/pdf-splitter">Split PDF pages</a>
+        <a href="/pdf-to-jpg">Convert PDF to JPG or PNG</a>
+      </section>
     </main>
   );
 }
