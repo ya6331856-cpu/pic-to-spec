@@ -182,6 +182,11 @@ export default function TypingSpeedTestTool() {
           <summary>Is my typing saved or uploaded?</summary>
           <p>No. The test runs in your browser and does not send your typed text to a PicToSpec processing server.</p>
         </details>
+        <h3>Related practice tools</h3>
+        <p>
+          Build a daily writing routine with the <a href="/word-counter">word and character counter</a>,
+          or clean up headings and labels with the <a href="/case-converter">text case converter</a>.
+        </p>
       </section>
     </main>
   );
