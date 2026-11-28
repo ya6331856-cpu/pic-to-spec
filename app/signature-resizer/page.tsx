@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   description:
     "Resize a scanned signature image to custom pixel dimensions for an online form. Start with a 400 × 150 pixel canvas, then match the portal's exact requirements.",
   alternates: { canonical: "/signature-resizer" },
+  openGraph: {
+    title: "Resize Signature Image Online | PicToSpec",
+    description:
+      "Resize a scanned signature to custom pixel dimensions for an online form. Check the portal's image size, format and file-size rules before submitting.",
+    type: "website",
+    url: "https://pictospec.com/signature-resizer",
+  },
+  twitter: {
+    card: "summary",
+    title: "Signature Image Resizer | PicToSpec",
+    description:
+      "Resize a signature image to the exact pixel dimensions requested by an application form.",
+  },
 };
 
 export default function SignatureGuide() {
