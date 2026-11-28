@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DeveloperTool from "@/components/DeveloperTool";
 import ToolStructuredData from "@/components/ToolStructuredData";
+import UuidGeneratorGuide from "@/components/UuidGeneratorGuide";
 
 export const metadata: Metadata = {
   title: "UUID Generator – Generate Random UUID v4 Online",
@@ -39,6 +40,7 @@ export default function Page() {
         ]}
       />
       <DeveloperTool kind="uuid-generator" />
+      <UuidGeneratorGuide />
     </>
   );
 }
