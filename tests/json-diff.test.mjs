@@ -50,12 +50,12 @@ test("marks a type change separately from a value change", () => {
 test("uses safe paths and RFC 6901 escaping for unusual property names", () => {
   const diff = buildJsonDiff(
     { "a.b": 1, "a/b~c": 2 },
-    { "a.b": 3, "a/b~c": 2 },
+    { "a.b": 3, "a/b~c": 4 },
   );
 
-  assert.equal(diff.length, 1);
+  assert.equal(diff.length, 2);
+  assert.deepEqual(diff.map(item => item.pointer), ["/a.b", "/a~1b~0c"]);
   assert.equal(diff[0].path, '$["a.b"]');
-  assert.equal(diff[0].pointer, "/a.b");
 });
 
 test("distinguishes null, arrays, objects and root values", () => {
