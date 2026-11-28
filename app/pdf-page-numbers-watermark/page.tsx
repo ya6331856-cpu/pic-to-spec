@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PdfPageNumbersWatermarkTool from "@/components/PdfPageNumbersWatermarkTool";
+import PdfPageNumbersWatermarkGuide from "@/components/PdfPageNumbersWatermarkGuide";
 import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function Page() {
         ]}
       />
       <PdfPageNumbersWatermarkTool />
+      <PdfPageNumbersWatermarkGuide />
     </>
   );
 }
