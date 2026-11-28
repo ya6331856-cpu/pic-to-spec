@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PDFToWordTool from "@/components/PDFToWordTool";
+import PDFToWordGuide from "@/components/PDFToWordGuide";
 import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
@@ -40,6 +41,7 @@ export default function Page() {
         ]}
       />
       <PDFToWordTool />
+      <PDFToWordGuide />
     </>
   );
 }
