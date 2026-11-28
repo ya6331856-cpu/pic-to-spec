@@ -4,13 +4,13 @@ import ToolSearch from "@/components/ToolSearch";
 type Kind="word-counter"|"case-converter"|"json-formatter"|"base64-encoder-decoder";
 const config:Record<Kind,{title:string;desc:string;placeholder:string}>={
  "word-counter":{title:"Word and Character Counter",desc:"Count words, characters, sentences, paragraphs and lines instantly. Emoji and combined characters are counted as visible characters where your browser supports it.",placeholder:"Type or paste your text here..."},
- "case-converter":{title:"Online Case Converter",desc:"Convert text to uppercase, lowercase, title case, sentence case or clean extra spaces.",placeholder:"Enter text to convert..."},
+ "case-converter":{title:"Online Text Case Converter",desc:"Convert text between uppercase, lowercase, title case and sentence case with a free online case converter. Use uppercase as a caps lock converter for pasted text.",placeholder:"Enter text to convert..."},
  "json-formatter":{title:"JSON Formatter and Validator",desc:"Format, beautify, minify and validate JSON data in your browser with clear error messages.",placeholder:'Paste JSON here, e.g. {"name":"PicToSpec"}'},
  "base64-encoder-decoder":{title:"Base64 Encoder and Decoder",desc:"Encode plain text to Base64 or decode Base64 strings locally in your browser.",placeholder:"Enter text or Base64 data..."}
 };
 const faqs:Record<Kind,{q:string;a:string}[]> = {
  "word-counter":[{q:"How are words counted?",a:"Words are counted as groups of non-whitespace characters. The count updates as you type or paste text."},{q:"Are emojis counted as one character?",a:"The counter uses grapheme counting where supported by your browser, so combined emoji and accented characters are counted as visible characters."}],
- "case-converter":[{q:"What does title case do?",a:"Title case capitalizes the first letter of each word using basic English word boundaries. It is a quick formatting aid, not a full editorial style checker."},{q:"Does the converter change the meaning of my text?",a:"It changes letter casing or repeated whitespace only. Review names, abbreviations and language-specific capitalization after conversion."}],
+ "case-converter":[{q:"What does title case do?",a:"Title case capitalizes the first letter of each word using basic English word boundaries. It is a quick formatting aid, not a full editorial style checker."},{q:"Can I use this as a caps lock converter?",a:"Yes. Choose UPPERCASE to turn pasted text into capital letters, or lowercase to change it back. This converts text in the page; it does not control the physical Caps Lock key on your keyboard."},{q:"Does the converter change the meaning of my text?",a:"It changes letter casing or repeated whitespace only. Review names, abbreviations and language-specific capitalization after conversion."}],
  "json-formatter":[{q:"Does formatting JSON change its data?",a:"Formatting changes whitespace and indentation. Minifying removes unnecessary whitespace; the JSON values and structure are retained."},{q:"Does this tool execute JSON or code?",a:"No. It parses JSON syntax in your browser and formats the data. It does not execute scripts or code contained in the input."}],
  "base64-encoder-decoder":[{q:"Is Base64 encryption?",a:"No. Base64 is an encoding format, not encryption. Anyone can decode Base64 text, so never use it to protect passwords or secrets."},{q:"Can I encode non-English text?",a:"Yes. This tool encodes UTF-8 text, including common non-English characters and emoji."}]
 };
@@ -24,7 +24,8 @@ const guides:Record<Kind,{example:string;steps:string[];tips:string[];notes:stri
  "case-converter":{
   example:"The input “welcome to pictospec” becomes “WELCOME TO PICTOSPEC” in uppercase, “welcome to pictospec” in lowercase, or “Welcome To Pictospec” in the basic title-case mode.",
   steps:["Paste the text you want to reformat.","Choose uppercase, lowercase, title case, sentence case or remove extra spaces.","Copy the result and review it in the document where it will be used."],
-  tips:["Use uppercase for short labels, not long paragraphs, because all-caps text is harder to read.","Review names, product codes, acronyms and headings after conversion.","Sentence and title case rules vary by language and editorial style; treat the result as a first pass."],
+  tips:["Use uppercase for short labels, not long paragraphs, because all-caps text is harder to read.",
+  "Use the uppercase action as a caps lock text converter when you need to change pasted text to capital letters.","Review names, product codes, acronyms and headings after conversion.","Sentence and title case rules vary by language and editorial style; treat the result as a first pass."],
   notes:"The converter changes letter casing and whitespace only. Its title-case and sentence-case rules are intentionally simple English-oriented transformations; they do not apply a complete dictionary or language-specific editorial style guide."
  },
  "json-formatter":{
