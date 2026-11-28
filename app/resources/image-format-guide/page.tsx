@@ -61,7 +61,7 @@ const formats = [
 export default function ImageFormatGuidePage() {
   return (
     <main className="legal">
-      <a href="/" className="back">← Back to PicToSpec</a>
+      <a href="/resources" className="back">← All PicToSpec guides</a>
       <p className="kicker">IMAGE REFERENCE</p>
       <h1>JPG vs PNG vs WebP: which image format should you use?</h1>
       <p>
