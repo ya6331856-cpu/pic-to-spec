@@ -186,18 +186,18 @@ export default function DataCompareTool({mode}:{mode:Mode}){
     </div>
    </div>
    <div className="json-diff-input-grid">
-    <label className="json-diff-input-card">
+    <div className="json-diff-input-card">
      <span><b>01 · Original JSON</b><small>Before the change</small></span>
      <textarea aria-label="Original JSON" value={left} onChange={e=>{setLeft(e.target.value);setFileFeedback("");}} spellCheck={false} placeholder='Paste original JSON, for example {"status":"draft"}'/>
      <div className="json-diff-file-row"><label>Choose original .json file<input type="file" accept=".json,application/json" onChange={e=>{const file=e.currentTarget.files?.[0];void loadJsonFile("original",file);e.currentTarget.value="";}}/></label><small>Local file · up to 1 MiB</small></div>
      <button type="button" className="json-diff-format-button" onClick={()=>{try{setLeft(JSON.stringify(JSON.parse(left),null,2));}catch{}}}>Format original</button>
-    </label>
-    <label className="json-diff-input-card">
+    </div>
+    <div className="json-diff-input-card">
      <span><b>02 · Updated JSON</b><small>After the change</small></span>
      <textarea aria-label="Updated JSON" value={right} onChange={e=>{setRight(e.target.value);setFileFeedback("");}} spellCheck={false} placeholder='Paste updated JSON, for example {"status":"published"}'/>
      <div className="json-diff-file-row"><label>Choose updated .json file<input type="file" accept=".json,application/json" onChange={e=>{const file=e.currentTarget.files?.[0];void loadJsonFile("updated",file);e.currentTarget.value="";}}/></label><small>Local file · up to 1 MiB</small></div>
      <button type="button" className="json-diff-format-button" onClick={()=>{try{setRight(JSON.stringify(JSON.parse(right),null,2));}catch{}}}>Format updated</button>
-    </label>
+    </div>
    </div>
    {fileFeedback?<p className="json-diff-file-feedback" role="status">{fileFeedback}</p>:null}
    {result.error?<p className="json-diff-error" role="alert">{result.error}</p>:<>
