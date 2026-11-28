@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TypingSpeedTestTool from "@/components/TypingSpeedTestTool";
+import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
   title: "Typing Test – Free Online WPM & Accuracy Test",
@@ -9,5 +10,21 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <TypingSpeedTestTool />;
+  return (
+    <>
+      <ToolStructuredData
+        path="/typing-speed-test"
+        name="Online Typing Speed Test"
+        description="Practise typing for 30, 60 or 120 seconds and review net words per minute, accuracy and errors."
+        applicationCategory="EducationalApplication"
+        features={[
+          "30, 60 and 120 second practice tests",
+          "Measure net words per minute",
+          "Review typing accuracy and errors",
+          "Run the test in the browser",
+        ]}
+      />
+      <TypingSpeedTestTool />
+    </>
+  );
 }
