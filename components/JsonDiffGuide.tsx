@@ -11,9 +11,10 @@ export default function JsonDiffGuide() {
           difference lives in the JSON document.
         </p>
         <p>
-          Paste an original value and an updated value into the two editors above. The comparison
-          runs in your browser and provides readable paths plus JSON Pointer paths that can be
-          copied into bug reports, test notes and developer workflows.
+          Paste an original value and an updated value into the two editors above, or choose a local .json
+          file for either side (up to 1 MiB per file). The comparison runs in your browser and
+          provides readable paths plus JSON Pointer paths that can be copied into bug reports,
+          test notes and developer workflows.
         </p>
       </div>
 
@@ -140,8 +141,8 @@ After:  { "id": "42" }`}</code></pre>
       <section id="how-to-compare-json">
         <h2>How to compare two JSON documents online</h2>
         <ol>
-          <li><strong>Paste the original:</strong> enter the earlier JSON value in the Original JSON editor.</li>
-          <li><strong>Paste the updated version:</strong> enter the later value in the Updated JSON editor.</li>
+          <li><strong>Add the original:</strong> paste the earlier JSON value or choose a local .json file in the Original JSON editor.</li>
+          <li><strong>Add the updated version:</strong> paste the later value or choose a local .json file in the Updated JSON editor.</li>
           <li><strong>Check validation:</strong> the page reports which side has invalid JSON so you can fix the right input.</li>
           <li><strong>Review the summary:</strong> see the total number of differences and counts for added, removed, changed and type-changed values.</li>
           <li><strong>Filter the results:</strong> choose a difference type or search by a readable path or JSON Pointer.</li>
@@ -197,7 +198,7 @@ After:  { "id": "42" }`}</code></pre>
       <section id="json-diff-limitations">
         <h2>Important limitations before comparing JSON</h2>
         <ul>
-          <li>Both inputs must be valid standard JSON. Comments, trailing commas and JavaScript object literals are not accepted.</li>
+          <li>Both inputs must be valid standard JSON. Comments, trailing commas and JavaScript object literals are not accepted. Local file selection is limited to 1 MiB per side.</li>
           <li>Arrays are compared by index. There is no ignore-array-order or match-by-ID mode.</li>
           <li>JavaScript parses JSON numbers as Number values. Very large integers or precision-sensitive decimals may not be represented exactly; use a precision-preserving comparison workflow for those values.</li>
           <li>Duplicate property names are not preserved as separate values by the browser's JSON parser.</li>
@@ -216,8 +217,9 @@ After:  { "id": "42" }`}</code></pre>
           <summary>How do I compare two JSON files online?</summary>
           <p>
             Open the JSON Diff Tool, paste the original JSON on the left and the updated JSON on the
-            right. The page validates both inputs and shows structural differences with paths.
-            It currently accepts pasted JSON text rather than uploading files.
+            right. The page validates both inputs and shows structural differences with paths. You can paste JSON
+            text or choose a local .json file up to 1 MiB per side. Files are read by your browser
+            and are not sent to a PicToSpec processing server.
           </p>
         </details>
         <details>
