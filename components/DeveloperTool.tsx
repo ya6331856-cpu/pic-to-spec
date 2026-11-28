@@ -45,7 +45,7 @@ export default function DeveloperTool({kind,initialMode}:{kind:Kind;initialMode?
   });
   setOutput(formatted.join("\n"));
  },[kind,generatedUuids,uppercase,removeHyphens,braces]);
- function run(){setError("");setOutput("");try{
+ function run(){setError("");setOutput("");setCopied(false);if(kind==="uuid-generator")setGeneratedUuids([]);try{
   if(kind==="url-encoder-decoder"){const value=mode==="encode"?(urlMode==="full"?encodeURI(input):encodeURIComponent(input)):(urlMode==="full"?decodeURI(input.trim()):decodeURIComponent(input.trim()));setOutput(value);}
   else if(kind==="csv-json-converter"){if(!input.trim())throw new Error("Paste CSV or JSON data first.");if(mode==="csv-json"){const rows=parseCsv(input,delimiter);if(rows.length<2)throw new Error("Add a header row and at least one data row.");const headers=rows[0].map((h,i)=>h.trim()||"column_"+(i+1));if(new Set(headers).size!==headers.length)throw new Error("Column names must be unique. Rename duplicate headers and try again.");const mismatched=rows.slice(1).findIndex(row=>row.length!==headers.length);if(mismatched!==-1)throw new Error("CSV row "+(mismatched+2)+" has a different number of columns than the header row.");const objects=rows.slice(1).map(row=>Object.fromEntries(headers.map((h,i)=>[h,row[i]])));setOutput(JSON.stringify(objects,null,2));}else{const parsed=JSON.parse(input);setOutput(toCsv(parsed,spreadsheetSafe,{delimiter,flattenNested,bom}));}}
   else{
