@@ -32,18 +32,24 @@ export default function ToolStructuredData({
         description,
         inLanguage: "en",
         isPartOf: { "@id": "https://pictospec.com/#website" },
-        about: [
-          {
-            "@type": "Thing",
-            name,
-            description,
-          },
-          ...features.map(feature => ({
-            "@type": "Thing",
-            name: feature,
-          })),
-        ],
-        additionalType: `https://schema.org/${applicationCategory}`,
+        mainEntity: { "@id": `${url}#software` },
+      },
+      {
+        "@type": ["SoftwareApplication", "WebApplication"],
+        "@id": `${url}#software`,
+        name,
+        description,
+        url,
+        applicationCategory,
+        operatingSystem: "Any",
+        browserRequirements: "A modern web browser with JavaScript enabled",
+        isAccessibleForFree: true,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        ...(features.length ? { featureList: features } : {}),
       },
       {
         "@type": "BreadcrumbList",
