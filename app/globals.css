@@ -1783,3 +1783,9 @@ button, input, select, textarea { font: inherit; }
  .json-diff-type-grid{grid-template-columns:1fr}
  .json-diff-guide .json-diff-table-wrap table{min-width:570px}
 }
+
+.json-diff-file-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.json-diff-file-row>label{display:inline-flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid #d5e4da;border-radius:8px;background:#f7faf7;color:#14634b;font-size:10px;font-weight:750;cursor:pointer}
+.json-diff-file-row input{max-width:185px;font-size:10px;color:#617168}
+.json-diff-file-row small{font-size:9px;color:#75847c}
+.json-diff-file-feedback{margin:0;padding:9px 12px;border-radius:8px;background:#f0f7f2;color:#14634b;font-size:10px;line-height:1.5}
