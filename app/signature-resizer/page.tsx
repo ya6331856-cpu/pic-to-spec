@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ImageWorkspace from "@/components/ImageWorkspace";
+import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
   title: "Resize Signature Online – Signature Image Resizer",
@@ -9,27 +10,20 @@ export const metadata: Metadata = {
 };
 
 export default function SignatureGuide() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://pictospec.com/signature-resizer#webpage",
-        name: "Resize Signature Online – Signature Image Resizer",
-        url: "https://pictospec.com/signature-resizer",
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://pictospec.com/" },
-          { "@type": "ListItem", position: 2, name: "Signature Resizer" },
-        ],
-      },
-    ],
-  };
-
   return (
     <>
+      <ToolStructuredData
+        path="/signature-resizer"
+        name="Online Signature Image Resizer"
+        description="Resize a scanned signature image to custom pixel dimensions for an online form. The 400 by 150 pixel canvas is a starting preset, not an official standard."
+        applicationCategory="UtilitiesApplication"
+        features={[
+          "Resize signature images to custom pixel dimensions",
+          "Start from a 400 by 150 pixel canvas",
+          "Keep or change the aspect ratio",
+          "Process and export the image in the browser",
+        ]}
+      />
       <ImageWorkspace
         initialTool="resize"
         initialWidth="400"
@@ -40,10 +34,6 @@ export default function SignatureGuide() {
         pageDescription="Start with a 400 × 150 pixel signature canvas and adjust it to match the exact requirements of your application."
       />
       <main className="seo-page">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
         <p className="kicker">SIGNATURE IMAGE GUIDE</p>
         <h2>Resize a signature image for an online application</h2>
         <p className="lead">
