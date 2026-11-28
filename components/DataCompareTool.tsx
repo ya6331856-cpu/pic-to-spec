@@ -10,6 +10,7 @@ import {
 type Mode="sql-json"|"json-diff";
 const area={width:"100%",padding:14,border:"1px solid #dce7df",borderRadius:12,fontSize:14,color:"#17251e",background:"#fff",fontFamily:"ui-monospace,SFMono-Regular,Menlo,monospace"} as const;
 const primary={border:0,background:"#14634b",color:"#fff",padding:"11px 16px",borderRadius:9,fontWeight:700,cursor:"pointer"} as const;
+const MAX_JSON_FILE_BYTES=1024*1024;
 
 function splitSql(source:string,separator:","|";"):string[]{
  const out:string[]=[];let start=0,quote="",depth=0;
@@ -86,6 +87,7 @@ export default function DataCompareTool({mode}:{mode:Mode}){
  const [copiedPath,setCopiedPath]=useState("");
  const [diffFilter,setDiffFilter]=useState<"All"|"Added"|"Removed"|"Changed"|"Type changed">("All");
  const [pathSearch,setPathSearch]=useState("");
+ const [fileFeedback,setFileFeedback]=useState("");
 
  const result=useMemo(()=>{
   if(mode==="sql-json"){
@@ -116,6 +118,20 @@ export default function DataCompareTool({mode}:{mode:Mode}){
   return matchesKind&&matchesPath;
  }),[result.diff,diffFilter,pathSearch]);
 
+ async function loadJsonFile(side:"original"|"updated",file?:File){
+  if(!file)return;
+  if(file.size>MAX_JSON_FILE_BYTES){
+   setFileFeedback("That file is larger than 1 MiB. Paste the JSON text instead or choose a smaller file.");
+   return;
+  }
+  try{
+   const text=await file.text();
+   if(side==="original")setLeft(text);else setRight(text);
+   setFileFeedback(file.name+" loaded into "+(side==="original"?"Original JSON":"Updated JSON")+".");
+  }catch{
+   setFileFeedback("This file could not be read. Choose a valid UTF-8 JSON file.");
+  }
+ }
  async function copy(){
   const value=mode==="sql-json"?result.output:JSON.stringify(createJsonDiffReport(result.diff),null,2);
   try{await navigator.clipboard.writeText(value);setCopied(true);window.setTimeout(()=>setCopied(false),1400);}
@@ -172,15 +188,18 @@ export default function DataCompareTool({mode}:{mode:Mode}){
    <div className="json-diff-input-grid">
     <label className="json-diff-input-card">
      <span><b>01 · Original JSON</b><small>Before the change</small></span>
-     <textarea aria-label="Original JSON" value={left} onChange={e=>setLeft(e.target.value)} spellCheck={false} placeholder='Paste original JSON, for example {"status":"draft"}'/>
+     <textarea aria-label="Original JSON" value={left} onChange={e=>{setLeft(e.target.value);setFileFeedback("");}} spellCheck={false} placeholder='Paste original JSON, for example {"status":"draft"}'/>
+     <div className="json-diff-file-row"><label>Choose original .json file<input type="file" accept=".json,application/json" onChange={e=>{const file=e.currentTarget.files?.[0];void loadJsonFile("original",file);e.currentTarget.value="";}}/></label><small>Local file · up to 1 MiB</small></div>
      <button type="button" className="json-diff-format-button" onClick={()=>{try{setLeft(JSON.stringify(JSON.parse(left),null,2));}catch{}}}>Format original</button>
     </label>
     <label className="json-diff-input-card">
      <span><b>02 · Updated JSON</b><small>After the change</small></span>
-     <textarea aria-label="Updated JSON" value={right} onChange={e=>setRight(e.target.value)} spellCheck={false} placeholder='Paste updated JSON, for example {"status":"published"}'/>
+     <textarea aria-label="Updated JSON" value={right} onChange={e=>{setRight(e.target.value);setFileFeedback("");}} spellCheck={false} placeholder='Paste updated JSON, for example {"status":"published"}'/>
+     <div className="json-diff-file-row"><label>Choose updated .json file<input type="file" accept=".json,application/json" onChange={e=>{const file=e.currentTarget.files?.[0];void loadJsonFile("updated",file);e.currentTarget.value="";}}/></label><small>Local file · up to 1 MiB</small></div>
      <button type="button" className="json-diff-format-button" onClick={()=>{try{setRight(JSON.stringify(JSON.parse(right),null,2));}catch{}}}>Format updated</button>
     </label>
    </div>
+   {fileFeedback?<p className="json-diff-file-feedback" role="status">{fileFeedback}</p>:null}
    {result.error?<p className="json-diff-error" role="alert">{result.error}</p>:<>
     <div className="json-diff-status" role="status">
      {summary.total ? summary.total+" difference"+(summary.total===1?"":"s")+" found between the two JSON values." : "The two JSON values are identical."}
