@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import TypingSpeedTestTool from "@/components/TypingSpeedTestTool";
 
 export const metadata: Metadata = {
-  title: "Typing Speed Test – Free Online WPM & Accuracy Test",
-  description: "Take a free online typing speed test. Measure net WPM, typing accuracy and errors with 30, 60 or 120-second practice tests.",
-  alternates: { canonical: "https://pictospec.com/typing-speed-test" }
+  title: "Typing Test – Free Online WPM & Accuracy Test",
+  description:
+    "Take a free online typing test for 30, 60 or 120 seconds. Check words per minute (WPM), accuracy and typing errors as you type in your browser.",
+  alternates: { canonical: "/typing-speed-test" },
 };
 
 export default function Page() {
