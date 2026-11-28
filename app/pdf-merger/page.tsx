@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PDFTool from "@/components/PDFTool";
+import PDFMergerGuide from "@/components/PDFMergerGuide";
 import ToolStructuredData from "@/components/ToolStructuredData";
 
 export const metadata: Metadata = {
@@ -40,6 +41,7 @@ export default function Page() {
         ]}
       />
       <PDFTool kind="merge" />
+      <PDFMergerGuide />
     </>
   );
 }
