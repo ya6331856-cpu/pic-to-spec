@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import DeveloperTool from "@/components/DeveloperTool";
 import ToolStructuredData from "@/components/ToolStructuredData";
+import UuidGeneratorGuide from "@/components/UuidGeneratorGuide";
 
 export const metadata: Metadata = {
-  title: "Random UUID Generator Online – Generate UUID v4 IDs",
+  title: "UUID Generator – Generate Random UUID v4 Online",
   description:
-    "Generate random UUID v4 identifiers online. Create and copy up to 100 IDs in your browser using cryptographic randomness. Free, with no account.",
+    "Generate 1–100 random UUID v4 IDs online. Copy all or download TXT/JSON, with uppercase, braces and no-hyphen options. Free in your browser.",
   alternates: { canonical: "/uuid-generator" },
   openGraph: {
-    title: "Random UUID Generator Online – UUID v4 | PicToSpec",
+    title: "Free UUID Generator – Random UUID v4 | PicToSpec",
     description:
-      "Generate and copy up to 100 random UUID v4 identifiers directly in your browser.",
+      "Create up to 100 random UUID v4 identifiers. Format, copy all or download your batch as TXT or JSON.",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "UUID Generator – Random UUID v4 | PicToSpec",
+    description:
+      "Generate, format and download up to 100 random UUID v4 identifiers in your browser.",
   },
 };
 
@@ -20,17 +27,20 @@ export default function Page() {
     <>
       <ToolStructuredData
         path="/uuid-generator"
-        name="Random UUID Generator"
-        description="Generate random UUID version 4 identifiers in your browser. Create and copy up to 100 identifiers per batch."
+        name="Random UUID v4 Generator"
+        description="Generate 1 to 100 random UUID version 4 identifiers in your browser. Choose uppercase, no-hyphen or GUID-style brace formatting, copy the batch or download TXT and JSON files."
         applicationCategory="DeveloperApplication"
         features={[
           "Generate 1 to 100 random UUID v4 identifiers",
           "Use browser cryptographic randomness",
-          "Copy the generated UUID list",
-          "Run locally in a modern browser",
+          "Format output as uppercase, no-hyphen or brace-wrapped values",
+          "Copy the complete UUID batch",
+          "Download generated UUIDs as TXT or JSON",
+          "Generate identifiers locally in a modern browser",
         ]}
       />
       <DeveloperTool kind="uuid-generator" />
+      <UuidGeneratorGuide />
     </>
   );
 }

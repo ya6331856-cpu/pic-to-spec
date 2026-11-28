@@ -40,6 +40,7 @@ export default function SiteFooter() {
         <div className="site-footer-column">
           <h2>About</h2>
           <a href="/about">About PicToSpec</a>
+          <a href="/resources">Guides &amp; resources</a>
           <a href="/privacy">Privacy policy</a>
           <a href="/terms">Terms of use</a>
           <a href="mailto:ya6331856@gmail.com">Contact</a>

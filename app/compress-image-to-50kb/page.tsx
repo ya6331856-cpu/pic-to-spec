@@ -5,7 +5,18 @@ export const metadata: Metadata = {
   title: "Compress Image to 50KB, 100KB or Any Size Online",
   description: "Compress an image to 50KB, 100KB or a custom maximum size online. Reduce JPG, PNG and WebP photos in your browser for forms and uploads.",
   alternates: { canonical: "/compress-image-to-50kb" },
-  openGraph: { title: "Compress Image to 50KB or 100KB | PicToSpec", description: "Prepare an image for online forms with private, browser-based compression." }
+  openGraph: {
+    title: "Compress Image to 50KB or 100KB | PicToSpec",
+    description: "Prepare an image for online forms with private, browser-based compression.",
+    type: "website",
+    url: "https://pictospec.com/compress-image-to-50kb",
+  },
+  twitter: {
+    card: "summary",
+    title: "Compress Image to 50KB or 100KB | PicToSpec",
+    description:
+      "Set a 50KB, 100KB or custom maximum image size and compress locally in your browser.",
+  },
 };
 const faqs = [
   ["Can I compress an image to 50KB or 100KB?", "Yes. Use the target-size field and enter 50 KB, 100 KB or another value from 5 KB to 5000 KB. The compressor aims to keep the result at or below that limit."],

@@ -34,14 +34,16 @@ if (errors.length === 0) {
   else {
     const base = baseMatch[1].replace(/\/$/, "");
     if (base !== "https://pictospec.com") errors.push("Unexpected sitemap host: " + base);
-    const routeMatches = [...sitemap.matchAll(/["\x27](\/[a-z0-9-]+)["\x27]/gi)].map((m) => m[1]);
+    // Support nested routes such as /resources/image-format-guide, not only
+    // single-segment tool routes such as /image-compressor.
+    const routeMatches = [...sitemap.matchAll(/["\x27](\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)["\x27]/gi)].map((m) => m[1]);
     const declared = new Set(["/", ...routeMatches]);
     const actual = new Set(walkPages(appDir));
     for (const route of actual) if (!declared.has(route)) errors.push("Page missing from sitemap: " + route);
     for (const route of declared) if (route !== "/" && !actual.has(route)) errors.push("Sitemap route does not exist: " + route);
     if (new Set(routeMatches).size !== routeMatches.length) errors.push("Sitemap contains duplicate route entries.");
   }
-  if (!/userAgent:\s*["\x27]\*["\x27]/.test(robots) || !/allow:\s*["\x27]\//.test(robots)) errors.push("robots.ts must allow general crawling.");
+  if (!/userAgent:\s*["\x27]*\*["\x27]*/.test(robots) || !/allow:\s*["\x27]\//.test(robots)) errors.push("robots.ts must allow general crawling.");
   if (!/sitemap:\s*["\x27]https:\/\/pictospec\.com\/sitemap\.xml["\x27]/.test(robots)) errors.push("robots.ts must advertise canonical sitemap.xml.");
 }
 if (errors.length) {

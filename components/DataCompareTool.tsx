@@ -1,10 +1,16 @@
 "use client";
 import { useMemo, useState } from "react";
 import ToolSearch from "@/components/ToolSearch";
+import {
+  buildJsonDiff,
+  createJsonDiffReport,
+  type JsonDiffEntry,
+} from "@/lib/json-diff.mjs";
 
 type Mode="sql-json"|"json-diff";
 const area={width:"100%",padding:14,border:"1px solid #dce7df",borderRadius:12,fontSize:14,color:"#17251e",background:"#fff",fontFamily:"ui-monospace,SFMono-Regular,Menlo,monospace"} as const;
 const primary={border:0,background:"#14634b",color:"#fff",padding:"11px 16px",borderRadius:9,fontWeight:700,cursor:"pointer"} as const;
+const MAX_JSON_FILE_BYTES=1024*1024;
 
 function splitSql(source:string,separator:","|";"):string[]{
  const out:string[]=[];let start=0,quote="",depth=0;
@@ -55,19 +61,6 @@ function sqlToJson(source:string):string{
  }
  return JSON.stringify(tables,null,2);
 }
-type Diff={path:string;kind:"Added"|"Removed"|"Changed";before?:unknown;after?:unknown};
-function deepDiff(a:unknown,b:unknown,path="$",out:Diff[]=[]):Diff[]{
- if(Object.is(a,b))return out;
- if(a&&b&&typeof a==="object"&&typeof b==="object"&&Array.isArray(a)===Array.isArray(b)){
-  const ak=Object.keys(a),bk=Object.keys(b),keys=Array.from(new Set([...ak,...bk]));
-  for(const key of keys){const hasA=Object.prototype.hasOwnProperty.call(a,key),hasB=Object.prototype.hasOwnProperty.call(b,key);const p=Array.isArray(a)?path+"["+key+"]":path+"."+key;
-   if(!hasA)out.push({path:p,kind:"Added",after:(b as Record<string,unknown>)[key]});
-   else if(!hasB)out.push({path:p,kind:"Removed",before:(a as Record<string,unknown>)[key]});
-   else deepDiff((a as Record<string,unknown>)[key],(b as Record<string,unknown>)[key],p,out);
-  }return out;
- }
- out.push({path,kind:"Changed",before:a,after:b});return out;
-}
 const sqlSample=`INSERT INTO users (id, name, active, score) VALUES
 (1, 'Aisha', TRUE, 98.5),
 (2, 'Rahul', FALSE, NULL);
@@ -87,34 +80,170 @@ const rightSample=`{
   "version": 2
 }`;
 export default function DataCompareTool({mode}:{mode:Mode}){
- const [source,setSource]=useState(sqlSample),[left,setLeft]=useState(leftSample),[right,setRight]=useState(rightSample),[copied,setCopied]=useState(false);
- const result=useMemo(()=>{if(mode==="sql-json"){try{return {output:sqlToJson(source),error:"",diff:[] as Diff[]};}catch(e){return {output:"",error:e instanceof Error?e.message:"Could not convert SQL.",diff:[] as Diff[]};}}
-  try{const a=JSON.parse(left),b=JSON.parse(right);return {output:"",error:"",diff:deepDiff(a,b)};}catch(e){return {output:"",error:e instanceof Error?e.message:"Invalid JSON input.",diff:[] as Diff[]};}
+ const [source,setSource]=useState(sqlSample);
+ const [left,setLeft]=useState(leftSample);
+ const [right,setRight]=useState(rightSample);
+ const [copied,setCopied]=useState(false);
+ const [copiedPath,setCopiedPath]=useState("");
+ const [diffFilter,setDiffFilter]=useState<"All"|"Added"|"Removed"|"Changed"|"Type changed">("All");
+ const [pathSearch,setPathSearch]=useState("");
+ const [fileFeedback,setFileFeedback]=useState("");
+
+ const result=useMemo(()=>{
+  if(mode==="sql-json"){
+   try{return {output:sqlToJson(source),error:"",diff:[] as JsonDiffEntry[]};}
+   catch(e){return {output:"",error:e instanceof Error?e.message:"Could not convert SQL.",diff:[] as JsonDiffEntry[]};}
+  }
+  let before:unknown;
+  let after:unknown;
+  try{before=JSON.parse(left);}
+  catch(e){return {output:"",error:"Original JSON: "+(e instanceof Error?e.message:"Invalid JSON input."),diff:[] as JsonDiffEntry[]};}
+  try{after=JSON.parse(right);}
+  catch(e){return {output:"",error:"Updated JSON: "+(e instanceof Error?e.message:"Invalid JSON input."),diff:[] as JsonDiffEntry[]};}
+  return {output:"",error:"",diff:buildJsonDiff(before,after)};
  },[mode,source,left,right]);
+
  const title=mode==="sql-json"?"SQL to JSON Converter":"JSON Diff Tool";
- async function copy(){const value=mode==="sql-json"?result.output:JSON.stringify(result.diff,null,2);try{await navigator.clipboard.writeText(value);setCopied(true);window.setTimeout(()=>setCopied(false),1400);}catch{setCopied(false);}}
- function download(){const blob=new Blob([result.output],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="sql-data.json";a.click();URL.revokeObjectURL(url);}
+ const summary=useMemo(()=>({
+  total:result.diff.length,
+  added:result.diff.filter(item=>item.kind==="Added").length,
+  removed:result.diff.filter(item=>item.kind==="Removed").length,
+  changed:result.diff.filter(item=>item.kind==="Changed").length,
+  typeChanged:result.diff.filter(item=>item.kind==="Type changed").length,
+ }),[result.diff]);
+ const visibleDiff=useMemo(()=>result.diff.filter(item=>{
+  const matchesKind=diffFilter==="All"||item.kind===diffFilter;
+  const query=pathSearch.trim().toLocaleLowerCase();
+  const matchesPath=!query||item.path.toLocaleLowerCase().includes(query)||item.pointer.toLocaleLowerCase().includes(query);
+  return matchesKind&&matchesPath;
+ }),[result.diff,diffFilter,pathSearch]);
+
+ async function loadJsonFile(side:"original"|"updated",file?:File){
+  if(!file)return;
+  if(file.size>MAX_JSON_FILE_BYTES){
+   setFileFeedback("That file is larger than 1 MiB. Paste the JSON text instead or choose a smaller file.");
+   return;
+  }
+  try{
+   const text=await file.text();
+   if(side==="original")setLeft(text);else setRight(text);
+   setFileFeedback(file.name+" loaded into "+(side==="original"?"Original JSON":"Updated JSON")+".");
+  }catch{
+   setFileFeedback("This file could not be read. Choose a valid UTF-8 JSON file.");
+  }
+ }
+ async function copy(){
+  const value=mode==="sql-json"?result.output:JSON.stringify(createJsonDiffReport(result.diff),null,2);
+  try{await navigator.clipboard.writeText(value);setCopied(true);window.setTimeout(()=>setCopied(false),1400);}
+  catch{setCopied(false);}
+ }
+ function download(){
+  const content=mode==="sql-json"?result.output:JSON.stringify(createJsonDiffReport(result.diff),null,2);
+  const blob=new Blob([content],{type:"application/json;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download=mode==="sql-json"?"sql-data.json":"pictospec-json-diff-report.json";
+  a.click();
+  window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+ }
+ function formatBoth(){
+  try{
+   setLeft(JSON.stringify(JSON.parse(left),null,2));
+   setRight(JSON.stringify(JSON.parse(right),null,2));
+  }catch{
+   // The live validation panel identifies the input that needs correction.
+  }
+ }
+ async function copyPath(pointer:string){
+  try{
+   await navigator.clipboard.writeText(pointer);
+   setCopiedPath(pointer||"$");
+   window.setTimeout(()=>setCopiedPath(""),1400);
+  }catch{setCopiedPath("");}
+ }
+
  return <main style={{maxWidth:1050,margin:"36px auto",padding:20,color:"#17251e"}}>
   <div className="tool-page-top"><a href="/" style={{color:"#14634b",fontWeight:700,textDecoration:"none"}}>← PicToSpec home</a><ToolSearch/></div>
   <p style={{fontSize:11,letterSpacing:2,color:"#14634b",fontWeight:800,marginTop:35}}>FREE DEVELOPER TOOL</p>
   <h1 style={{fontSize:"clamp(30px,6vw,44px)",letterSpacing:-1.3,margin:"10px 0"}}>{title}</h1>
-  <p style={{color:"#46556b",lineHeight:1.7}}>{mode==="sql-json"?"Turn basic SQL INSERT statements into JSON records. Supports multiple rows, quoted strings, numbers, NULL and boolean literals. Processing happens in your browser.":"Compare two JSON values and inspect added, removed and changed properties with exact paths. Nested objects and arrays are compared recursively."}</p>
+  <p style={{color:"#46556b",lineHeight:1.7}}>{mode==="sql-json"?"Turn basic SQL INSERT statements into JSON records. Supports multiple rows, quoted strings, numbers, NULL and boolean literals. Processing happens in your browser.":"Compare two JSON documents structurally. Find added, removed, changed and type-changed values with readable property paths and RFC 6901 JSON Pointer paths. Comparison runs in your browser."}</p>
+
   {mode==="sql-json"?<section style={{display:"grid",gap:14,marginTop:24}}>
    <label style={{display:"grid",gap:8,fontWeight:700}}>SQL INSERT statements<textarea value={source} onChange={e=>setSource(e.target.value)} spellCheck={false} style={{...area,minHeight:280}} placeholder="INSERT INTO users (id, name) VALUES (1, 'Aisha');"/></label>
    {result.error?<p role="alert" style={{padding:12,borderRadius:9,background:"#fff1f0",color:"#a52b24"}}>{result.error}</p>:<p role="status" style={{padding:12,borderRadius:9,background:"#eaf7ef",color:"#14634b",fontWeight:700}}>SQL parsed — JSON output is ready.</p>}
    <div style={{display:"flex",gap:10,flexWrap:"wrap"}}><button style={primary} onClick={()=>setSource(sqlSample)}>Load sample</button><button style={primary} onClick={copy} disabled={!result.output}>{copied?"Copied":"Copy JSON"}</button><button style={{...primary,background:"#334155"}} onClick={download} disabled={!result.output}>Download .json</button><button style={{...primary,background:"#eaf2ed",color:"#174c39"}} onClick={()=>setSource("")}>Clear</button></div>
    <label style={{display:"grid",gap:8,fontWeight:700}}>JSON output<textarea readOnly value={result.output} style={{...area,minHeight:260,background:"#f7faf8"}}/></label>
    <p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>Limitations: this is a focused INSERT-values converter, not a SQL engine. It does not execute queries or evaluate functions, expressions, subqueries, DEFAULT, or dialect-specific syntax. SQL comments are ignored.</p>
-  </section>:<section style={{display:"grid",gap:16,marginTop:24}}>
-   <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,320px),1fr))",gap:14}}>
-    <label style={{display:"grid",gap:8,fontWeight:700}}>Original JSON<textarea value={left} onChange={e=>setLeft(e.target.value)} spellCheck={false} style={{...area,minHeight:260}}/></label>
-    <label style={{display:"grid",gap:8,fontWeight:700}}>Updated JSON<textarea value={right} onChange={e=>setRight(e.target.value)} spellCheck={false} style={{...area,minHeight:260}}/></label>
+  </section>:<section className="json-diff-workspace">
+   <div className="json-diff-topbar">
+    <div><span className="json-diff-eyebrow">LIVE STRUCTURAL COMPARISON</span><b>Compare original and updated JSON</b></div>
+    <div className="json-diff-toolbar">
+     <button type="button" onClick={()=>{setLeft(leftSample);setRight(rightSample);setDiffFilter("All");setPathSearch("");}}>Load example</button>
+     <button type="button" onClick={()=>{setLeft(right);setRight(left);}}>Swap sides</button>
+     <button type="button" onClick={formatBoth}>Format both</button>
+     <button type="button" onClick={()=>{setLeft("");setRight("");setPathSearch("");setDiffFilter("All");}}>Clear</button>
+    </div>
    </div>
-   {result.error?<p role="alert" style={{padding:12,borderRadius:9,background:"#fff1f0",color:"#a52b24"}}>{result.error}</p>:<><p role="status" style={{padding:12,borderRadius:9,background:"#eaf7ef",color:"#14634b",fontWeight:700}}>{result.diff.length?result.diff.length+" difference(s) found.":"The JSON values are identical."}</p>
-    <div style={{display:"flex",gap:10,flexWrap:"wrap"}}><button style={primary} onClick={()=>{setLeft(leftSample);setRight(rightSample);}}>Load sample</button><button style={primary} onClick={copy} disabled={!result.diff.length}>{copied?"Copied":"Copy diff"}</button><button style={{...primary,background:"#eaf2ed",color:"#174c39"}} onClick={()=>{setLeft("");setRight("");}}>Clear</button></div>
-    <div style={{display:"grid",gap:9}}>{result.diff.map((d,i)=><article key={d.path+"-"+i} style={{border:"1px solid #dce7df",borderRadius:10,padding:12,background:"#fff"}}><div style={{display:"flex",gap:9,alignItems:"center",flexWrap:"wrap"}}><b style={{color:d.kind==="Added"?"#147344":d.kind==="Removed"?"#b33a31":"#925c08"}}>{d.kind}</b><code style={{overflowWrap:"anywhere"}}>{d.path}</code></div>{d.kind!=="Added"&&<pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere",fontSize:12,color:"#9b3832",marginBottom:4}}>- {JSON.stringify(d.before)}</pre>}{d.kind!=="Removed"&&<pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere",fontSize:12,color:"#14634b",marginTop:4}}>+ {JSON.stringify(d.after)}</pre>}</article>)}</div>
+   <div className="json-diff-input-grid">
+    <div className="json-diff-input-card">
+     <span><b>01 · Original JSON</b><small>Before the change</small></span>
+     <textarea aria-label="Original JSON" value={left} onChange={e=>{setLeft(e.target.value);setFileFeedback("");}} spellCheck={false} placeholder='Paste original JSON, for example {"status":"draft"}'/>
+     <div className="json-diff-file-row"><label>Choose original .json file<input type="file" accept=".json,application/json" onChange={e=>{const file=e.currentTarget.files?.[0];void loadJsonFile("original",file);e.currentTarget.value="";}}/></label><small>Local file · up to 1 MiB</small></div>
+     <button type="button" className="json-diff-format-button" onClick={()=>{try{setLeft(JSON.stringify(JSON.parse(left),null,2));}catch{}}}>Format original</button>
+    </div>
+    <div className="json-diff-input-card">
+     <span><b>02 · Updated JSON</b><small>After the change</small></span>
+     <textarea aria-label="Updated JSON" value={right} onChange={e=>{setRight(e.target.value);setFileFeedback("");}} spellCheck={false} placeholder='Paste updated JSON, for example {"status":"published"}'/>
+     <div className="json-diff-file-row"><label>Choose updated .json file<input type="file" accept=".json,application/json" onChange={e=>{const file=e.currentTarget.files?.[0];void loadJsonFile("updated",file);e.currentTarget.value="";}}/></label><small>Local file · up to 1 MiB</small></div>
+     <button type="button" className="json-diff-format-button" onClick={()=>{try{setRight(JSON.stringify(JSON.parse(right),null,2));}catch{}}}>Format updated</button>
+    </div>
+   </div>
+   {fileFeedback?<p className="json-diff-file-feedback" role="status">{fileFeedback}</p>:null}
+   {result.error?<p className="json-diff-error" role="alert">{result.error}</p>:<>
+    <div className="json-diff-status" role="status">
+     {summary.total ? summary.total+" difference"+(summary.total===1?"":"s")+" found between the two JSON values." : "The two JSON values are identical."}
+    </div>
+    <div className="json-diff-summary" aria-label="Difference summary">
+     <div><b>{summary.total}</b><span>Total differences</span></div>
+     <div className="is-added"><b>{summary.added}</b><span>Added</span></div>
+     <div className="is-removed"><b>{summary.removed}</b><span>Removed</span></div>
+     <div className="is-changed"><b>{summary.changed}</b><span>Changed</span></div>
+     <div className="is-type"><b>{summary.typeChanged}</b><span>Type changed</span></div>
+    </div>
+    <div className="json-diff-actions">
+     <button type="button" onClick={copy} disabled={!summary.total}>{copied?"Copied report":"Copy JSON report"}</button>
+     <button type="button" onClick={download} disabled={!summary.total}>Download report ↓</button>
+    </div>
+    {summary.total>0?<div className="json-diff-results">
+     <div className="json-diff-filter-row">
+      <div className="json-diff-filter-buttons" aria-label="Filter differences">
+       {(["All","Added","Removed","Changed","Type changed"] as const).map(filter=><button type="button" key={filter} aria-pressed={diffFilter===filter} className={diffFilter===filter?"active":""} onClick={()=>setDiffFilter(filter)}>{filter}</button>)}
+      </div>
+      <input value={pathSearch} onChange={e=>setPathSearch(e.target.value)} aria-label="Filter by JSON path" placeholder="Find a path…"/>
+     </div>
+     <p className="json-diff-result-count">Showing {visibleDiff.length} of {summary.total} differences. Filters do not change the downloaded report.</p>
+     <div className="json-diff-list">
+      {visibleDiff.map((item,index)=>{
+       const tone=item.kind==="Added"?"added":item.kind==="Removed"?"removed":item.kind==="Type changed"?"type":"changed";
+       const pathKey=item.pointer||"$";
+       return <article className={`json-diff-item ${tone}`} key={item.pointer+"-"+index}>
+        <div className="json-diff-item-head">
+         <span className="json-diff-kind">{item.kind}</span>
+         <code>{item.path}</code>
+         <button type="button" onClick={()=>copyPath(item.pointer)}>{copiedPath===pathKey?"Copied":"Copy pointer"}</button>
+        </div>
+        <div className="json-diff-pointer">JSON Pointer: <code>{item.pointer||"(root value)"}</code></div>
+        {item.kind!=="Added"&&<div className="json-diff-value before"><span>Before</span><pre>{JSON.stringify(item.before,null,2)}</pre></div>}
+        {item.kind!=="Removed"&&<div className="json-diff-value after"><span>After</span><pre>{JSON.stringify(item.after,null,2)}</pre></div>}
+       </article>;
+      })}
+      {visibleDiff.length===0&&<p className="json-diff-empty">No differences match these filters.</p>}
+     </div>
+    </div>:null}
    </>}
-   <p style={{color:"#607168",fontSize:13,lineHeight:1.6}}>Comparison is structural and type-sensitive. Object key order is ignored; array order matters. The tool compares parsed JSON values, not raw formatting or whitespace.</p>
+   <p className="json-diff-limitations">Comparison is structural and type-sensitive. Object key order and whitespace are ignored; arrays are compared by index. JavaScript parses JSON numbers as Number values, so identifiers or decimal values beyond JavaScript's safe precision should be checked with a precision-preserving tool. Duplicate object keys are not preserved by JSON.parse.</p>
+   <p className="json-diff-privacy">Privacy: both inputs are parsed and compared locally in this browser. They are not sent to a PicToSpec processing server.</p>
   </section>}
  </main>;
 }
