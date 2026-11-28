@@ -74,10 +74,11 @@ export default function UuidGeneratorGuide() {
               <tr><th>Part</th><th>What it represents</th></tr>
             </thead>
             <tbody>
-              <tr><td>First group</td><td>48 random bits</td></tr>
-              <tr><td>Third group, first hex digit</td><td>Version marker: 4 for UUID v4</td></tr>
-              <tr><td>Fourth group, first hex digit</td><td>Variant marker: 8, 9, a or b</td></tr>
-              <tr><td>Remaining variable positions</td><td>Random or pseudorandom bits</td></tr>
+              <tr><td>First group (8 hex digits)</td><td>32 random or pseudorandom bits</td></tr>
+              <tr><td>Second group (4 hex digits)</td><td>16 random or pseudorandom bits</td></tr>
+              <tr><td>Third group (4 hex digits)</td><td>Starts with the fixed version marker 4; the other 12 bits are random or pseudorandom</td></tr>
+              <tr><td>Fourth group (4 hex digits)</td><td>Starts with the variant marker 8, 9, a or b; the other 14 bits are random or pseudorandom</td></tr>
+              <tr><td>Fifth group (12 hex digits)</td><td>48 random or pseudorandom bits</td></tr>
             </tbody>
           </table>
         </div>
